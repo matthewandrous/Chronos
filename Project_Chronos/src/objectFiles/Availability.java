@@ -5,6 +5,19 @@ import java.util.ArrayList;
 public class Availability {
 	private ArrayList<User> availableUsers;
 	private ArrayList<User> unAvailableUsers;
+	
+	public int getNumAvailableUsers() {
+		return availableUsers.size();
+	}
+	
+	public void setAvailability(User user, Boolean isAvailable) {
+		if (isAvailable) {
+			availableUsers.add(user);
+		}
+		else {
+			unAvailableUsers.add(user);
+		}
+	}
 	/**
 	 * @return the availableUsers
 	 */

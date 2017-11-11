@@ -1,0 +1,30 @@
+Use Chronos;
+
+create table MeetingInfo (
+	-- the very first row will be classID 1 and each time I add a row classId will increment
+	meetingID int(11) primary key auto_increment, -- name f column followed by the type(number of characters)
+	hostID int(11) Not null, -- varchar is a variable length character
+	meetingDay varchar(20) not null,
+    meetingTime varchar(20) not null
+);
+
+
+        
+create table HostInfo (
+	hostID int(11) primary key auto_increment,
+    username varchar(20) not null,
+    hostPassword varchar(20) not null,
+    email varchar(20) not null
+    
+);
+
+
+create table GuestInfo(
+	guestID int(11) primary key auto_increment,
+    meetingID int(11),
+    foreign key fk1(meetingID) references MeetingInfo(meetingID)
+
+);
+
+
+

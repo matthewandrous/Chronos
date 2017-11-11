@@ -1,35 +1,24 @@
 package objectFiles;
 
-public class Host {
+import java.util.ArrayList;
+
+public class Host extends User{
+	private String passwordHash;
+	private ArrayList<Meeting> meetingEvents;
+
+	public Host(String username, String passwordHash, String email) {
+		super(username, email);
+		this.passwordHash = passwordHash;
+	}
 	
-	public Host(String username, String password, String email) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.email = email;
+	public boolean authenticate(String password){
+		//TODO
+		return true;
 	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	private String username;
-	private String password;
-	private String email;
 	
-	
+	public void initializeMeetingEvent(int numUsers, String startDate, 
+					String startTime, String endDate, String endTime){
+		  
+	}
 
 }

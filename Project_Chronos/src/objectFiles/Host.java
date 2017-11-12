@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 public class Host extends User{
 	private String password;
-	private HashMap<Integer, Meeting> meetings;
 	private Meeting curMeeting;
 
 	/**
@@ -20,21 +19,6 @@ public class Host extends User{
 	 */
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-
-	/**
-	 * @return the meetings
-	 */
-	public HashMap<Integer, Meeting> getMeetings() {
-		return meetings;
-	}
-
-	/**
-	 * @param meetings the meetings to set
-	 */
-	public void setMeetings(HashMap<Integer, Meeting> meetings) {
-		this.meetings = meetings;
 	}
 
 	/**
@@ -53,33 +37,17 @@ public class Host extends User{
 	}
 
 	/**
-	 * Set current meeting based on given meeting id
-	 * @param meetingID
-	 */
-	public void setCurMeeting(int meetingID) {
-		this.setCurMeeting(meetings.get(meetingID));
-	}
-	
-	/**
-	 * Add a meeting instance to this host's meetings list
-	 * @param meeting
-	 */
-	public void addMeeting(Meeting meeting) {
-		this.meetings.put(meeting.getMeetingID(), meeting);
-	}
-	
-	/**
 	 * Initialize a new meeting
 	 * @param numUsers
 	 * @param numRows
 	 * @param numCols
 	 */
-	public void initializeMeeting(int numUsers, int numRows, int numCols){
+	public void initializeMeeting(int numUsers, int numHoursPerDay, int numDays){
 		  Meeting newM = new Meeting();
 		  newM.setNumUsers(numUsers);
-		  newM.setNumMeetingsPerDay(numRows);
-		  newM.setNumDays(numCols);
-		  this.addMeeting(newM);
+		  newM.setnumHoursPerDay(numHoursPerDay);
+		  newM.setNumDays(numDays);
+		  this.setCurMeeting(newM);
 	}
 	
 	/**
@@ -90,8 +58,8 @@ public class Host extends User{
 	 * @param password
 	 * @return password is correct
 	 */
-	public boolean authenticate(String password){
+	/*public boolean authenticate(String password){
 		return password.equals(this.password);
-	}
+	}*/
 	
 }

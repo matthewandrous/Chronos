@@ -1,12 +1,12 @@
 package objectFiles;
 
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Meeting {
 	private int meetingID;
 	private Date startDate;
+
 	// 24 hour clock
 	private int startTime;
 	private int numDays;
@@ -17,10 +17,8 @@ public class Meeting {
 	private ArrayList<User> usersAnswered;
 	private int numUsers;
 	
-	public Meeting() {
-		
-	}
 	
+
 	public void setNumUsers(int n) {
 		numUsers = n;
 	}
@@ -40,11 +38,4 @@ public class Meeting {
 		Availability curr_ava = timetable.get(row).get(col);
 		return curr_ava.getNumAvailableUsers();
 	}
-	
-	public void markTimetable(int row, int col, Boolean isAvailable, User user) {
-		Availability curr_ava = timetable.get(row).get(col);
-		curr_ava.setAvailability(user, isAvailable);
-	}
-	
-
 }

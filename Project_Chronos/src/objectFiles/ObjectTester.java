@@ -1,9 +1,9 @@
+package objectFiles;
+
 /**
  * Here is a tester for User, Guest, Host, Meeting and Availability classes
  * No front-end or database involved
  */
-package objectFiles;
-
 public class ObjectTester {
 	public static void main(String[] args) {
 		//Assume there is a host with

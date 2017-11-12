@@ -198,7 +198,7 @@ public class Meeting {
 		String usersAnsweredString = "\n";
 		for(int i = 0; i < timetable.length; i++) {
 			for(int j = 0; j < timetable[0].length; j++) {
-				timetableString += "Row: " + i + " Col: " + j + " " 
+				timetableString += "Row: " + i + ", Col: " + j + " | " 
 						+ timetable[i][j].toString() + "\n";
 			}
 		}

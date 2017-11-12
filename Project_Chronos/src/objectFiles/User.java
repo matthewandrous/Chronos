@@ -5,7 +5,6 @@ package objectFiles;
 
 public abstract class User{
 	private String username = "";
-	private int id = -1;
 	private Meeting curMeeting;
 	
 	/**
@@ -34,20 +33,6 @@ public abstract class User{
 	 */
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	/**
@@ -85,7 +70,7 @@ public abstract class User{
 	@Override
 	public String toString() {
 		return "username=" + username + ", "
-				+ "id=" + id + ", curMeetingID=" 
+				+ "curMeetingID=" 
 				+ curMeeting.getMeetingID();
 	}
 }

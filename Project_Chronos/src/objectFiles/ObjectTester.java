@@ -12,7 +12,6 @@ public class ObjectTester {
 		host.setUsername("Barack");
 		host.setPassword("Obaba");
 		host.setEmail("obama@usc.edu");
-		host.setId(100);
 		
 		//The host starts a new meeting poll with 
 		//2 participants, 2 hours per day and 3 days to choose from
@@ -40,7 +39,6 @@ public class ObjectTester {
 		//A guest joins the meeting with username "Michelle" and id 101
 		Guest guest = new Guest();
 		guest.setUsername("Michelle");
-		guest.setId(101);
 		guest.joinMeeting(m);
 		
 		//The guest is unavailable day #2, hour #1 and  day #2, hour #2 (indexes (0,1) and (1,1))

@@ -24,7 +24,23 @@ public abstract class User{
 		this.username = username;
 		this.email = email;
 	}
-		
+	
+	
+	
+	/**
+	 * @return the curMeeting
+	 */
+	public Meeting getCurMeeting() {
+		return curMeeting;
+	}
+
+	/**
+	 * @param curMeeting the curMeeting to set
+	 */
+	public void setCurMeeting(Meeting curMeeting) {
+		this.curMeeting = curMeeting;
+	}
+
 	/**
 	 * @return the username
 	 */

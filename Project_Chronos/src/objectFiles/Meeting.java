@@ -11,14 +11,11 @@ public class Meeting {
 	private int startTime;
 	private int numDays;
 	// number of meeting options per day
-	private int numMeetingsPerDay;
-	// col: numDays row: numMeetingsPerDay
+	private int numHoursPerDay;
+	// col: numDays row: numHoursPerDay
 	private ArrayList<ArrayList<Availability>> timetable;
 	private ArrayList<User> usersAnswered;
 	private int numUsers;
-	
-	
-	
 		
 	public Meeting() {
 		
@@ -41,8 +38,8 @@ public class Meeting {
 		numDays = n;
 	}
 	
-	public void setNumMeetingsPerDay(int n) {
-		numMeetingsPerDay = n;
+	public void setnumHoursPerDay(int n) {
+		numHoursPerDay = n;
 	}
 	
 	public int getMeetingID() {

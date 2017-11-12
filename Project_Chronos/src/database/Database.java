@@ -30,10 +30,10 @@ public class Database{
 		String myUrl = "jdbc:mysql://" + server + ":" + port + "/";
 		
 		try {
-		Class.forName(myDriver);
-		conn = DriverManager.getConnection(myUrl, "root", "root");
-		System.out.println("Connected to SQL Database");
-		return true;
+			Class.forName(myDriver);
+			conn = DriverManager.getConnection(myUrl, "root", "root");
+			System.out.println("Connected to SQL Database");
+			return true;
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -106,7 +106,11 @@ public class Database{
 				hostPassword = rs.getString("hostPassword");
 				email = rs.getString("email");
 			}
-			Host h = new Host(username, hostPassword, email);
+			Host h = new Host();
+			h.setUsername(username);
+			h.setPassword(hostPassword);
+			h.setEmail(email);
+			
 			return h;
 		}
 		catch(SQLException e) {

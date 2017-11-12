@@ -4,15 +4,22 @@ public abstract class User{
 	private String username;
 	private String email;
 	private int id;
+	private Meeting curMeeting;
 	
-	//auto generate setters and getters
-	
+	/**
+	 * Constructor
+	 */
 	public User(){
 		this.username = "";
 		this.email = "";
 		this.id = -1;
 	}
 	
+	/**
+	 * Constructor
+	 * @param username
+	 * @param email
+	 */
 	public User(String username, String email) {
 		this.username = username;
 		this.email = email;
@@ -60,12 +67,19 @@ public abstract class User{
 		this.id = id;
 	}
 
-	//TODO
-	public void setAvailability(boolean isAvailable, 
-							String startTime, 
-							String endTime){
-		
+	/**
+	 * Mark this user's availability on the timetable of curMeeting
+	 * @param isAvailable true when the use is available 
+	 * @param startTime 
+	 * @param endTime
+	 */
+	public void setAvailability(boolean isAvailable, int row, int col){
+		curMeeting.markTimetable(isAvailable, row, col);
 	}	
+	
+	/*************
+	 * Can submit(), reset() and selectAll() be handled at front end???
+	 *************/
 	
 	//TODO
 	public void submit(){

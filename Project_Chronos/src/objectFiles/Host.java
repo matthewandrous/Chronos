@@ -9,6 +9,19 @@ public class Host extends User{
 	private String email;
 
 	/**
+	 * Constructor
+	 */
+	public Host() {
+		
+	}
+	
+	public Host(String username, String password, String email) {
+		super(username);
+		this.password = password;
+		this.email = email;
+	}
+	
+	/**
 	 * @return the password
 	 */
 	public String getPassword() {

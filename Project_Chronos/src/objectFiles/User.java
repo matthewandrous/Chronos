@@ -90,19 +90,15 @@ public abstract class User{
 	 * @param endTime
 	 */
 	public void setAvailability(boolean isAvailable, int row, int col){
-		curMeeting.markTimetable(isAvailable, row, col);
+		curMeeting.markTimetable(row, col, isAvailable, this);
 	}	
-	
-	/*************
-	 * Can submit(), reset() and selectAll() be handled at front end???
-	 *************/
 	
 	//TODO
 	public void submit(){
 		
 	}
 	
-	//TODO
+	/*//TODO
 	public void reset(){
 		
 	}
@@ -110,5 +106,5 @@ public abstract class User{
 	//TODO
 	public void selectAll(){
 		
-	}
+	}*/
 }

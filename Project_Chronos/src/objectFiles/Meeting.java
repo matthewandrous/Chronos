@@ -1,6 +1,6 @@
 package objectFiles;
 
-import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Meeting {
@@ -18,7 +18,21 @@ public class Meeting {
 	private int numUsers;
 	
 	
-
+	
+		
+	public Meeting() {
+		
+	}
+	
+	public int getNumUsersAvailable(int row, int col) {
+		Availability curr_ava = timetable.get(row).get(col);
+		return curr_ava.getNumAvailableUsers();
+	}
+	
+	public void markTimetable(int row, int col, Boolean isAvailable, User user) {
+		Availability curr_ava = timetable.get(row).get(col);
+		curr_ava.setAvailability(user, isAvailable);
+	}
 	public void setNumUsers(int n) {
 		numUsers = n;
 	}
@@ -34,7 +48,8 @@ public class Meeting {
 	public int getMeetingID() {
 		return meetingID;
 	}
-	public int getNumUsersAvailable(int row, int col) {
+	
+	public int getNumAvailableUsers(int row, int col) {
 		Availability curr_ava = timetable.get(row).get(col);
 		return curr_ava.getNumAvailableUsers();
 	}

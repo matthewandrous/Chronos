@@ -74,7 +74,7 @@ public abstract class User{
 	 * @param endTime
 	 */
 	public void setAvailability(boolean isAvailable, int row, int col){
-		curMeeting.markTimetable(isAvailable, row, col);
+		curMeeting.markTimetable(row, col, isAvailable, this);
 	}	
 	
 	/*************

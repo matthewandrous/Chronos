@@ -45,6 +45,7 @@ public class Host extends User{
 	}
 
 	/**
+	 * Set current meeting to the given meeting
 	 * @param curMeeting the curMeeting to set
 	 */
 	public void setCurMeeting(Meeting curMeeting) {

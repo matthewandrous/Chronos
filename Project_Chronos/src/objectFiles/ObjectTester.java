@@ -7,7 +7,7 @@ package objectFiles;
 public class ObjectTester {
 	public static void main(String[] args) {
 		//Assume there is a host with
-		//username "Barack", password "Obama", email "obama@usc.edu" and id 100
+		//username "Barack", password "Obama" and email "obama@usc.edu"
 		Host host = new Host();
 		host.setUsername("Barack");
 		host.setPassword("Obaba");
@@ -36,7 +36,7 @@ public class ObjectTester {
 		//tell the Meeting instance that the host answered
 		m.getUsersAnswered().add(host);
 		
-		//A guest joins the meeting with username "Michelle" and id 101
+		//A guest joins the meeting with username "Michelle"
 		Guest guest = new Guest();
 		guest.setUsername("Michelle");
 		guest.joinMeeting(m);

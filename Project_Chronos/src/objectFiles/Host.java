@@ -1,12 +1,26 @@
-package objectFiles;
+/**
+ * Host class - hosts are those who initialize meetings and view the results
+ */
 
-import java.util.ArrayList;
-import java.util.HashMap;
+package objectFiles;
 
 public class Host extends User{
 	private String password;
-	private Meeting curMeeting;
+	private String email;
 
+	/**
+	 * Constructor
+	 */
+	public Host() {
+		
+	}
+	
+	public Host(String username, String password, String email) {
+		super(username);
+		this.password = password;
+		this.email = email;
+	}
+	
 	/**
 	 * @return the password
 	 */
@@ -22,44 +36,50 @@ public class Host extends User{
 	}
 
 	/**
-	 * @return the curMeeting
+	 * @return the email
 	 */
-	public Meeting getCurMeeting() {
-		return curMeeting;
+	public String getEmail() {
+		return email;
 	}
 
 	/**
-	 * Set current meeting to the given meeting
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
 	 * @param curMeeting the curMeeting to set
 	 */
+	@Override
 	public void setCurMeeting(Meeting curMeeting) {
-		this.curMeeting = curMeeting;
+		super.setCurMeeting(curMeeting);
+		curMeeting.setHost(this);
 	}
 
 	/**
-	 * Initialize a new meeting
+	 * Initialize a new meeting which this will host
 	 * @param numUsers
 	 * @param numRows
 	 * @param numCols
+	 * @return the Meeting object created
 	 */
-	public void initializeMeeting(int numUsers, int numHoursPerDay, int numDays){
-		  Meeting newM = new Meeting();
-		  newM.setNumUsers(numUsers);
-		  newM.setnumHoursPerDay(numHoursPerDay);
-		  newM.setNumDays(numDays);
+	public Meeting initializeMeeting(int numUsers, 
+									 int numHoursPerDay, 
+									 int numDays){
+		  Meeting newM = new Meeting(numHoursPerDay, numDays, numUsers);
+		  newM.setHost(this);
 		  this.setCurMeeting(newM);
+		  return newM;
 	}
-	
+
 	/**
-	 * This method will not be used if we're going to 
-	 * use Database.authenticateHost()
-	 * 
-	 * Check if input password matches this host's password
-	 * @param password
-	 * @return password is correct
+	 * @return string representation of the object
 	 */
-	/*public boolean authenticate(String password){
-		return password.equals(this.password);
-	}*/
-	
+	@Override
+	public String toString() {
+		return "Host [" + super.toString() + ", password=" + password 
+				+ ", email=" + email + "]";
+	}
 }

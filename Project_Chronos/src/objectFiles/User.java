@@ -1,44 +1,24 @@
+/**
+ * Super class for Host and Guest
+ */
 package objectFiles;
 
 public abstract class User{
-	private String username;
-	private String email;
-	private int id;
+	private String username = "";
 	private Meeting curMeeting;
 	
 	/**
-	 * Constructor
+	 * Empty constructor
 	 */
-	public User(){
-		this.username = "";
-		this.email = "";
-		this.id = -1;
-	}
+	public User() {}
 	
 	/**
 	 * Constructor
 	 * @param username
 	 * @param email
 	 */
-	public User(String username, String email) {
+	public User(String username) {
 		this.username = username;
-		this.email = email;
-	}
-	
-	
-	
-	/**
-	 * @return the curMeeting
-	 */
-	public Meeting getCurMeeting() {
-		return curMeeting;
-	}
-
-	/**
-	 * @param curMeeting the curMeeting to set
-	 */
-	public void setCurMeeting(Meeting curMeeting) {
-		this.curMeeting = curMeeting;
 	}
 
 	/**
@@ -54,57 +34,43 @@ public abstract class User{
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+	/**
+	 * @return the curMeeting
+	 */
+	public Meeting getCurMeeting() {
+		return curMeeting;
+	}
+
+	/**
+	 * @param curMeeting the curMeeting to set
+	 */
+	public void setCurMeeting(Meeting curMeeting) {
+		this.curMeeting = curMeeting;
+	}
 	
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	/**
 	 * Mark this user's availability on the timetable of curMeeting
 	 * @param isAvailable true when the use is available 
 	 * @param startTime 
 	 * @param endTime
 	 */
-	public void setAvailability(boolean isAvailable, int row, int col){
+	public void setAvailability(int row, int col, boolean isAvailable){
 		curMeeting.markTimetable(row, col, isAvailable, this);
 	}	
 	
 	//TODO
 	public void submit(){
-		
+		//submit changes to the database?
 	}
-	
-	/*//TODO
-	public void reset(){
-		
+
+	/**
+	 * @return string representation of the object
+	 */
+	@Override
+	public String toString() {
+		return "username=" + username + ", "
+				+ "curMeetingID=" 
+				+ curMeeting.getMeetingID();
 	}
-	
-	//TODO
-	public void selectAll(){
-		
-	}*/
 }

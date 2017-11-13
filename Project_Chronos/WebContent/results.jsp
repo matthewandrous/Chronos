@@ -1,41 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.Vector"%>
+<% int noOfDays = 3;//(int)request.getAttribute("noOfDays");
+   int startDay = 12;//(int)request.getAttribute("startDay");
+   int startMonth = 11;//(int)request.getAttribute("startMonth");
+   int startYear = 17;//(int)request.getAttribute("startYear"); 
+   int startHour = 8;//(int)request.getAttribute("startHour");
+   String startTimeOfDay = "am";//(String)request.getAttribute("startTimeOfDay");
+   int noOfHours = 3;//(int)request.getAttribute("noOfHours");
+   String responsesSoFar =  "Gautam,Byron,MuYao,PeiXuan";//(String)request.getAttribute("responsesSoFar");
+   String responseTimes = "1,2,3,2,2,2,0,1,4";//(String)request.getAttribute("responseTimes"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Chronos</title>
-		<style>
-		td:hover {
-			background-color:blue;
-		}
-		</style>
+		<link rel="stylesheet" type="text/css" href="results.css">
 	</head>
 	<body>
-		<table id="dateTable">
-		<%/* 	<tr> <!-- Header row -->
-			
-				<th> <!-- Individual header box -->
-					<tr> <!-- Row which has day/month etc-->
-						<td>
-							Mon
-						</td>
-					</tr>
-					<tr>
-						<td>
-							2
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Oct
-						</td>
-					</tr>
-				</th>
-				
-				
-			</tr> */%>
-		</table>
+		<div id="outerContainer">
+			<div>
+				<h1 id="title">Chronos</h1>
+			</div>
+			<div id="responsesLegendContainer">
+				<div id="responsesContainer">
+					<p>Responses so far</p>
+				</div>
+				<div id="legendContainer">
+				</div>
+			</div>
+			<div id="dateTableContainer">
+				<table id="dateTable"></table>
+			</div>
+		</div>
 	</body>
 	<script>
 		Date.prototype.addDays = function(days) {
@@ -89,9 +86,8 @@
 					return "Dec";
 			}
 		}
-		var noOfDays = 7;
-		var startDate = new Date();
-		var endDate = new Date().addDays(noOfDays);
+		var noOfDays = <%= noOfDays %>;
+		var startDate = new Date(<%= startYear %>, <%= startMonth-1 %>, <%= startDay %>);
 		for (var i = -1; i < noOfDays; i++) {
 			var currDate = startDate.addDays(i);
 			
@@ -103,19 +99,25 @@
 			}
 			
 			var trDayOfWeek = document.createElement("tr");
+			trDayOfWeek.classList.add("dateHeaders");
 			var tdDayOfWeek = document.createElement("td");
+			tdDayOfWeek.classList.add("dateHeaders");
 			var textDayOfWeek = document.createTextNode(convertDateIntToString(currDate.getDay()));
 			tdDayOfWeek.appendChild(textDayOfWeek);
 			trDayOfWeek.appendChild(tdDayOfWeek);
 			
 			var trDate = document.createElement("tr");
+			trDate.classList.add("dateHeaders");
 			var tdDate = document.createElement("td");
+			tdDate.classList.add("dateHeaders");
 			var textDate = document.createTextNode(currDate.getDate());
 			tdDate.appendChild(textDate);
 			trDate.appendChild(tdDate);
 			
 			var trMonth = document.createElement("tr");
+			trMonth.classList.add("dateHeaders");
 			var tdMonth = document.createElement("td");
+			tdMonth.classList.add("dateHeaders");
 			var textMonth = document.createTextNode(convertMonthIntToString(currDate.getMonth()+1));
 			tdMonth.appendChild(textMonth);
 			trMonth.appendChild(tdMonth);
@@ -126,13 +128,13 @@
 			
 			document.getElementById("dateTable").appendChild(th);
 		}
-		var startHour = 8;
-		var startTimeOfDay = "am";
-		var noOfHours = 11;
+		var startHour = <%= startHour %>;
+		var startTimeOfDay = "<%= startTimeOfDay %>";
+		var noOfHours = <%= noOfHours %>;
+		var indexOfCells = 0;
 		for (var k = 0; k < noOfHours; k++) {
 			var trTime = document.createElement("tr");
 			for (var j = 0; j < noOfDays + 1; j++) {
-				console.log("k " + k + " j " + j);
 				var tdTime = document.createElement("td");
 				if (j === 0) {
 					var hourToOutput = startHour + k;
@@ -146,11 +148,40 @@
 					}
 					var tdText = document.createTextNode((hourToOutput).toString() + startTimeOfDay);
 					tdTime.appendChild(tdText);
+				} else {
+					tdTime.id = indexOfCells;
+					indexOfCells += 1;
 				}
 				trTime.appendChild(tdTime);
 			}
 			document.getElementById("dateTable").appendChild(trTime);
 		}
+		
+		var responsesSoFarToSplit = "<%= responsesSoFar %>"
+		var responsesSoFar = responsesSoFarToSplit.split(",");
+		for (response in responsesSoFar) {
+			var pResponsesSoFar = document.createElement("p");
+			var textResponsesSoFar = document.createTextNode("-" + responsesSoFar[response]);
+			pResponsesSoFar.appendChild(textResponsesSoFar);
+			document.getElementById("responsesContainer").appendChild(pResponsesSoFar);
+		}
+		
+		var responseTimesToSplit = "<%= responseTimes %>";
+		var responseTimes = responseTimesToSplit.split(",");
+		var baseR = 0;
+		var baseG = 0;
+		var baseB = 0;
+		var table = document.getElementById("dateTable");
+		for (i in responseTimes) {
+			var tableCell = document.getElementById(i.toString());
+			if (responseTimes[i] === "0") {
+				tableCell.style.backgroundColor = "rgb(255,255,255)";
+			} else {
+				var bValue = baseB + (responseTimes[i] * 70);
+				tableCell.style.backgroundColor = "rgb(" + baseR.toString() + "," + baseG.toString() + "," + bValue.toString() + ")";	
+			}
+		}
+	
 		/* get difference between two dates
 		var date1 = new Date("7/13/2010");
 		var date2 = new Date("12/15/2010");
@@ -159,3 +190,27 @@
 		alert(diffDays);*/
 	</script>
 </html>
+
+<%/* table structure 	
+<tr> <!-- Header row -->
+			
+				<th> <!-- Individual header box -->
+					<tr> <!-- Row which has day/month etc-->
+						<td>
+							Mon
+						</td>
+					</tr>
+					<tr>
+						<td>
+							2
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Oct
+						</td>
+					</tr>
+				</th>
+				
+				
+			</tr> */%>

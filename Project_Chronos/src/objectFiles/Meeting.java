@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Meeting {
 	//data members
 	private int meetingID;
-	private int numUsers;
+	private int numUsers; 
 	private User host;
 	// number of day options ( = num cols of timetable)
 	private int numDays;

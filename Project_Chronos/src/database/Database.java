@@ -2,8 +2,12 @@ package database;
 
 import java.sql.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import objectFiles.Availability;
 import objectFiles.Host;
+import objectFiles.Meeting;
+import objectFiles.User;
 
 public class Database{
 	
@@ -113,6 +117,83 @@ public class Database{
 			e.printStackTrace();
 			return null;
 		}
+		
+	}
+	
+	public Meeting getMeeting(int meetingId) {
+		String query = String.format("SELECT * FROM MeetingInfo WHERE meetingID=%d", table, meetingId);
+		int numUsers = -1;
+		int hostId = -1;
+		// number of day options ( = num cols of timetable)
+		int numDays = 0;
+		// number of meeting options per day ( = num rows of timetable)
+		int numHoursPerDay = 0;
+		// col: numDays, row: numHoursPerDay, ASSUME every cell is one hour long
+
+		try {
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				numUsers = rs.getInt("numUsers");
+				hostId = rs.getInt("hostID");
+				numDays = rs.getInt("numDays");
+				numHoursPerDay = rs.getInt("numHoursPerDay");
+			}
+			Meeting m = new Meeting(numHoursPerDay, numDays, numUsers);
+			m.setHost(getHost(hostId));
+			return m;
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public boolean setAvailabilities(ArrayList<ArrayList<Availability>> av) {
+		//TODO
+		
+		return false;
+	}
+	
+	public String getMeetingAvailabilities(int meetingId) {
+		
+		Meeting currMeeting = getMeeting(meetingId);
+		if (currMeeting == null) {
+			System.out.println("No meeting with that ID");
+			return "";
+		}
+		String query = String.format("SELECT * FROM AvailabilityInfo WHERE meetingID=%d", table, meetingId);
+		int[][] availabilityCount;
+		availabilityCount = new int[currMeeting.getNumHoursPerDay()][currMeeting.getNumDays()];
+		
+		try {
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				int startTime = rs.getInt("startTime"); //start time from zero, assuming zero will be adjusted in the meeting
+				//int endTime = rs.getInt("endTime");  end time from zero. (Ex. endtime of 1 with meeting startTime of 8 am = 9 am)
+				int userId = rs.getInt("userID");
+				int day = rs.getInt("day"); //day from zero, so day 0 = first day. Keep dates tracked in meeting objects
+				boolean available = rs.getBoolean("available"); //if user is busy during this time period
+				if (available) {
+					availabilityCount[startTime][day]++;
+				}
+			}
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < currMeeting.getNumHoursPerDay(); i++) {
+				for (int j = 0; j < currMeeting.getNumDays(); j++) {
+					sb.append(availabilityCount[i][j]);
+					sb.append(",");
+				}
+			}
+			sb.setLength(sb.length()-1);
+			return sb.toString();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return "";
+		}
+	
 		
 	}
 

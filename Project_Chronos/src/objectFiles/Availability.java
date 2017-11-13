@@ -10,6 +10,19 @@ public class Availability {
 	private ArrayList<User> availableUsers;
 	private ArrayList<User> unavailableUsers;
 	
+	/*
+	 * private int meetingId;
+	 * private int userId;
+	 * private int startTime;
+	 * private int day;
+	 * private boolean available;
+	 * 
+	 * NEW IMPLEMENTATION 11/13
+	 * 
+	 * 
+	 * 
+	 */
+	
 	/**
 	 * Constructor
 	 */

@@ -30,6 +30,19 @@ public class Meeting {
 		Availability curr_ava = timetable.get(row).get(col);
 		curr_ava.setAvailability(user, isAvailable);
 	}
+	
+	public void markTimetable(int index, int availability, User user) {
+		int row = index / numDays;
+		int col = index % numDays;
+		Availability curr_ava = timetable.get(row).get(col);
+		if (availability == 1) {
+			curr_ava.setAvailability(user, true);
+		}
+		else {
+			curr_ava.setAvailability(user, false);
+		}
+			
+	}
 	public void setNumUsers(int n) {
 		numUsers = n;
 	}

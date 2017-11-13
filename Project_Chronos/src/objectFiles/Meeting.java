@@ -50,4 +50,12 @@ public class Meeting {
 		Availability curr_ava = timetable.get(row).get(col);
 		return curr_ava.getNumAvailableUsers();
 	}
+	
+	public int getNumDays() {
+		return numDays;
+	}
+	
+	public int getNumHoursPerDay() {
+		return numHoursPerDay;
+	}
 }

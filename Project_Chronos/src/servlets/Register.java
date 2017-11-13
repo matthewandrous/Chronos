@@ -38,7 +38,7 @@ public class Register extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
-	        
+	        request.getSession().setAttribute("hostName", username);
             RequestDispatcher rs = request.getRequestDispatcher("host.jsp");
             rs.forward(request, response);
 	      

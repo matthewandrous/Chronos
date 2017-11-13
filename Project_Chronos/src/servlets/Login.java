@@ -42,7 +42,7 @@ public class Login extends HttpServlet {
         if(hostID > 0)
         {
         		Host host = db.getHost(hostID);
-        		request.setAttribute("host", host);
+        		request.getSession().setAttribute("hostName", username);
         		// CHANGE the destination
             RequestDispatcher rs = request.getRequestDispatcher("host.jsp");
             rs.forward(request, response);
@@ -50,6 +50,7 @@ public class Login extends HttpServlet {
         else if (hostID == -1)
         {
            // go back to the login page
+        		request.getSession().setAttribute("erromsg", "The password does not match with the username");
            RequestDispatcher rs = request.getRequestDispatcher("login.html");
            rs.include(request, response);
         }

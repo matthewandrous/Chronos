@@ -152,6 +152,32 @@ public class Database{
 	public boolean setAvailabilities(ArrayList<ArrayList<Availability>> av) {
 		//TODO
 		
+		int userId = av.get(0).get(0).getUserId();
+		int meetingId = av.get(0).get(0).getMeetingId();
+		String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", table, userId);
+		
+		try {
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		for (int i = 0; i < av.size(); i++) {
+			for (int j = 0; j < av.get(0).size(); j++) {
+				Availability a = av.get(i).get(j);
+				String queryInsert = String.format("INSERT INTO %s (meetingID, userID, startTime, day, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, userId, a.getStartTime(), a.getDay(), a.getAvailable());
+				try {
+					PreparedStatement ps = conn.prepareStatement(query);
+					ps.execute();
+				}
+				catch(SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+		}
+		
 		return false;
 	}
 	

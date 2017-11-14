@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.Vector"%>
 <% int noOfDays = 3;//(int)request.getAttribute("noOfDays");
    int startDay = 12;//(int)request.getAttribute("startDay");
    int startMonth = 11;//(int)request.getAttribute("startMonth");

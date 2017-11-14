@@ -21,6 +21,7 @@
 		<div id="outerContainer">
 			<div>
 				<h1 id="title">Chronos</h1>
+				<p style = "text-align: center;">Results:</p>
 			</div>
 			<div id="responsesLegendContainer">
 				<div id="responsesContainer">

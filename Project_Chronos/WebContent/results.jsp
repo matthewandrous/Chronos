@@ -8,7 +8,7 @@
    int startHour = 8;//(int)request.getAttribute("startHour");
    String startTimeOfDay = "am";//(String)request.getAttribute("startTimeOfDay");
    int noOfHours = 3;//(int)request.getAttribute("noOfHours");
-   String responsesSoFar =  "Gautam,Byron,MuYao,PeiXuan";//(String)request.getAttribute("responsesSoFar");
+   String responsesSoFar =  "Gautam,Byron,MuYao,PeiXuan,Matthew";//(String)request.getAttribute("responsesSoFar");
    String responseTimes = "1,2,3,2,2,2,0,1,4";//(String)request.getAttribute("responseTimes"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -27,6 +27,13 @@
 					<p>Responses so far</p>
 				</div>
 				<div id="legendContainer">
+					<p>Legend:</p>
+					<table id="legendTable">
+						<tr>
+							<td>0 can't: </td>
+							<td style="width:50%; background-color: white;"></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 			<div id="dateTableContainer">
@@ -40,6 +47,16 @@
 			  newDate.setDate(newDate.getDate() + days);
 			  return newDate;
 		}
+	/*	function generateColours() {
+			var colours = [];
+			while (colours.length < 100) {
+			    do {
+			        var colour = Math.floor((Math.random()*1000000)+1);
+			    } while (colours.indexOf(colour) >= 0);
+			    colours.push("#" + ("000000" + colour.toString(16)).slice(-6));
+			}
+			return colours;
+		}*/
 		function convertDateIntToString(dateInt) {
 			switch (dateInt) {
 				case 1:
@@ -172,14 +189,34 @@
 		var baseG = 0;
 		var baseB = 0;
 		var table = document.getElementById("dateTable");
+		var colours = ["red","blue","green","yellow","cyan","fuchsia"];
 		for (i in responseTimes) {
 			var tableCell = document.getElementById(i.toString());
 			if (responseTimes[i] === "0") {
 				tableCell.style.backgroundColor = "rgb(255,255,255)";
 			} else {
 				var bValue = baseB + (responseTimes[i] * 70);
-				tableCell.style.backgroundColor = "rgb(" + baseR.toString() + "," + baseG.toString() + "," + bValue.toString() + ")";	
+				//tableCell.style.backgroundColor = "rgb(" + baseR.toString() + "," + baseG.toString() + "," + bValue.toString() + ")";	
+				tableCell.style.backgroundColor = colours[responseTimes[i]];
 			}
+		}
+		
+		var legend = document.getElementById("legendTable");
+		for (i in responsesSoFar) {
+			var trLegend = document.createElement("tr");
+			var tdText = document.createElement("td");
+			var plusOne = parseInt(i)+1;
+			var noOfPeopleText = document.createTextNode(plusOne.toString() + " can't: ");
+			tdText.appendChild(noOfPeopleText);
+			trLegend.appendChild(tdText);
+			var tdColour = document.createElement("td");
+			if (plusOne === 6) {
+				plusOne = 0;
+			}
+			tdColour.style.backgroundColor = colours[plusOne];
+			tdColour.style.width = "50%";
+			trLegend.appendChild(tdColour);
+			legend.appendChild(trLegend);
 		}
 	
 		/* get difference between two dates

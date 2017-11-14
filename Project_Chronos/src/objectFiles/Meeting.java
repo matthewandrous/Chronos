@@ -48,11 +48,28 @@ public class Meeting {
 		this.meetingID = meetingID;
 	}
 	
+
+	public void markTimetable(int index, int availability, User user) {
+		int row = index / numDays;
+		int col = index % numDays;
+		Availability curr_ava = timetable.get(row).get(col);
+		if (availability == 1) {
+			curr_ava.setAvailability(user, true);
+		}
+		else {
+			curr_ava.setAvailability(user, false);
+		}
+			
+	}
+	public void setNumUsers(int n) {
+		numUsers = n;
+
 	/**
 	 * @return the numUsers
 	 */
 	public int getNumUsers() {
 		return this.numUsers;
+
 	}
 	
 	/**
@@ -170,6 +187,15 @@ public class Meeting {
 		return curr_ava.getNumAvailableUsers();
 	}
 	
+
+	public int getNumDays() {
+		return numDays;
+	}
+	
+	public int getNumHoursPerDay() {
+		return numHoursPerDay;
+	}
+
 	/**
 	 * Marks who is available/unavailable at when on the timetable
 	 * @param row
@@ -213,5 +239,5 @@ public class Meeting {
 				+ "usersAnswered=" + usersAnsweredString
 				+ "]";
 	}
-	
+
 }

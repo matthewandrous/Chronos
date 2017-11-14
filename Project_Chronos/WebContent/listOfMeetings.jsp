@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <% String meetingIds = "1,4,62,6,8";//(String)request.getAttribute("meetingIds");
    meetingIds = "'" + meetingIds + "'";
-   String endpoint = "''";%>
+   String endpoint = "''";
+   String username = "gautam"; //(String)request.getAttribute("username");
+   username = "'" + username + "'";%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -17,6 +19,7 @@
 			</div>
 			<div id="meetingsDiv">
 			</div>
+			<button><a id="addNewMeetingButton">Add New Meeting</a></button>
 		</div>
 	</body>
 	<script>
@@ -34,5 +37,6 @@
 			aMeeting.appendChild(meetingDiv);
 			document.getElementById("meetingsDiv").appendChild(aMeeting);
 		}
+		document.getElementById("addNewMeetingButton").href = "addNewMeeting.jsp?username=" + <%= username %>; 
 	</script>
 </html>

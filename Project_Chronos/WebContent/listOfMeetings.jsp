@@ -37,6 +37,6 @@
 			aMeeting.appendChild(meetingDiv);
 			document.getElementById("meetingsDiv").appendChild(aMeeting);
 		}
-		document.getElementById("addNewMeetingButton").href = "addNewMeeting.jsp?username=" + <%= username %>; 
+		document.getElementById("addNewMeetingButton").href = "newMeetingPage.jsp?username=" + <%= username %>; 
 	</script>
 </html>

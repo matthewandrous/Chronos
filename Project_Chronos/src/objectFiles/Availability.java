@@ -10,6 +10,10 @@ public class Availability {
 	 public int getNumAvailableUsers() {
  		return availableUsers.size();
  	}
+	 
+	 public int getNumUnavailableUsers() {
+		 return unAvailableUsers.size();
+	 }
  	
  	public void setAvailability(User user, Boolean isAvailable) {
  		if (isAvailable) {

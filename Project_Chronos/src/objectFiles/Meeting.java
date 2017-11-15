@@ -71,4 +71,44 @@ public class Meeting {
 	public int getNumHoursPerDay() {
 		return numHoursPerDay;
 	}
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+	
+	public int getNumUsersAnswered() {
+		return usersAnswered.size();
+	}
+	
+	public int getStartTime() {
+		return startTime;
+	}
+	
+	public String getUsersAnswered() {
+		String s = "";
+		for (int i=0; i<usersAnswered.size(); i++) {
+			if (i != 0) {
+				s += ", ";
+			}
+			s += usersAnswered.get(i).getUsername();
+		}
+		return s;
+	}
+	
+	public String getResponseTimes() {
+		String s = "";
+		for(int i=0; i<numHoursPerDay; i++) {
+			for (int j=0; j < numDays; j++) {
+				if (i != 0 && j != 0) {
+					s += ",";
+				}
+				Availability curr_a = timetable.get(i).get(j);
+				s += curr_a.getNumUnavailableUsers();
+			}
+		}
+		return s;
+		
+	}
+	
+
 }

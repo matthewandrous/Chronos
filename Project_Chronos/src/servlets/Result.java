@@ -46,7 +46,7 @@ public class Result extends HttpServlet {
 			request.setAttribute("startTimeOfDay", "am");
 		}
 		request.setAttribute("noOfHours", mt.getNumHoursPerDay());
-		request.setAttribute("responsesSoFar", mt.getUsersAnswered());
+		request.setAttribute("responsesSoFar", mt.getUsersAnsweredToString());
 		request.setAttribute("responseTimes", mt.getResponseTimes());
 
 		

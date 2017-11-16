@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String endpoint = ""; %>
+<% String endpoint = "''"; %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-signal.css">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Chronos</title>
 		<script>
@@ -15,16 +17,8 @@
 				var endDate = document.getElementById("endDate").value;
 				var endTime = document.getElementById("endTime").value;
 				var noOfParticipants = document.getElementById("noOfParticipants").value;
-				console.log("meetingName " + meetingName);
-				console.log("startDate " + startDate);
-				console.log("startTime " + startTime);
-				console.log("endDate " + endDate);
-				console.log("endTime " + endTime);
-				console.log("noOfParticipants " + noOfParticipants);
 				var startDateTime = new Date(startDate + " " + startTime);
 				var endDateTime = new Date(endDate + " " + endTime);
-				console.log(startDateTime);
-				console.log(endDateTime);
 				if (meetingName.length === 0) {
 					error = true;
 				}
@@ -73,15 +67,16 @@
 		</script>
 	</head>
 	<body>
-		<div id="outerContainer">
+		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image">
+		<div id="outerContainer" class="w3-container w3-margin">
 			<form name="newMeeting">
-				<label>Meeting Name:</label><input name="meetingName" type="text" id="meetingName"><br>
-				<label>Start Date:</label><input name="startDate" type="date" id="startDate"><br>
-				<label>Start Time:</label><input name="startTime" type="time" id="startTime" step="3600"><br>
-				<label>End Date:</label><input name="endDate" type="date" id="endDate"><br>
-				<label>End Time:</label><input name="endTime" type="time" id="endTime" step="3600"><br>
-				<label>Number of Participants:</label><input name="noOfParticipants" type="number" id="noOfParticipants" value="0"><br>
-				<input type="button" onclick = "validateAndSend()" value="Submit">			
+				<label>Meeting Name:</label><input name="meetingName" type="text" id="meetingName" class="w3-input w3-border w3-round" ><br>
+				<label>Start Date:</label><input name="startDate" type="date" id="startDate" class="w3-input w3-border w3-round"><br>
+				<label>End Date:</label><input name="endDate" type="date" id="endDate" class="w3-input w3-border w3-round"><br>
+				<label>Start Time:</label><input name="startTime" type="time" id="startTime" step="3600" class="w3-input w3-border w3-round"><br>
+				<label>End Time:</label><input name="endTime" type="time" id="endTime" step="3600" class="w3-input w3-border w3-round"><br>
+				<label>Number of Participants:</label><input name="noOfParticipants" type="number" id="noOfParticipants" value="0" class="w3-input w3-border w3-round"><br>
+				<input type="button" class="w3-button w3-signal-red w3-round-large" onclick = "validateAndSend()" value="Submit">			
 			</form>
 		</div>
 	</body>

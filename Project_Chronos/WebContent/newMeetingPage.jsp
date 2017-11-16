@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String endpoint = ""; %>
+<% String endpoint = "''"; %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -17,16 +17,8 @@
 				var endDate = document.getElementById("endDate").value;
 				var endTime = document.getElementById("endTime").value;
 				var noOfParticipants = document.getElementById("noOfParticipants").value;
-				console.log("meetingName " + meetingName);
-				console.log("startDate " + startDate);
-				console.log("startTime " + startTime);
-				console.log("endDate " + endDate);
-				console.log("endTime " + endTime);
-				console.log("noOfParticipants " + noOfParticipants);
 				var startDateTime = new Date(startDate + " " + startTime);
 				var endDateTime = new Date(endDate + " " + endTime);
-				console.log(startDateTime);
-				console.log(endDateTime);
 				if (meetingName.length === 0) {
 					error = true;
 				}

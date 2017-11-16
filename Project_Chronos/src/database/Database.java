@@ -97,14 +97,14 @@ public class Database{
 		 * Returns hostId if inputed password matches given username's password
 		 * Returns -1 on password not match, -2 on anything else
 		 */
-		String query = String.format("SELECT hostId, hostPassword FROM %s WHERE username='%s'", table, username);
+		String query = String.format("SELECT userID, hostPassword FROM %s WHERE username='%s'", table, username);
 		String hostPassword = "";
 		int hostId = -1;
 		try {
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				hostId = rs.getInt("hostId");
+				hostId = rs.getInt("userID");
 				hostPassword = rs.getString("hostPassword");
 			}
 		}
@@ -124,7 +124,7 @@ public class Database{
 		/*
 		 * Gets host object given hostID
 		 */
-		String query = String.format("SELECT username, hostPassword, email FROM %s WHERE hostId=%d", table, hostId);
+		String query = String.format("SELECT username, hostPassword, email FROM %s WHERE userId=%d", table, hostId);
 		String username = "";
 		String hostPassword = "";
 		String email = "";
@@ -144,6 +144,32 @@ public class Database{
 			e.printStackTrace();
 			return null;
 		}
+		
+	}
+	
+	public String getHostMeetings(int hostId) {
+		
+		
+		String query = String.format("SELECT meetingID FROM %s WHERE hostID='%s'", table, hostId);
+		StringBuilder sb = new StringBuilder();
+		
+		try {
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				int meetingId = rs.getInt("meetingID");
+				sb.append(meetingId + ",");
+			}
+			sb.setLength(sb.length()-1);
+			return sb.toString();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return "";
+		}
+		
+		
+		
 		
 	}
 	
@@ -179,6 +205,26 @@ public class Database{
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public boolean addMeeting(String meetingName, int numUsers, int numDays, int numHoursPerDay, int hostId, Date startDate, int startTime) {
+
+		String query = String.format("INSERT INTO %s (meetingName, hostID, startDate, startTime, numUsers, numDays, numHoursPerDay) VALUES (%s, %d, %d, %d, %d, %d)", table, meetingName, hostId, startDate.getTime(), startTime, numDays, numHoursPerDay);
+		
+		try {
+			PreparedStatement st = conn.prepareStatement(query);
+			int result = st.executeUpdate();
+			if (result > 0)
+				return true;
+			else
+				return false;
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		
 	}
 	
 	public boolean setAvailabilities(Availability[][] av) {

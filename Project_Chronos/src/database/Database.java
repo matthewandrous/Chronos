@@ -170,11 +170,12 @@ public class Database{
 		}
 	}
 	
-	public boolean setAvailabilities(ArrayList<ArrayList<Availability>> av) {
+	public boolean setAvailabilities(Availability[][] av) {
 		//TODO
 		
-		int userId = av.get(0).get(0).getUserId();
-		int meetingId = av.get(0).get(0).getMeetingId();
+
+		int userId = av.[0][0].getUserId();
+		int meetingId = av.[0][0].getMeetingId();
 		String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", table, userId);
 		
 		try {
@@ -184,9 +185,9 @@ public class Database{
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		for (int i = 0; i < av.size(); i++) {
-			for (int j = 0; j < av.get(0).size(); j++) {
-				Availability a = av.get(i).get(j);
+		for (int i = 0; i < av.length; i++) {
+			for (int j = 0; j < av[0].length; j++) {
+				Availability a = av[i][j];
 				String queryInsert = String.format("INSERT INTO %s (meetingID, userID, startTime, day, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, userId, a.getStartTime(), a.getDay(), a.getAvailable());
 				try {
 					PreparedStatement ps = conn.prepareStatement(query);

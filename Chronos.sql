@@ -32,7 +32,7 @@ create table GuestInfo(
 );
 
 create table AvailabilityInfo(
-	meetingId int(11)  primary key,
+	meetingId int(11),
     userId int(11),
     rowIndex int(11),
     colIndex int(11),

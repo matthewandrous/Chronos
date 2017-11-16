@@ -4,7 +4,9 @@ import java.sql.*;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import objectFiles.Availability;
 import objectFiles.Host;
@@ -125,6 +127,24 @@ public class Database{
 		}
 	}
 	
+	public int getHostId(String username) {
+		String query = String.format("SELECT userID FROM %s WHERE username='%s'", table, username);
+		int hostId = -1;
+		try {
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				hostId = rs.getInt("userID");
+				
+			}
+			return hostId;
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
 	public Host getHost(int hostId) {
 		/*
 		 * Gets host object given hostID
@@ -218,10 +238,9 @@ public class Database{
 	public boolean addMeeting(String meetingName, int numUsers, int numDays, int numHoursPerDay, int hostId, Date startDate, int startTime) {
 		
 		SimpleDateFormat sdp = new SimpleDateFormat("yyyy-MM-dd");
-		//StringBuffer sb = new StringBuffer();
 		String s = sdp.format(startDate);
 
-		String query = String.format("INSERT INTO %s (meetingName, hostID, startDate, startTime, numUsers, numDays, numHoursPerDay) VALUES (\"%s\", %d, \"%s\", %d, %d, %d, %d)", table, meetingName, hostId, s, startTime, numDays, numUsers, numHoursPerDay);
+		String query = String.format("INSERT INTO %s (meetingName, hostID, startDate, startTime, numUsers, numDays, numHoursPerDay) VALUES (\"%s\", %d, \"%s\", %d, %d, %d, %d)", table, meetingName, hostId, s, startTime, numUsers, numDays, numHoursPerDay);
 		
 		try {
 			PreparedStatement st = conn.prepareStatement(query);
@@ -243,7 +262,32 @@ public class Database{
 		
 	}
 	
-	public boolean setAvailabilities(Availability[][] av) {
+	public boolean setAvailFromString(String bools, int meetingId, int userId) {
+		
+		List<String> list = new ArrayList<String>(Arrays.asList(bools.split(",")));
+		
+		Meeting m = getMeeting(meetingId);
+		int counter = 0;
+		
+		for (int i = 0; i < m.getNumHoursPerDay(); i++) {
+			for (int j = 0; j < m.getNumDays(); j++) {
+				String queryInsert = String.format("INSERT INTO %s (meetingID, userID, startTime, day, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, userId, i, j, list.get(counter++));
+				try {
+					PreparedStatement ps = conn.prepareStatement(queryInsert);
+					ps.execute();
+				}
+				catch(SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+		}
+		
+		return false;
+		
+	}
+	
+	public boolean setAvailabilities(Availability[][] av, int meetingId) {
 		/*
 		 * Given array of availabilities, creates many sql entries that stores user available time periods as booleans in table
 		 * Message me on slack if you want me to explain it
@@ -251,7 +295,32 @@ public class Database{
 		
 
 		//int userId = av[0][0].getUserId();
-		int meetingId = av[0][0].getMeetingId();
+		//int meetingId = av[0][0].getMeetingId();
+		
+		Availability clearA = av[0][0];
+		
+		for (User u : clearA.getAvailableUsers()) {
+			String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d AND meetingID=%d", u.getUserId(), meetingId);
+			
+			try {
+				PreparedStatement ps = conn.prepareStatement(query);
+				ps.execute();
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		for (User u : clearA.getUnavailableUsers()) {
+			String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d AND meetingID=%d", u.getUserId(), meetingId);
+			
+			try {
+				PreparedStatement ps = conn.prepareStatement(query);
+				ps.execute();
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
 		for (int i = 0; i < av.length; i++) {
 			for (int j = 0; j < av[0].length; j++) {
@@ -259,21 +328,22 @@ public class Database{
 				
 				System.out.println("Test");
 				
+				
 				for (User u : a.getAvailableUsers()) {
 					
-					String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", u.getUserId());
+//					String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", u.getUserId());
+//					
+//					try {
+//						PreparedStatement ps = conn.prepareStatement(query);
+//						ps.execute();
+//					}
+//					catch(SQLException e) {
+//						e.printStackTrace();
+//					}
 					
+					String queryInsert = String.format("INSERT INTO %s (meetingID, userID, rowIndex, colIndex, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, u.getUserId(), i, j, 1);
 					try {
-						PreparedStatement ps = conn.prepareStatement(query);
-						ps.execute();
-					}
-					catch(SQLException e) {
-						e.printStackTrace();
-					}
-					
-					String queryInsert = String.format("INSERT INTO %s (meetingID, userID, startTime, day, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, u.getUserId(), a.getStartTime(), a.getDay(), 1);
-					try {
-						PreparedStatement ps = conn.prepareStatement(query);
+						PreparedStatement ps = conn.prepareStatement(queryInsert);
 						ps.execute();
 					}
 					catch(SQLException e) {
@@ -283,19 +353,19 @@ public class Database{
 				}
 				for (User u : a.getUnavailableUsers()) {
 					
-					String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", u.getUserId());
+//					String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", u.getUserId());
+//					
+//					try {
+//						PreparedStatement ps = conn.prepareStatement(query);
+//						ps.execute();
+//					}
+//					catch(SQLException e) {
+//						e.printStackTrace();
+//					}
 					
+					String queryInsert = String.format("INSERT INTO %s (meetingID, userID, rowIndex, colIndex, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, u.getUserId(), i,j, 0);
 					try {
-						PreparedStatement ps = conn.prepareStatement(query);
-						ps.execute();
-					}
-					catch(SQLException e) {
-						e.printStackTrace();
-					}
-					
-					String queryInsert = String.format("INSERT INTO %s (meetingID, userID, startTime, day, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, u.getUserId(), a.getStartTime(), a.getDay(), 0);
-					try {
-						PreparedStatement ps = conn.prepareStatement(query);
+						PreparedStatement ps = conn.prepareStatement(queryInsert);
 						ps.execute();
 					}
 					catch(SQLException e) {
@@ -322,20 +392,21 @@ public class Database{
 			System.out.println("No meeting with that ID");
 			return "";
 		}
-		String query = String.format("SELECT * FROM AvailabilityInfo WHERE meetingID=%d", table, meetingId);
+		String query = String.format("SELECT * FROM AvailabilityInfo WHERE meetingID=%d", meetingId);
 		int[][] availabilityCount;
+		//System.out.println(x);
 		availabilityCount = new int[currMeeting.getNumHoursPerDay()][currMeeting.getNumDays()];
 		
 		try {
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				int startTime = rs.getInt("startTime"); //start time from zero, assuming zero will be adjusted in the meeting
+				int startTime = rs.getInt("rowIndex"); //start time from zero, assuming zero will be adjusted in the meeting
 				//int endTime = rs.getInt("endTime");  end time from zero. (Ex. endtime of 1 with meeting startTime of 8 am = 9 am)
 				int userId = rs.getInt("userID");
-				int day = rs.getInt("day"); //day from zero, so day 0 = first day. Keep dates tracked in meeting objects
+				int day = rs.getInt("colIndex"); //day from zero, so day 0 = first day. Keep dates tracked in meeting objects
 				boolean available = rs.getBoolean("available"); //if user is busy during this time period
-				if (available) {
+				if (!available) {
 					availabilityCount[startTime][day]++;
 				}
 			}

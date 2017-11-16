@@ -9,19 +9,12 @@ import java.util.ArrayList;
 public class Availability {
 	private ArrayList<User> availableUsers;
 	private ArrayList<User> unavailableUsers;
+
+	private int meetingId;
+	//private int userId;
+	private int startTime;
+	private int day;
 	
-	/*
-	 * private int meetingId;
-	 * private int userId;
-	 * private int startTime;
-	 * private int day;
-	 * private boolean available;
-	 * 
-	 * NEW IMPLEMENTATION 11/13
-	 * 
-	 * 
-	 * 
-	 */
 	
 	/**
 	 * Constructor
@@ -31,6 +24,38 @@ public class Availability {
 		this.unavailableUsers = new ArrayList<>();
 	}
 	
+	public int getMeetingId() {
+		return meetingId;
+	}
+
+	public void setMeetingId(int meetingId) {
+		this.meetingId = meetingId;
+	}
+
+//	public int getUserId() {
+//		return userId;
+//	}
+//
+//	public void setUserId(int userId) {
+//		this.userId = userId;
+//	}
+
+	public int getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(int startTime) {
+		this.startTime = startTime;
+	}
+
+	public int getDay() {
+		return day;
+	}
+
+	public void setDay(int day) {
+		this.day = day;
+	}
+	
 	/**
 	 * Get the number of available users
 	 * @return the number of available users
@@ -38,6 +63,7 @@ public class Availability {
 	public int getNumAvailableUsers() {
  		return availableUsers.size();
  	}
+	 
  	
 	/**
 	 * @return the number of unavailable users
@@ -92,7 +118,7 @@ public class Availability {
 	 * Check if no user is unavailable
 	 * @return true when no user is unavailable
 	 */
-	boolean isAvailable() {
+	public boolean isAvailable() {
 		return unavailableUsers.isEmpty();
 	}
 

@@ -4,9 +4,12 @@
 package objectFiles;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Meeting {
 	//data members
+	private int startTime;
+	private Date startDate;
 	private int meetingID;
 	private int numUsers; 
 	private User host;
@@ -48,11 +51,27 @@ public class Meeting {
 		this.meetingID = meetingID;
 	}
 	
+
+	public void markTimetable(int index, int availability, User user) {
+		int row = index / numDays;
+		int col = index % numDays;
+		Availability curr_ava = timetable[row][col];
+		if (availability == 1) {
+			curr_ava.setAvailability(user, true);
+		}
+		else {
+			curr_ava.setAvailability(user, false);
+		}
+			
+	}
+
+
 	/**
 	 * @return the numUsers
 	 */
 	public int getNumUsers() {
 		return this.numUsers;
+
 	}
 	
 	/**
@@ -170,6 +189,46 @@ public class Meeting {
 		return curr_ava.getNumAvailableUsers();
 	}
 	
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+	
+	public int getNumUsersAnswered() {
+		return usersAnswered.size();
+	}
+	
+	public int getStartTime() {
+		return startTime;
+	}
+	
+	public String getUsersAnsweredToString() {
+		String s = "";
+		for (int i=0; i<usersAnswered.size(); i++) {
+			if (i != 0) {
+				s += ", ";
+			}
+			s += usersAnswered.get(i).getUsername();
+		}
+		return s;
+	}
+	
+	public String getResponseTimes() {
+		String s = "";
+		for(int i=0; i<numHoursPerDay; i++) {
+			for (int j=0; j < numDays; j++) {
+				if (i != 0 && j != 0) {
+					s += ",";
+				}
+				Availability curr_a = timetable[i][j];
+				s += curr_a.getNumUnavailableUsers();
+			}
+		}
+		return s;
+		
+	}
+	
+
 	/**
 	 * Marks who is available/unavailable at when on the timetable
 	 * @param row
@@ -213,5 +272,5 @@ public class Meeting {
 				+ "usersAnswered=" + usersAnsweredString
 				+ "]";
 	}
-	
+
 }

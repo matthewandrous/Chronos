@@ -14,14 +14,14 @@ public class Database{
 	private Connection conn = null;
 	private String table = "";
 	private String server = "";
-	private String port = "";
+	private int port = -1;
 	
 	
 	public Database(String table, String server, int port){
 		
 			this.table = table;
 			this.server = server;
-			this.table = table;
+			this.port = port;
 			
 	}
 	
@@ -31,7 +31,9 @@ public class Database{
 		 * Returns true on successful connect
 		 */
 		String myDriver = "com.mysql.jdbc.Driver";
-		String myUrl = "jdbc:mysql://" + server + ":" + port + "/";
+		String myUrl = "jdbc:mysql://" + server + "/Chronos";
+		
+		//"?user=root&password=root&useSSL=false"
 		
 		try {
 		Class.forName(myDriver);
@@ -50,6 +52,27 @@ public class Database{
 		 * Adds a new host to sql table given username, password, and email.
 		 * Returns true on successful insert
 		 */
+		
+		String checkQ = String.format("SELECT username FROM %s WHERE username='%s'", table, username);
+		
+		boolean hostExists = false;
+		try {
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(checkQ);
+			while (rs.next()) {
+				
+				hostExists = true;
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		if (hostExists) {
+			return false;
+		}
+		
 		String query = String.format("INSERT INTO %s (username, hostPassword, email) VALUES (?, ?, ?)", table);
 		
 		try {
@@ -98,7 +121,7 @@ public class Database{
 	}
 	
 	public Host getHost(int hostId) {
-		String query = String.format("SELECT username, password, email FROM %s WHERE hostId=%d", table, hostId);
+		String query = String.format("SELECT username, hostPassword, email FROM %s WHERE hostId=%d", table, hostId);
 		String username = "";
 		String hostPassword = "";
 		String email = "";
@@ -109,7 +132,7 @@ public class Database{
 				username = rs.getString("username");
 				hostPassword = rs.getString("hostPassword");
 				email = rs.getString("email");
-			}
+			}	
 			Host h = new Host(username, hostPassword, email);
 			return h;
 		}
@@ -149,8 +172,64 @@ public class Database{
 		}
 	}
 	
-	public boolean setAvailabilities(ArrayList<ArrayList<Availability>> av) {
+	public boolean setAvailabilities(Availability[][] av) {
 		//TODO
+		
+
+		//int userId = av[0][0].getUserId();
+		int meetingId = av[0][0].getMeetingId();
+
+		for (int i = 0; i < av.length; i++) {
+			for (int j = 0; j < av[0].length; j++) {
+				Availability a = av[i][j];
+				
+				for (User u : a.getAvailableUsers()) {
+					
+					String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", table, u.getUserId());
+					
+					try {
+						PreparedStatement ps = conn.prepareStatement(query);
+						ps.execute();
+					}
+					catch(SQLException e) {
+						e.printStackTrace();
+					}
+					
+					String queryInsert = String.format("INSERT INTO %s (meetingID, userID, startTime, day, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, u.getUserId(), a.getStartTime(), a.getDay(), 1);
+					try {
+						PreparedStatement ps = conn.prepareStatement(query);
+						ps.execute();
+					}
+					catch(SQLException e) {
+						e.printStackTrace();
+						return false;
+					}
+				}
+				for (User u : a.getUnavailableUsers()) {
+					
+					String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", table, u.getUserId());
+					
+					try {
+						PreparedStatement ps = conn.prepareStatement(query);
+						ps.execute();
+					}
+					catch(SQLException e) {
+						e.printStackTrace();
+					}
+					
+					String queryInsert = String.format("INSERT INTO %s (meetingID, userID, startTime, day, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, u.getUserId(), a.getStartTime(), a.getDay(), 0);
+					try {
+						PreparedStatement ps = conn.prepareStatement(query);
+						ps.execute();
+					}
+					catch(SQLException e) {
+						e.printStackTrace();
+						return false;
+					}
+				}
+				
+			}
+		}
 		
 		return false;
 	}

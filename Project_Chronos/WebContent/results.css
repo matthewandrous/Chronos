@@ -13,6 +13,19 @@
 	text-align: center;
 }
 
+h1 {
+    font-family: "Avenir";
+}
+
+p {
+    font-family: "Avenir";
+}
+
+td
+{
+    font-family: "Avenir";
+}
+
 #dateTableContainer {
 	width: 70%;
 	float: right;

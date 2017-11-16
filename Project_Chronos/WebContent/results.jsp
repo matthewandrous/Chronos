@@ -18,13 +18,12 @@
 	</head>
 	<body>
 		<div id="outerContainer">
+		<img src="CF_Logo_OnWhite.png" alt="Logo_OnWhite" style="width:300px;height:111px;">
 			<div>
-				<h1 id="title">Chronos</h1>
-				<p style = "text-align: center;">Results:</p>
 			</div>
 			<div id="responsesLegendContainer">
 				<div id="responsesContainer">
-					<p>Responses so far</p>
+					<p>Responses so far:</p>
 				</div>
 				<div id="legendContainer">
 					<p>Legend:</p>
@@ -189,7 +188,7 @@
 		var baseG = 0;
 		var baseB = 0;
 		var table = document.getElementById("dateTable");
-		var colours = ["red","blue","green","yellow","cyan","fuchsia"];
+		var colours = ["Gold","GoldenRod","Orange","DarkOrange","Red","DarkRed"];
 		for (i in responseTimes) {
 			var tableCell = document.getElementById(i.toString());
 			if (responseTimes[i] === "0") {

@@ -14,14 +14,14 @@ public class Database{
 	private Connection conn = null;
 	private String table = "";
 	private String server = "";
-	private String port = "";
+	private int port = -1;
 	
 	
 	public Database(String table, String server, int port){
 		
 			this.table = table;
 			this.server = server;
-			this.table = table;
+			this.port = port;
 			
 	}
 	
@@ -31,7 +31,9 @@ public class Database{
 		 * Returns true on successful connect
 		 */
 		String myDriver = "com.mysql.jdbc.Driver";
-		String myUrl = "jdbc:mysql://" + server + ":" + port + "/";
+		String myUrl = "jdbc:mysql://" + server + "/Chronos";
+		
+		//"?user=root&password=root&useSSL=false"
 		
 		try {
 		Class.forName(myDriver);
@@ -53,13 +55,13 @@ public class Database{
 		
 		String checkQ = String.format("SELECT username FROM %s WHERE username='%s'", table, username);
 		
-		boolean hostExists = true;
+		boolean hostExists = false;
 		try {
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(checkQ);
 			while (rs.next()) {
 				
-				hostExists = false;
+				hostExists = true;
 			}
 		}
 		catch(SQLException e) {
@@ -119,7 +121,7 @@ public class Database{
 	}
 	
 	public Host getHost(int hostId) {
-		String query = String.format("SELECT username, password, email FROM %s WHERE hostId=%d", table, hostId);
+		String query = String.format("SELECT username, hostPassword, email FROM %s WHERE hostId=%d", table, hostId);
 		String username = "";
 		String hostPassword = "";
 		String email = "";
@@ -130,7 +132,7 @@ public class Database{
 				username = rs.getString("username");
 				hostPassword = rs.getString("hostPassword");
 				email = rs.getString("email");
-			}
+			}	
 			Host h = new Host(username, hostPassword, email);
 			return h;
 		}

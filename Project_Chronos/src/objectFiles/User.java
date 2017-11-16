@@ -6,6 +6,7 @@ package objectFiles;
 public abstract class User{
 	private String username = "";
 	private Meeting curMeeting;
+	private int userId;
 	
 	/**
 	 * Empty constructor
@@ -72,5 +73,13 @@ public abstract class User{
 		return "username=" + username + ", "
 				+ "curMeetingID=" 
 				+ curMeeting.getMeetingID();
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 }

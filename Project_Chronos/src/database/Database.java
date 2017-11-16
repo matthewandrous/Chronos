@@ -174,29 +174,58 @@ public class Database{
 		//TODO
 		
 
-		int userId = av.[0][0].getUserId();
-		int meetingId = av.[0][0].getMeetingId();
-		String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", table, userId);
-		
-		try {
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.execute();
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
+		//int userId = av[0][0].getUserId();
+		int meetingId = av[0][0].getMeetingId();
+
 		for (int i = 0; i < av.length; i++) {
 			for (int j = 0; j < av[0].length; j++) {
 				Availability a = av[i][j];
-				String queryInsert = String.format("INSERT INTO %s (meetingID, userID, startTime, day, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, userId, a.getStartTime(), a.getDay(), a.getAvailable());
-				try {
-					PreparedStatement ps = conn.prepareStatement(query);
-					ps.execute();
+				
+				for (User u : a.getAvailableUsers()) {
+					
+					String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", table, u.getUserId());
+					
+					try {
+						PreparedStatement ps = conn.prepareStatement(query);
+						ps.execute();
+					}
+					catch(SQLException e) {
+						e.printStackTrace();
+					}
+					
+					String queryInsert = String.format("INSERT INTO %s (meetingID, userID, startTime, day, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, u.getUserId(), a.getStartTime(), a.getDay(), 1);
+					try {
+						PreparedStatement ps = conn.prepareStatement(query);
+						ps.execute();
+					}
+					catch(SQLException e) {
+						e.printStackTrace();
+						return false;
+					}
 				}
-				catch(SQLException e) {
-					e.printStackTrace();
-					return false;
+				for (User u : a.getUnavailableUsers()) {
+					
+					String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", table, u.getUserId());
+					
+					try {
+						PreparedStatement ps = conn.prepareStatement(query);
+						ps.execute();
+					}
+					catch(SQLException e) {
+						e.printStackTrace();
+					}
+					
+					String queryInsert = String.format("INSERT INTO %s (meetingID, userID, startTime, day, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, u.getUserId(), a.getStartTime(), a.getDay(), 0);
+					try {
+						PreparedStatement ps = conn.prepareStatement(query);
+						ps.execute();
+					}
+					catch(SQLException e) {
+						e.printStackTrace();
+						return false;
+					}
 				}
+				
 			}
 		}
 		

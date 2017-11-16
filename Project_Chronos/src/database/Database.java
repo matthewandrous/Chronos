@@ -97,7 +97,7 @@ public class Database{
 		 * Returns hostId if inputed password matches given username's password
 		 * Returns -1 on password not match, -2 on anything else
 		 */
-		String query = String.format("SELECT hostId, password FROM %s WHERE username='%s'", table, username);
+		String query = String.format("SELECT hostId, hostPassword FROM %s WHERE username='%s'", table, username);
 		String hostPassword = "";
 		int hostId = -1;
 		try {
@@ -121,6 +121,9 @@ public class Database{
 	}
 	
 	public Host getHost(int hostId) {
+		/*
+		 * Gets host object given hostID
+		 */
 		String query = String.format("SELECT username, hostPassword, email FROM %s WHERE hostId=%d", table, hostId);
 		String username = "";
 		String hostPassword = "";
@@ -134,6 +137,7 @@ public class Database{
 				email = rs.getString("email");
 			}	
 			Host h = new Host(username, hostPassword, email);
+			h.setUserId(hostId);
 			return h;
 		}
 		catch(SQLException e) {
@@ -144,6 +148,10 @@ public class Database{
 	}
 	
 	public Meeting getMeeting(int meetingId) {
+		/*
+		 * Returns meeting given meeting id
+		 * 
+		 */
 		String query = String.format("SELECT * FROM MeetingInfo WHERE meetingID=%d", table, meetingId);
 		int numUsers = -1;
 		int hostId = -1;
@@ -163,6 +171,7 @@ public class Database{
 				numHoursPerDay = rs.getInt("numHoursPerDay");
 			}
 			Meeting m = new Meeting(numHoursPerDay, numDays, numUsers);
+			m.setMeetingID(meetingId);
 			m.setHost(getHost(hostId));
 			return m;
 		}
@@ -173,7 +182,10 @@ public class Database{
 	}
 	
 	public boolean setAvailabilities(Availability[][] av) {
-		//TODO
+		/*
+		 * Given array of availabilities, creates many sql entries that stores user available time periods as booleans in table
+		 * Message me on slack if you want me to explain it
+		 */
 		
 
 		//int userId = av[0][0].getUserId();
@@ -235,6 +247,11 @@ public class Database{
 	}
 	
 	public String getMeetingAvailabilities(int meetingId) {
+		/*
+		 * 
+		 * Sends output string to frontend for number of users available / unavailable at that time
+		 * 
+		 */
 		
 		Meeting currMeeting = getMeeting(meetingId);
 		if (currMeeting == null) {

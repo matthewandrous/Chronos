@@ -31,7 +31,8 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         
         // what should the port be here????
-        Database db = new Database("HostInfo", "localhost", 6789);
+        //Port 3306
+        Database db = new Database("HostInfo", "localhost", 3306);
         try {
 			db.getConnection();
 		} catch (SQLException e) {

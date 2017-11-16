@@ -50,6 +50,27 @@ public class Database{
 		 * Adds a new host to sql table given username, password, and email.
 		 * Returns true on successful insert
 		 */
+		
+		String checkQ = String.format("SELECT username FROM %s WHERE username='%s'", table, username);
+		
+		boolean hostExists = true;
+		try {
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(checkQ);
+			while (rs.next()) {
+				
+				hostExists = false;
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		if (hostExists) {
+			return false;
+		}
+		
 		String query = String.format("INSERT INTO %s (username, hostPassword, email) VALUES (?, ?, ?)", table);
 		
 		try {

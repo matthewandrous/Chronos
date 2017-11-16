@@ -29,10 +29,11 @@ public class Register extends HttpServlet {
 	        String password = request.getParameter("password");
 	        
 	        // what should the port be here????
-	        Database db = new Database("HostInfo", "localhost", 6789);
+	        Database db = new Database("HostInfo", "localhost", 3306);
 	        try {
 				db.getConnection();
 				// what if the username/email already exists?
+				//good point, added check for that in addHost
 				db.addHost(username, password, email);
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());

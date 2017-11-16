@@ -18,7 +18,7 @@ create table MeetingInfo (
 create table UserInfo (
 	userID int(11) primary key auto_increment,
     username varchar(20) not null,
-    password varchar(20) not null,
+    hostPassword varchar(20) not null,
     email varchar(20) not null
     
 );

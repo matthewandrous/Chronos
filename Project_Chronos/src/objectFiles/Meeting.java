@@ -19,7 +19,7 @@ public class Meeting {
 	private int numHoursPerDay;
 	// col: numDays, row: numHoursPerDay, ASSUME every cell is one hour long
 	private Availability[][] timetable;
-	private ArrayList<User> usersAnswered;
+	private ArrayList<User> usersAnswered;//how do we store this in sql table??
 	
 	/**
 	 * Constructor

@@ -2,7 +2,9 @@ package database;
 
 import java.sql.*;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import objectFiles.Availability;
 import objectFiles.Host;
@@ -15,6 +17,9 @@ public class Database{
 	private String table = "";
 	private String server = "";
 	private int port = -1;
+	
+	//TODO
+	//Add adduser function
 	
 	
 	public Database(String table, String server, int port){
@@ -124,7 +129,7 @@ public class Database{
 		/*
 		 * Gets host object given hostID
 		 */
-		String query = String.format("SELECT username, hostPassword, email FROM %s WHERE userId=%d", table, hostId);
+		String query = String.format("SELECT username, hostPassword, email FROM %s WHERE userId=%d", "UserInfo", hostId);
 		String username = "";
 		String hostPassword = "";
 		String email = "";
@@ -178,9 +183,10 @@ public class Database{
 		 * Returns meeting given meeting id
 		 * 
 		 */
-		String query = String.format("SELECT * FROM MeetingInfo WHERE meetingID=%d", table, meetingId);
+		String query = String.format("SELECT * FROM MeetingInfo WHERE meetingID=%d", meetingId);
 		int numUsers = -1;
 		int hostId = -1;
+		String meetingName = "";
 		// number of day options ( = num cols of timetable)
 		int numDays = 0;
 		// number of meeting options per day ( = num rows of timetable)
@@ -195,9 +201,11 @@ public class Database{
 				hostId = rs.getInt("hostID");
 				numDays = rs.getInt("numDays");
 				numHoursPerDay = rs.getInt("numHoursPerDay");
+				meetingName = rs.getString("meetingName");
 			}
 			Meeting m = new Meeting(numHoursPerDay, numDays, numUsers);
 			m.setMeetingID(meetingId);
+			m.setMeetingName(meetingName);
 			m.setHost(getHost(hostId));
 			return m;
 		}
@@ -208,8 +216,12 @@ public class Database{
 	}
 	
 	public boolean addMeeting(String meetingName, int numUsers, int numDays, int numHoursPerDay, int hostId, Date startDate, int startTime) {
+		
+		SimpleDateFormat sdp = new SimpleDateFormat("yyyy-MM-dd");
+		//StringBuffer sb = new StringBuffer();
+		String s = sdp.format(startDate);
 
-		String query = String.format("INSERT INTO %s (meetingName, hostID, startDate, startTime, numUsers, numDays, numHoursPerDay) VALUES (%s, %d, %d, %d, %d, %d)", table, meetingName, hostId, startDate.getTime(), startTime, numDays, numHoursPerDay);
+		String query = String.format("INSERT INTO %s (meetingName, hostID, startDate, startTime, numUsers, numDays, numHoursPerDay) VALUES (\"%s\", %d, \"%s\", %d, %d, %d, %d)", table, meetingName, hostId, s, startTime, numDays, numUsers, numHoursPerDay);
 		
 		try {
 			PreparedStatement st = conn.prepareStatement(query);
@@ -220,6 +232,10 @@ public class Database{
 				return false;
 		}
 		catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -241,9 +257,11 @@ public class Database{
 			for (int j = 0; j < av[0].length; j++) {
 				Availability a = av[i][j];
 				
+				System.out.println("Test");
+				
 				for (User u : a.getAvailableUsers()) {
 					
-					String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", table, u.getUserId());
+					String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", u.getUserId());
 					
 					try {
 						PreparedStatement ps = conn.prepareStatement(query);
@@ -265,7 +283,7 @@ public class Database{
 				}
 				for (User u : a.getUnavailableUsers()) {
 					
-					String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", table, u.getUserId());
+					String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d", u.getUserId());
 					
 					try {
 						PreparedStatement ps = conn.prepareStatement(query);

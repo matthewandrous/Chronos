@@ -1,15 +1,18 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.Database;
 import objectFiles.Meeting;
 import objectFiles.User;
 
@@ -28,15 +31,21 @@ public class Result extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
-	    Meeting mt = db.getMeeting(Integer.parseInt(meetingId));
+	    //Meeting mt = db.getMeeting(Integer.parseInt(meetingId));
+	    Meeting mt = new Meeting(3,4,5);
+	    Date d = new Date(2017, 0, 20);
+	    mt.setStartDate(d);
 	
 		request.setAttribute("noOfDays", mt.getNumDays());
 		Date date = mt.getStartDate();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		int day = cal.get(Calendar.DAY_OF_MONTH);
-		int month = cal.get(Calendar.MONTH);
-		int year = cal.get(Calendar.YEAR);
+//		Calendar cal = Calendar.getInstance();
+//		cal.setTime(date);
+//		int day = cal.get(Calendar.DAY_OF_MONTH);
+//		int month = cal.get(Calendar.MONTH);
+//		int year = cal.get(Calendar.YEAR);
+		int day = d.getDate();
+		int year = d.getYear();
+		int month = d.getMonth();
 		year = year % 2000;
 		request.setAttribute("startDay", day);
 		request.setAttribute("startMonth", month);
@@ -55,7 +64,7 @@ public class Result extends HttpServlet {
 		request.setAttribute("responsesSoFar", mt.getUsersAnsweredToString());
 		request.setAttribute("responseTimes", mt.getResponseTimes());
 		
-		 RequestDispatcher rs = request.getRequestDispatcher("result.jsp");
+		RequestDispatcher rs = request.getRequestDispatcher("results.jsp");
         rs.forward(request, response);
 	
 	}

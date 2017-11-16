@@ -21,9 +21,15 @@ public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Meeting mt = (Meeting) request.getAttribute("meeting");
-		User user = (User) request.getAttribute("user");
-		
+		String meetingId = (String) request.getAttribute("meetingId");
+		 Database db = new Database("MeetingInfo", "localhost", 3306);
+	        try {
+				db.getConnection();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+	    Meeting mt = db.getMeeting(Integer.parseInt(meetingId));
+	
 		request.setAttribute("noOfDays", mt.getNumDays());
 		Date date = mt.getStartDate();
 		Calendar cal = Calendar.getInstance();
@@ -48,9 +54,9 @@ public class Result extends HttpServlet {
 		request.setAttribute("noOfHours", mt.getNumHoursPerDay());
 		request.setAttribute("responsesSoFar", mt.getUsersAnsweredToString());
 		request.setAttribute("responseTimes", mt.getResponseTimes());
-
 		
-		
+		 RequestDispatcher rs = request.getRequestDispatcher("result.jsp");
+        rs.forward(request, response);
 	
 	}
 }

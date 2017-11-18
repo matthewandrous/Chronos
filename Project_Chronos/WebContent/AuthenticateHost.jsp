@@ -18,16 +18,21 @@
 		//execute update tells you how many rows were updated
 		//originally pointer in rs points to the space right before first row, can do next to go to another row
 		while (rs.next()) {
-			String mypassword = rs.getString("hostPassword");
+			
 			String myusername = rs.getString("username");
-			if (myusername == username) {
-				if (mypassword == password) {
-					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/HostHome.jsp");
-					dispatch.forward(request,response);
+			System.out.println("username: " + myusername);
+			String mypassword = rs.getString("hostPassword");
+			System.out.println("myPassword: " + mypassword);
+			if (myusername.equals(username)) {
+				if (mypassword.equals(password)) {
+					System.out.println("I am about good");
+					//RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/listOfMeetings.jsp");
+					//dispatch.forward(request,response);
 				}
 				else {
+					//request.getSession().setAttribute("erromsg", "The password does not match with the username");
 %>
-<font color="red"> You have entered an incorrect password. </font><br />
+ <font color="red"> You have entered an incorrect password. </font><br /> 
 <% 
 				}
 			}

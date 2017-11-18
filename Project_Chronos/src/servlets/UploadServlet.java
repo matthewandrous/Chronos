@@ -17,6 +17,7 @@ public class UploadServlet extends HttpServlet {
 
     public UploadServlet() {
         super();
+        //System.out.println("hi");
         // TODO Auto-generated constructor stub
     }
 

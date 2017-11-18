@@ -32,7 +32,7 @@ public class MakeAccount extends HttpServlet {
 	        
 	        // what should the port be here????
 	        //Port 3306
-	        Database db = new Database("HostInfo", "localhost", 3306);
+	        Database db = new Database("UserInfo", "localhost", 3306);
 	        try {
 				db.getConnection();
 			} catch (SQLException e) {

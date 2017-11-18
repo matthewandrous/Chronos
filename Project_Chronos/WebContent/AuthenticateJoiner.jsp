@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.io.IOException, java.sql.Connection, java.sql.DriverManager, java.sql.ResultSet, java.sql.SQLException, java.sql.Statement" %>
 <% 
-	String meetingID = request.getParameter("username");
+	String meetingID = request.getParameter("meetingID");
 	Connection conn = null;
 	Statement st = null;
 	ResultSet rs = null;
@@ -17,14 +17,14 @@
 		//originally pointer in rs points to the space right before first row, can do next to go to another row
 		while (rs.next()) {
 			String myMeeting = rs.getString("meetingID");
-			if (myMeeting == meetingID) {
-					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/selectTimes.jsp");
-					dispatch.forward(request,response);
+			if (myMeeting.equals(meetingID)) {
+					//RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/selectTimes.jsp");
+					//dispatch.forward(request,response);
 			}
 				else {
-					request.getSession().setAttribute("erromsg", "You have entered an incorrect meeting id. Please Try again");
+					
 %>
-<!-- <font color="red"> You have entered an incorrect meeting id. Please Try again. </font><br /> -->
+ <font color="red"> You have entered an incorrect meeting id. Please Try again. </font><br /> 
 <% 
 				}
 			}

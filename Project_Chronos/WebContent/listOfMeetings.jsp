@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <% String meetingIds = "1,4,62,6,8";//(String)request.getAttribute("meetingIds");
    meetingIds = "'" + meetingIds + "'";
-   String endpoint = "''";
+   String endpoint = "'Result'";
    String username = "gautam"; //(String)request.getAttribute("username");
    username = "'" + username + "'";%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

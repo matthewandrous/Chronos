@@ -9,11 +9,11 @@
 	ResultSet rs = null;
 	try { //reflection, dynamically load an object at runtime 
 		Class.forName("com.mysql.jdbc.Driver"); //at runtime instantiate this class
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/chronos?user=root&password=root&useSSL=false"); //can only load one database at a time and StudentGrades is the one we created
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/Chronos?user=root&password=root&useSSL=false"); //can only load one database at a time and StudentGrades is the one we created
 		st = conn.createStatement();
 		if (username != null && password.length() > 0) {
-			rs = st.executeQuery("Select* from HostInfo"); //select returns a table that is placed in resultSet
-		}
+			rs = st.executeQuery("Select* from UserInfo"); //select returns a table that is placed in resultSet
+		
 		
 		//execute update tells you how many rows were updated
 		//originally pointer in rs points to the space right before first row, can do next to go to another row
@@ -37,6 +37,12 @@
 				}
 			}
 
+		}
+	}
+		else {
+			%>
+			 <font color="red"> You must enter a username and a password. </font><br /> 
+			<% 
 		}
 		
 	} catch (SQLException sqle) {

@@ -27,7 +27,8 @@
 	</div>
 	<form name = "loginForm" method="POST" action="selectTimes.jsp" onsubmit="return validate();">
 		Meeting ID (This is the id of the meeting you wish to join): <input type="text" name="meetingID" /><br />
-		<input type="submit" name="submit" value=" login" />
+		Username: <input type="text" name="username"/><br />
+		<input type="submit" name="submit" value=" Join" />
 	</form>
 </body>
 </html>

@@ -18,12 +18,13 @@
 		while (rs.next()) {
 			String myMeeting = rs.getString("meetingID");
 			if (myMeeting == meetingID) {
-					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/JoinerHome.jsp");
+					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/selectTimes.jsp");
 					dispatch.forward(request,response);
 			}
 				else {
+					request.getSession().setAttribute("erromsg", "You have entered an incorrect meeting id. Please Try again");
 %>
-<font color="red"> You have entered an incorrect password. </font><br />
+<!-- <font color="red"> You have entered an incorrect meeting id. Please Try again. </font><br /> -->
 <% 
 				}
 			}

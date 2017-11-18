@@ -31,21 +31,16 @@ public class Result extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
-	    //Meeting mt = db.getMeeting(Integer.parseInt(meetingId));
-	    Meeting mt = new Meeting(3,4,5);
-	    Date d = new Date(2017, 0, 20);
-	    mt.setStartDate(d);
+	    Meeting mt = db.getMeeting(Integer.parseInt(meetingId));
+	    /*Meeting mt = new Meeting(3,4,5);
+	    Date date = new Date(117, 0, 20);
+	    mt.setStartDate(d);*/
 	
 		request.setAttribute("noOfDays", mt.getNumDays());
 		Date date = mt.getStartDate();
-//		Calendar cal = Calendar.getInstance();
-//		cal.setTime(date);
-//		int day = cal.get(Calendar.DAY_OF_MONTH);
-//		int month = cal.get(Calendar.MONTH);
-//		int year = cal.get(Calendar.YEAR);
-		int day = d.getDate();
-		int year = d.getYear();
-		int month = d.getMonth();
+		int day = date.getDate();
+		int year = date.getYear();
+		int month = date.getMonth();
 		year = year % 2000;
 		request.setAttribute("startDay", day);
 		request.setAttribute("startMonth", month);

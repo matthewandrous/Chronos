@@ -46,7 +46,7 @@ public class Result extends HttpServlet {
 		request.setAttribute("startMonth", month);
 		request.setAttribute("startYear", year);
 		int hour = mt.getStartTime();
-		if (hour >= 12) {
+		if (hour > 12) {
 			hour = hour % 12;
 			request.setAttribute("startHour", hour);
 			request.setAttribute("startTimeOfDay", "pm");

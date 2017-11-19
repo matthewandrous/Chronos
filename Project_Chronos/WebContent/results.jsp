@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% int noOfDays = 3;//(int)request.getAttribute("noOfDays");
-   int startDay = 12;//(int)request.getAttribute("startDay");
-   int startMonth = 11;//(int)request.getAttribute("startMonth");
-   int startYear = 17;//(int)request.getAttribute("startYear"); 
-   int startHour = 8;//(int)request.getAttribute("startHour");
+<% int noOfDays = 2;//(int)request.getAttribute("noOfDays");
+   int startDay = 10;//(int)request.getAttribute("startDay");
+   int startMonth = 2;//(int)request.getAttribute("startMonth");
+   int startYear = 2018;//(int)request.getAttribute("startYear"); 
+   int startHour = 10;//(int)request.getAttribute("startHour");
    String startTimeOfDay = "am";//(String)request.getAttribute("startTimeOfDay");
    int noOfHours = 3;//(int)request.getAttribute("noOfHours");
-   String responsesSoFar =  "Gautam,Byron,MuYao,PeiXuan,Matthew";//(String)request.getAttribute("responsesSoFar");
-   String responseTimes = "1,2,3,2,2,2,0,1,4";//(String)request.getAttribute("responseTimes"); %>
+   String responsesSoFar =  "muyao,peixuan";//(String)request.getAttribute("responsesSoFar");
+   String responseTimes = "1,2,1,1,0,2";//(String)request.getAttribute("responseTimes"); 
+   System.out.println(responseTimes);%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -99,13 +100,13 @@
 					return "Oct";
 				case 11:
 					return "Nov";
-				case 0:
+				case 12:
 					return "Dec";
 			}
 		}
 		var noOfDays = <%= noOfDays %>;
 		var startDate = new Date(<%= startYear %>, <%= startMonth-1 %>, <%= startDay %>);
-		for (var i = -1; i < noOfDays; i++) {
+		for (var i = 0; i < noOfDays; i++) {
 			var currDate = startDate.addDays(i);
 			
 			var th = document.createElement("th");
@@ -135,7 +136,7 @@
 			trMonth.classList.add("dateHeaders");
 			var tdMonth = document.createElement("td");
 			tdMonth.classList.add("dateHeaders");
-			var textMonth = document.createTextNode(convertMonthIntToString(currDate.getMonth()+1));
+			var textMonth = document.createTextNode(convertMonthIntToString(currDate.getMonth()));
 			tdMonth.appendChild(textMonth);
 			trMonth.appendChild(tdMonth);
 			
@@ -159,7 +160,8 @@
 						hourToOutput -= 12;
 						if (startTimeOfDay === "am") {
 							startTimeOfDay = "pm";
-						} else {
+						} 
+						else {
 							startTimeOfDay === "am";
 						}
 					}

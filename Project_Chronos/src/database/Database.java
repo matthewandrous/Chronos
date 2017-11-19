@@ -2,6 +2,8 @@ package database;
 
 import java.sql.*;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -107,19 +109,21 @@ public class Database{
 		String query = String.format("SELECT userID, hostPassword FROM %s WHERE username='%s'", table, username);
 		String hostPassword = "";
 		int hostId = -1;
+		boolean isHost = false;
 		try {
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
 				hostId = rs.getInt("userID");
 				hostPassword = rs.getString("hostPassword");
+				isHost = rs.getBoolean("isHost");
 			}
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 			return -2;
 		}
-		if (hostPassword.equals(password)) {
+		if (hostPassword.equals(password) && isHost) {
 			return hostId;
 		}
 		else {
@@ -206,7 +210,10 @@ public class Database{
 		String query = String.format("SELECT * FROM MeetingInfo WHERE meetingID=%d", meetingId);
 		int numUsers = -1;
 		int hostId = -1;
+		int startTime = 0;
+		String startDateString = "";
 		String meetingName = "";
+		Date d = null;
 		// number of day options ( = num cols of timetable)
 		int numDays = 0;
 		// number of meeting options per day ( = num rows of timetable)
@@ -222,11 +229,24 @@ public class Database{
 				numDays = rs.getInt("numDays");
 				numHoursPerDay = rs.getInt("numHoursPerDay");
 				meetingName = rs.getString("meetingName");
+				startTime = rs.getInt("startTime");
+				startDateString = rs.getString("startDate");
+				System.out.println(startDateString);
+				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
+				try {
+					d = (Date)formatter.parse(startDateString);
+					System.out.println(d.getDate() + " " + d.getMonth() + " " + d.getYear());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			Meeting m = new Meeting(numHoursPerDay, numDays, numUsers);
 			m.setMeetingID(meetingId);
 			m.setMeetingName(meetingName);
 			m.setHost(getHost(hostId));
+			m.setStartTime(startTime);
+			m.setStartDate(d);
 			return m;
 		}
 		catch(SQLException e) {
@@ -411,9 +431,15 @@ public class Database{
 				}
 			}
 			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < currMeeting.getNumHoursPerDay(); i++) {
+			/*for (int i = 0; i < currMeeting.getNumHoursPerDay(); i++) {
 				for (int j = 0; j < currMeeting.getNumDays(); j++) {
 					sb.append(availabilityCount[i][j]);
+					sb.append(",");
+				}
+			}*/
+			for (int i = 0; i < currMeeting.getNumDays(); i++) {
+				for (int j = 0; j < currMeeting.getNumHoursPerDay(); j++) {
+					sb.append(availabilityCount[j][i]);
 					sb.append(",");
 				}
 			}

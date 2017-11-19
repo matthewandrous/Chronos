@@ -32,9 +32,9 @@
 	<div id="formerror">
 		<!-- if there is an error we will have jsp send back an error -->
 	</div>
-	<form name = "myform" method="POST" action="listOfMeetings.jsp" onsubmit="return validate();">
+	<form name = "myform" method="POST" action="Login">
 		Username <input type="text" name ="username" /><br />
-		Password <input type="text" name="pw" /><br />
+		Password <input type="text" name="password" /><br />
 		<input type="submit" name="submit" value=" login" />
 	</form>
 	<p>If you do not have an account</p>

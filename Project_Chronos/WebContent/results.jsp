@@ -7,8 +7,9 @@
    int startHour = (int)request.getAttribute("startHour");
    String startTimeOfDay = (String)request.getAttribute("startTimeOfDay");
    int noOfHours = (int)request.getAttribute("noOfHours");
-   String responsesSoFar =  "Gautam,Byron,MuYao,PeiXuan,Matthew";//(String)request.getAttribute("responsesSoFar");
-   String responseTimes = "1,2,3,2,2,2,0,1,4";//(String)request.getAttribute("responseTimes"); %>
+   String responsesSoFar =  (String)request.getAttribute("responsesSoFar");
+   String responseTimes = (String)request.getAttribute("responseTimes"); 
+   System.out.println(responseTimes);%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -159,7 +160,8 @@
 						hourToOutput -= 12;
 						if (startTimeOfDay === "am") {
 							startTimeOfDay = "pm";
-						} else {
+						} 
+						else {
 							startTimeOfDay === "am";
 						}
 					}

@@ -61,6 +61,7 @@ public class Database{
 		 * Adds a new host to sql table given username, password, and email.
 		 * Returns true on successful insert
 		 */
+		boolean isHost = true;
 		
 		String checkQ = String.format("SELECT username FROM %s WHERE username='%s'", table, username);
 		
@@ -82,13 +83,14 @@ public class Database{
 			return false;
 		}
 		
-		String query = String.format("INSERT INTO %s (username, hostPassword, email) VALUES (?, ?, ?)", table);
+		String query = String.format("INSERT INTO %s (username, hostPassword, email, isHost) VALUES (?, ?, ?, ?)", table);
 		
 		try {
 			PreparedStatement st = conn.prepareStatement(query);
 			st.setString(1, username);
 			st.setString(2, password);
 			st.setString(3, email);
+			st.setBoolean(4, isHost);
 			int result = st.executeUpdate();
 			if (result > 0)
 				return true;
@@ -188,6 +190,10 @@ public class Database{
 			while (rs.next()) {
 				int meetingId = rs.getInt("meetingID");
 				sb.append(meetingId + ",");
+			}
+			
+			if(sb.length() == 0) {
+				return "";
 			}
 			sb.setLength(sb.length()-1);
 			return sb.toString();

@@ -61,7 +61,6 @@
 			    	 		alert("Invalid inputs");
 						    return;
 			    	  	} else {
-			    	  		alert("valid inputs");
 			    	  		window.location = 'SelectTimes?meetingID=' + response;
 			    	  		//request.getRequestDispatcher("selectTimes.jsp?hostId=" + response).forward(request, response);
 						    return;

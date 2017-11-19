@@ -31,6 +31,10 @@
 <body>
 	<div id="formerror">
 		<!-- if there is an error we will have jsp send back an error -->
+		<%String err = (String)request.getAttribute("erromsg");
+		if(err != null){%>
+			<font color="red"> <%=err %> </font><br /> 
+		<%}%>
 	</div>
 	<form name = "myform" method="POST" action="Login">
 		Username <input type="text" name ="username" /><br />

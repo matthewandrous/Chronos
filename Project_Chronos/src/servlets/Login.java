@@ -62,7 +62,7 @@ public class Login extends HttpServlet {
         else if (hostID == -1)
         {
         	// go back to the login page
-        	request.getSession().setAttribute("erromsg", "Username and password do not match");
+        	request.setAttribute("erromsg", "Username and password do not match. Please try again.");
         	RequestDispatcher rs = request.getRequestDispatcher("HostLogin.jsp");
         	rs.include(request, response);
         }

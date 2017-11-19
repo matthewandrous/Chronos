@@ -23,8 +23,6 @@ public class MakeAccount extends HttpServlet {
 	   // this servlet needs two parameters 
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
-	        response.setContentType("text/html;charset=UTF-8");
-	        
 	        
 	        String username = request.getParameter("username");
 	        String password = request.getParameter("password");
@@ -40,6 +38,9 @@ public class MakeAccount extends HttpServlet {
 			}
 	        try {
 				db.addHost(username, password, email);
+				int hostId = db.authenticateHost(username, password);
+				request.setAttribute("username", username);
+				request.setAttribute("hostId", hostId);
 				RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/listOfMeetings.jsp");
 				dispatch.forward(request,response);
 			} catch (SQLException e) {

@@ -48,6 +48,7 @@ public class DatabaseDriver {
 		}
 		
 		Meeting mtest = meetingDB.getMeeting(6);
+
 		m.setMeetingID(1);
 		
 		System.out.println(mtest.getMeetingName());
@@ -93,7 +94,8 @@ public class DatabaseDriver {
 		
 		
 		
-		meetingDB.addMeeting(m.getMeetingName(), m.getNumUsers(), m.getNumDays(), m.getNumHoursPerDay(), m.getHost().getUserId(), m.getStartDate(), m.getStartTime());
+		int meetingId = meetingDB.addMeeting(m.getMeetingName(), m.getNumUsers(), m.getNumDays(), m.getNumHoursPerDay(), m.getHost().getUserId(), m.getStartDate(), m.getStartTime());
+
 		
 		Database availDB = new Database("AvailabilityInfo", "localhost", 0);
 		try {
@@ -102,12 +104,15 @@ public class DatabaseDriver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		availDB.setAvailabilities(m.getTimetable(), 1);
 		
-		System.out.println(availDB.getMeetingAvailabilities(1));
+		String test = "1,1,1,0,1,0";
+		availDB.setAvailFromString(test, meetingId, 2);
+		//availDB.setAvailabilities(m.getTimetable(), 26);
+		
+		System.out.println(availDB.getMeetingAvailabilities(meetingId));
 		
 		
-		//Not tested: Get meeting, setavailabilities
+		
 		
 		
 		

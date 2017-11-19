@@ -29,7 +29,7 @@ public class UploadServlet extends HttpServlet {
 			dispatch.forward(request, response);
 		}
 		else {
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/UserLogin.jsp");
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/JoinerLogin.jsp");
 			dispatch.forward(request, response);
 		}
 	}

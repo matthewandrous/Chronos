@@ -32,29 +32,39 @@ public class Login extends HttpServlet {
         
         // what should the port be here????
         //Port 3306
-        Database db = new Database("HostInfo", "localhost", 3306);
+        Database db_user = new Database("UserInfo", "localhost", 3306);
         try {
-			db.getConnection();
+			db_user.getConnection();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
         
-        int hostID = db.authenticateHost(username, password);
+        int hostID = db_user.authenticateHost(username, password);
         if(hostID > 0)
         {
-        		Host host = db.getHost(hostID);
-        		request.getSession().setAttribute("hostName", username);
-        		// CHANGE the destination
-       System.out.println("I am redirecting");
+        	//Host host = db.getHost(hostID);
+        	request.setAttribute("username", username);
+        	System.out.println("Host id is " + hostID);
+        	Database db_meeting = new Database("MeetingInfo", "localhost", 3306);
+        	try {
+    			db_meeting.getConnection();
+    		} catch (SQLException e) {
+    			System.out.println(e.getMessage());
+    		}
+        	String meetingIds = db_meeting.getHostMeetings(hostID);
+        	System.out.println("MeetingIds are " + meetingIds);
+        	request.setAttribute("meetingIds", meetingIds);
+        	// CHANGE the destination
+        	System.out.println("I am redirecting");
             RequestDispatcher rs = request.getRequestDispatcher("listOfMeetings.jsp");
             rs.forward(request, response);
         }
         else if (hostID == -1)
         {
-           // go back to the login page
-        		request.getSession().setAttribute("erromsg", "The password does not match with the username");
-           RequestDispatcher rs = request.getRequestDispatcher("HostLogin.jsp");
-           rs.include(request, response);
+        	// go back to the login page
+        	request.setAttribute("erromsg", "Username and password do not match. Please try again.");
+        	RequestDispatcher rs = request.getRequestDispatcher("HostLogin.jsp");
+        	rs.include(request, response);
         }
     }  
 }

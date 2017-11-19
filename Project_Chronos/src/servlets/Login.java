@@ -24,14 +24,10 @@ public class Login extends HttpServlet {
    // this servlet needs two parameters 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        // what should the port be here????
-        //Port 3306
         Database db_user = new Database("UserInfo", "localhost", 3306);
         try {
 			db_user.getConnection();

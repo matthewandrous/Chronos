@@ -23,8 +23,6 @@ public class MakeAccount extends HttpServlet {
 	   // this servlet needs two parameters 
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
-	        response.setContentType("text/html;charset=UTF-8");
-	        
 	        
 	        String username = request.getParameter("username");
 	        String password = request.getParameter("password");

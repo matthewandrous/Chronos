@@ -15,7 +15,7 @@ import database.Database;
 import objectFiles.Host;
 
 /**
- * Servlet implementation class Register
+ * currently not in use
  */
 @WebServlet("/Register")
 public class Register extends HttpServlet {
@@ -28,7 +28,7 @@ public class Register extends HttpServlet {
 	        String email = request.getParameter("email");
 	        String password = request.getParameter("password");
 	        
-	        // what should the port be here????
+	 
 	        Database db = new Database("HostInfo", "localhost", 3306);
 	        try {
 				db.getConnection();

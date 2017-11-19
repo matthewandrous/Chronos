@@ -14,18 +14,18 @@
 		System.out.println(e.getMessage());
 	}
     
-    Meeting m = db_meeting.getMeeting(Integer.valueOf(meetingID));
+    /*Meeting m = db_meeting.getMeeting(Integer.valueOf(meetingID));
     if(m == null){
-    	%>
-    	 <font color="red"> You have entered an incorrect meeting id. Please Try again. </font><br /> 
-    	<% 
+    	System.out.println("m is null");
+    	
     }
     else{
+    	System.out.println("m is not null");
     	//TODO add user to userinfo
     }
-	
+	*/
 %><%	
-	/*try { //reflection, dynamically load an object at runtime 
+	try { //reflection, dynamically load an object at runtime 
 		Class.forName("com.mysql.jdbc.Driver"); //at runtime instantiate this class
 		conn = DriverManager.getConnection("jdbc:mysql://localhost/Chronos?user=root&password=root&useSSL=false"); //can only load one database at a time and StudentGrades is the one we created
 		st = conn.createStatement();
@@ -35,17 +35,25 @@
 		
 		//execute update tells you how many rows were updated
 		//originally pointer in rs points to the space right before first row, can do next to go to another row
+		boolean foundMeeting = false;
 		while (rs.next()) {
 			String myMeeting = rs.getString("meetingID");
 			if (myMeeting.equals(meetingID)) {
+				foundMeeting = true;
 					//RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/selectTimes.jsp");
 					//dispatch.forward(request,response);
 					//Statement st2 = conn.createStatement();
-					st.executeQuery("insert into GuestInfo(meetingID, username) values(" + meetingID + "," + username + ");");
+					//st.executeQuery("insert into GuestInfo(meetingID, username) values(" + meetingID + "," + username + ");");
+					
+					//TODO add user to userinfo
 			}
-				else {
-				}
+			
 			}
+		if(!foundMeeting){
+			%>
+	    	 <font color="red"> You have entered an invalid meeting id. Please Try again. </font><br /> 
+	    	<% 
+		}
 
 		
 		
@@ -68,4 +76,4 @@
 			System.out.println("sqle closing stuff");
 		}
 	}
-*/%>
+%>

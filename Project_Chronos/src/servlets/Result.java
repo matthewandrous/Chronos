@@ -23,28 +23,35 @@ public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String meetingId = (String) request.getAttribute("meetingId");
+		String meetingId = (String) request.getParameter("meetingId");
 		 Database db = new Database("MeetingInfo", "localhost", 3306);
 	        try {
 				db.getConnection();
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
+	        System.out.println(meetingId);
 	    Meeting mt = db.getMeeting(Integer.parseInt(meetingId));
+	    /*Meeting mt = new Meeting(3,4,5);
+	    Date date = new Date(117, 0, 20);
+	    mt.setStartDate(d);*/
 	
 		request.setAttribute("noOfDays", mt.getNumDays());
 		Date date = mt.getStartDate();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		int day = cal.get(Calendar.DAY_OF_MONTH);
-		int month = cal.get(Calendar.MONTH);
-		int year = cal.get(Calendar.YEAR);
+		int day = date.getDate();
+		int year = date.getYear();
+		int month = date.getMonth();
+		System.out.println(day + " " + month + " " + year);
 		year = year % 2000;
 		request.setAttribute("startDay", day);
-		request.setAttribute("startMonth", month);
-		request.setAttribute("startYear", year);
+		request.setAttribute("startMonth", month+1);
+		request.setAttribute("startYear", year+1900);
 		int hour = mt.getStartTime();
-		if (hour >= 12) {
+		if(hour == 12) {
+			request.setAttribute("startHour", hour);
+			request.setAttribute("startTimeOfDay", "pm");
+		}
+		else if (hour > 12) {
 			hour = hour % 12;
 			request.setAttribute("startHour", hour);
 			request.setAttribute("startTimeOfDay", "pm");
@@ -55,9 +62,9 @@ public class Result extends HttpServlet {
 		}
 		request.setAttribute("noOfHours", mt.getNumHoursPerDay());
 		request.setAttribute("responsesSoFar", mt.getUsersAnsweredToString());
-		request.setAttribute("responseTimes", mt.getResponseTimes());
+		request.setAttribute("responseTimes", db.getMeetingAvailabilities(Integer.parseInt(meetingId)));
 		
-		 RequestDispatcher rs = request.getRequestDispatcher("result.jsp");
+		RequestDispatcher rs = request.getRequestDispatcher("results.jsp");
         rs.forward(request, response);
 	
 	}

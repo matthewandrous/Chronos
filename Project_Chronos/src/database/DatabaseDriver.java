@@ -48,7 +48,8 @@ public class DatabaseDriver {
 		}
 		
 		Meeting mtest = meetingDB.getMeeting(6);
-		//m.setMeetingID(26);
+
+		m.setMeetingID(1);
 		
 		System.out.println(mtest.getMeetingName());
 		
@@ -94,6 +95,7 @@ public class DatabaseDriver {
 		
 		
 		int meetingId = meetingDB.addMeeting(m.getMeetingName(), m.getNumUsers(), m.getNumDays(), m.getNumHoursPerDay(), m.getHost().getUserId(), m.getStartDate(), m.getStartTime());
+
 		
 		Database availDB = new Database("AvailabilityInfo", "localhost", 0);
 		try {

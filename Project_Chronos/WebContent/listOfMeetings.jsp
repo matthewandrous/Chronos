@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String meetingIds = "1,4,62,6,8";//(String)request.getAttribute("meetingIds");
+<% String meetingIds = (String)request.getAttribute("meetingIds");
    meetingIds = "'" + meetingIds + "'";
-   String endpoint = "''";
-   String username = "gautam"; //(String)request.getAttribute("username");
-   username = "'" + username + "'";%>
+   String endpoint = "'Result'";
+   String username = (String)request.getAttribute("username");
+   username = "'" + username + "'";
+   int hostId = (int)request.getAttribute("hostId");
+   %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -37,6 +39,6 @@
 			aMeeting.appendChild(meetingDiv);
 			document.getElementById("meetingsDiv").appendChild(aMeeting);
 		}
-		document.getElementById("addNewMeetingButton").href = "newMeetingPage.jsp?username=" + <%= username %>; 
+		document.getElementById("addNewMeetingButton").href = "newMeetingPage.jsp?username=" + <%= username %> + "&hostId=" + <%= hostId %>; 
 	</script>
 </html>

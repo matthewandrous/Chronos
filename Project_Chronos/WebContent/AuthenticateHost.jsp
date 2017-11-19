@@ -9,29 +9,40 @@
 	ResultSet rs = null;
 	try { //reflection, dynamically load an object at runtime 
 		Class.forName("com.mysql.jdbc.Driver"); //at runtime instantiate this class
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/chronos?user=root&password=root&useSSL=false"); //can only load one database at a time and StudentGrades is the one we created
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/Chronos?user=root&password=root&useSSL=false"); //can only load one database at a time and StudentGrades is the one we created
 		st = conn.createStatement();
 		if (username != null && password.length() > 0) {
-			rs = st.executeQuery("Select* from HostInfo"); //select returns a table that is placed in resultSet
-		}
+			rs = st.executeQuery("Select* from UserInfo"); //select returns a table that is placed in resultSet
+		
 		
 		//execute update tells you how many rows were updated
 		//originally pointer in rs points to the space right before first row, can do next to go to another row
 		while (rs.next()) {
-			String mypassword = rs.getString("hostPassword");
+			
 			String myusername = rs.getString("username");
-			if (myusername == username) {
-				if (mypassword == password) {
-					RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/HostHome.jsp");
-					dispatch.forward(request,response);
+			System.out.println("username: " + myusername);
+			String mypassword = rs.getString("hostPassword");
+			System.out.println("myPassword: " + mypassword);
+			if (myusername.equals(username)) {
+				if (mypassword.equals(password)) {
+					System.out.println("I am about good");
+					//RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/listOfMeetings.jsp");
+					//dispatch.forward(request,response);
 				}
 				else {
+					//request.getSession().setAttribute("erromsg", "The password does not match with the username");
 %>
-<font color="red"> You have entered an incorrect password. </font><br />
+ <font color="red"> You have entered an incorrect password. </font><br /> 
 <% 
 				}
 			}
 
+		}
+	}
+		else {
+			%>
+			 <font color="red"> You must enter a username and a password. </font><br /> 
+			<% 
 		}
 		
 	} catch (SQLException sqle) {

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.Database;
 import objectFiles.Meeting;
-import objectFiles.User;
 
 /**
  * Servlet implementation class Result

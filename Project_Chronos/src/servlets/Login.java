@@ -45,14 +45,15 @@ public class Login extends HttpServlet {
         		Host host = db.getHost(hostID);
         		request.getSession().setAttribute("hostName", username);
         		// CHANGE the destination
-            RequestDispatcher rs = request.getRequestDispatcher("host.jsp");
+       System.out.println("I am redirecting");
+            RequestDispatcher rs = request.getRequestDispatcher("listOfMeetings.jsp");
             rs.forward(request, response);
         }
         else if (hostID == -1)
         {
            // go back to the login page
         		request.getSession().setAttribute("erromsg", "The password does not match with the username");
-           RequestDispatcher rs = request.getRequestDispatcher("login.html");
+           RequestDispatcher rs = request.getRequestDispatcher("HostLogin.jsp");
            rs.include(request, response);
         }
     }  

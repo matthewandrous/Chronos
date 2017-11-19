@@ -54,6 +54,11 @@ public class Database{
 		}
 	}
 	
+	public boolean addGuest() {
+		//TODO
+		return false;
+	}
+	
 	public boolean addHost(String username, String password, String email) throws SQLException{
 		/*
 		 * Adds a new host to sql table given username, password, and email.
@@ -80,13 +85,14 @@ public class Database{
 			return false;
 		}
 		
-		String query = String.format("INSERT INTO %s (username, hostPassword, email) VALUES (?, ?, ?)", table);
+		String query = String.format("INSERT INTO USERINFO (username, hostPassword, email, isHost) VALUES (?, ?, ?, ?)", table);
 		
 		try {
 			PreparedStatement st = conn.prepareStatement(query);
 			st.setString(1, username);
 			st.setString(2, password);
 			st.setString(3, email);
+			st.setBoolean(4, true);
 			int result = st.executeUpdate();
 			if (result > 0)
 				return true;
@@ -127,8 +133,8 @@ public class Database{
 		}
 	}
 	
-	public int getHostId(String username) {
-		String query = String.format("SELECT userID FROM %s WHERE username='%s'", table, username);
+	public int getUserId(String username) {
+		String query = String.format("SELECT userID FROM userINFO WHERE username='%s'", table, username);
 		int hostId = -1;
 		try {
 			Statement st = conn.createStatement();
@@ -235,7 +241,7 @@ public class Database{
 		}
 	}
 	
-	public boolean addMeeting(String meetingName, int numUsers, int numDays, int numHoursPerDay, int hostId, Date startDate, int startTime) {
+	public int addMeeting(String meetingName, int numUsers, int numDays, int numHoursPerDay, int hostId, Date startDate, int startTime) {
 		
 		SimpleDateFormat sdp = new SimpleDateFormat("yyyy-MM-dd");
 		String s = sdp.format(startDate);
@@ -245,18 +251,34 @@ public class Database{
 		try {
 			PreparedStatement st = conn.prepareStatement(query);
 			int result = st.executeUpdate();
-			if (result > 0)
-				return true;
-			else
-				return false;
+			
+			try {
+				String query2 = String.format("SELECT meetingID FROM %s WHERE meetingName='%s'", table, meetingName);
+				Statement stat = conn.createStatement();
+				ResultSet rs = stat.executeQuery(query2);
+				int meetingID = -1;
+				while (rs.next()) {
+					meetingID = rs.getInt("meetingID");
+				}
+				
+				if (result > 0)
+					return meetingID;
+				else
+					return -1;
+				
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+				return -1;
+			}
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-			return false;
+			return -1;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return -1;
 		}
 		
 		
@@ -269,9 +291,20 @@ public class Database{
 		Meeting m = getMeeting(meetingId);
 		int counter = 0;
 		
+		String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d AND meetingID=%d", userId, meetingId);
+		
+		try {
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
 		for (int i = 0; i < m.getNumHoursPerDay(); i++) {
 			for (int j = 0; j < m.getNumDays(); j++) {
-				String queryInsert = String.format("INSERT INTO %s (meetingID, userID, startTime, day, available) VALUES (%d, %d, %d, %d, %d)", table, meetingId, userId, i, j, list.get(counter++));
+				String queryInsert = String.format("INSERT INTO %s (meetingID, userID, rowIndex, colIndex, available) VALUES (%d, %d, %d, %d, %s)", table, meetingId, userId, i, j, list.get(counter++));
 				try {
 					PreparedStatement ps = conn.prepareStatement(queryInsert);
 					ps.execute();

@@ -62,7 +62,7 @@
 						    return;
 			    	  	} else {
 			    	  		alert("valid inputs");
-			    	  		window.location = 'selectTimes.jsp?hostId=' + response;
+			    	  		window.location = 'SelectTimes?meetingID=' + response;
 			    	  		//request.getRequestDispatcher("selectTimes.jsp?hostId=" + response).forward(request, response);
 						    return;
 			    	  	}

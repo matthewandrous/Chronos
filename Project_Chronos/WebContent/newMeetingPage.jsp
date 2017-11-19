@@ -68,7 +68,7 @@
 	</head>
 	<body>
 		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image">
-		<div id="outerContainer" class="w3-container w3-margin">
+		<div id="outerContainer" class="w3-container w3-margin w3-animate-opacity">
 			<form name="newMeeting">
 				<label>Meeting Name:</label><input name="meetingName" type="text" id="meetingName" class="w3-input w3-border w3-round" ><br>
 				<label>Start Date:</label><input name="startDate" type="date" id="startDate" class="w3-input w3-border w3-round"><br>

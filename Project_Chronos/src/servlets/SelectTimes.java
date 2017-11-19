@@ -17,14 +17,15 @@ import objectFiles.Meeting;
 /**
  * Servlet implementation class JoinMeeting
  */
-@WebServlet("/JoinMeeting")
-public class JoinMeeting extends HttpServlet {
+@WebServlet("/SelectTimes")
+public class SelectTimes extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         String meetingID = request.getParameter("meetingID");
+        String type = request.getParameter("type");
         
        
         Database db_mt = new Database("MeetingInfo", "localhost", 3306);
@@ -60,9 +61,9 @@ public class JoinMeeting extends HttpServlet {
 			request.setAttribute("startTimeOfDay", "am");
 		}
 		request.setAttribute("noOfHours", mt.getNumHoursPerDay());
-		request.setAttribute("type", "guest");
+		request.setAttribute("type", type);
 		
-		RequestDispatcher rs = request.getRequestDispatcher("SelectTimes");
+		RequestDispatcher rs = request.getRequestDispatcher("selectTimes.jsp");
        rs.forward(request, response);
 	
 

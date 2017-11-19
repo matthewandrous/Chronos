@@ -116,7 +116,6 @@ public class Database{
 			while (rs.next()) {
 				hostId = rs.getInt("userID");
 				hostPassword = rs.getString("hostPassword");
-				isHost = rs.getBoolean("isHost");
 			}
 		}
 		catch(SQLException e) {

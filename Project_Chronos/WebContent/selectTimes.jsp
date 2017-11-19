@@ -17,7 +17,7 @@
 		<link rel="stylesheet" type="text/css" href="selectTimes.css">
 	</head>
 	<body>
-	<p>This is selectTimes page</p>
+	<p>Please select when you're NOT available.</p>
 		<div id="tableContainer"></div>
 		<table id="dateTable"></table>
 		<input type="button" value="Submit" onclick="send()">	

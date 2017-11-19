@@ -1,12 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.io.IOException, java.sql.Connection, java.sql.DriverManager, java.sql.ResultSet, java.sql.SQLException, java.sql.Statement" %>
+    pageEncoding="UTF-8" import = "java.io.IOException, java.sql.Connection, java.sql.DriverManager, java.sql.ResultSet, java.sql.SQLException, java.sql.Statement, database.Database, objectFiles.*" %>
 <% 
 	String meetingID = request.getParameter("meetingID");
 	String username = request.getParameter("username");
 	Connection conn = null;
 	Statement st = null;
 	ResultSet rs = null;
-	try { //reflection, dynamically load an object at runtime 
+	
+	Database db_meeting = new Database("MeetingInfo", "localhost", 3306);
+	try {
+		db_meeting.getConnection();
+	} catch (SQLException e) {
+		System.out.println(e.getMessage());
+	}
+    
+    Meeting m = db_meeting.getMeeting(Integer.valueOf(meetingID));
+    if(m == null){
+    	%>
+    	 <font color="red"> You have entered an incorrect meeting id. Please Try again. </font><br /> 
+    	<% 
+    }
+    else{
+    	//TODO add user to userinfo
+    }
+	
+%><%	
+	/*try { //reflection, dynamically load an object at runtime 
 		Class.forName("com.mysql.jdbc.Driver"); //at runtime instantiate this class
 		conn = DriverManager.getConnection("jdbc:mysql://localhost/Chronos?user=root&password=root&useSSL=false"); //can only load one database at a time and StudentGrades is the one we created
 		st = conn.createStatement();
@@ -25,10 +44,6 @@
 					st.executeQuery("insert into GuestInfo(meetingID, username) values(" + meetingID + "," + username + ");");
 			}
 				else {
-					
-%>
- <font color="red"> You have entered an incorrect meeting id. Please Try again. </font><br /> 
-<% 
 				}
 			}
 
@@ -53,5 +68,4 @@
 			System.out.println("sqle closing stuff");
 		}
 	}
-
-%>
+*/%>

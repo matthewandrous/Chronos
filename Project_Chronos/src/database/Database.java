@@ -114,6 +114,7 @@ public class Database{
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
+				//TODO check whether the user is a host or not
 				hostId = rs.getInt("userID");
 				hostPassword = rs.getString("hostPassword");
 			}
@@ -122,7 +123,7 @@ public class Database{
 			e.printStackTrace();
 			return -2;
 		}
-		if (hostPassword.equals(password) && isHost) {
+		if (hostPassword.equals(password)) {
 			return hostId;
 		}
 		else {

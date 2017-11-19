@@ -262,9 +262,10 @@ public class Database{
 	}
 	
 	public boolean addMeeting(String meetingName, int numUsers, int numDays, int numHoursPerDay, int hostId, Date startDate, int startTime) {
-		
+		System.out.println(meetingName + " " + numUsers + " " + numDays + " " + hostId + " " + startDate + " " + startTime + " ");
 		SimpleDateFormat sdp = new SimpleDateFormat("yyyy-MM-dd");
 		String s = sdp.format(startDate);
+		System.out.println(s);
 
 		String query = String.format("INSERT INTO %s (meetingName, hostID, startDate, startTime, numUsers, numDays, numHoursPerDay) VALUES (\"%s\", %d, \"%s\", %d, %d, %d, %d)", table, meetingName, hostId, s, startTime, numUsers, numDays, numHoursPerDay);
 		

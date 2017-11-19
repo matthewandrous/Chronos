@@ -8,7 +8,7 @@
 	String startTimeOfDay = "am";//(String)request.getAttribute("startTimeOfDay");
 	int noOfHours = 8;//(int)request.getAttribute("noOfHours"); 
 	String endpoint = "''"; 
-	String meetingId = "'62'"; //(String)request.getAttribute("meetingId");%>
+	String meetingId = "'1'"; //(String)request.getAttribute("meetingId");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -17,6 +17,7 @@
 		<link rel="stylesheet" type="text/css" href="selectTimes.css">
 	</head>
 	<body>
+	<p>This is selectTimes page</p>
 		<div id="tableContainer"></div>
 		<table id="dateTable"></table>
 		<input type="button" value="Submit" onclick="send()">	

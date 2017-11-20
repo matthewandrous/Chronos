@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.Database;
-import objectFiles.Host;
 
 /**
  * Servlet implementation class MakeAccount
@@ -21,7 +20,8 @@ public class MakeAccount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	   // this servlet needs two parameters 
-	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	    @Override
+		protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
 	        
 	        String username = request.getParameter("username");

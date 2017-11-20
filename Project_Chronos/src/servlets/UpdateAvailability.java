@@ -18,13 +18,14 @@ import database.Database;
 @WebServlet("/UpdateAvailability")
 public class UpdateAvailability extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("In UpdateAvailability.java");
 		String meetingId = request.getParameter("meetingId");
 		meetingId = "1";
 		String freeTimes = request.getParameter("freeTimes");
-		freeTimes = "1,0,1,1,0,1";
+		//freeTimes = "1,0,1,1,0,1";
 		// TODO NEED USERID
 		String userId = request.getParameter("userId");
 		userId = "2";

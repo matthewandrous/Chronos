@@ -2,11 +2,9 @@ package database;
 
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 
 
-import objectFiles.Availability;
 import objectFiles.Guest;
 import objectFiles.Host;
 import objectFiles.Meeting;
@@ -20,7 +18,7 @@ public class DatabaseDriver {
 			db.addUser("byron", "root", "a@gmail.com", true); //testing add host WORKS
 			db.addUser("muyao", "root", "r@gmail.com", false); //testing add host WORKS
 			db.addUser("muyao", "root", "x@gmail.com", true); //should not work
-			db.addUser("gautam", "root5", "xt2@gmail.com", true); //should not work
+			db.addUser("gautam2", "root5", "xt2@gmail.com", true); //should work
 		} catch (SQLException e) {
 			System.out.println("test");
 			e.printStackTrace();
@@ -30,9 +28,11 @@ public class DatabaseDriver {
 		
 		Host h = db.getHost(2); //testing gethost WORKS
 		System.out.println(h.getEmail() + h.getUsername() + h.getPassword());
-		System.out.println(db.authenticateHost("byron", "root")); //should be 2 WORKS
-		System.out.println(db.authenticateHost("gautam", "mattsucks123")); //should be 2 WORKS
-		System.out.println(db.authenticateHost("byron", "root2")); //should be -1 WORKS
+//		System.out.println(db.authenticateHost("byron", "root")); //should be 2 WORKS
+//		System.out.println(db.authenticateHost("gautam", "mattsucks123")); //should be 2 WORKS
+//		System.out.println(db.authenticateHost("byron", "root2")); //should be -1 WORKS
+		System.out.println(db.authenticateHost("gautam2", "root5")); //should be -1 WORKS
+		System.out.println("test");
 		
 		Meeting m = new Meeting(3, 2, 3); //2 x 3 array with 3 users
 		Date d = new Date(); //today's date

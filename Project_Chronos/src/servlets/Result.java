@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -22,8 +21,9 @@ import objectFiles.Meeting;
 public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String meetingId = (String) request.getParameter("meetingId");
+		String meetingId = request.getParameter("meetingId");
 		 Database db = new Database("MeetingInfo", "localhost", 3306);
 	        try {
 				db.getConnection();

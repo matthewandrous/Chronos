@@ -23,6 +23,7 @@ public class UploadServlet extends HttpServlet {
     }
 
 	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userType= request.getParameter("userType");
 		if (userType.equals("Host")) {
@@ -35,6 +36,7 @@ public class UploadServlet extends HttpServlet {
 		}
 	}
 	
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userType = request.getParameter("userType");
 		if (userType.equals("Host")) {

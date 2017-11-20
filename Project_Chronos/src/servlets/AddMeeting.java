@@ -8,7 +8,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,6 +26,7 @@ public class AddMeeting extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		System.out.println("in servlet");
@@ -37,8 +37,8 @@ public class AddMeeting extends HttpServlet {
 		//TODO remove this
 		startTime = "9";
 		
-		int numDays = Integer.valueOf((String)request.getParameter("numDays"));
-		int numHoursPerDay = Integer.valueOf((String)request.getParameter("numHoursPerDay"));
+		int numDays = Integer.valueOf(request.getParameter("numDays"));
+		int numHoursPerDay = Integer.valueOf(request.getParameter("numHoursPerDay"));
 		
 		//TODO cannot get hostId from newMeetingPage.jsp
 		String hostIdString = (String)request.getAttribute("hostId");
@@ -54,7 +54,7 @@ public class AddMeeting extends HttpServlet {
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
 		Date startDate = new Date();
 		try {
-			startDate = (Date)formatter.parse(startDateString);
+			startDate = formatter.parse(startDateString);
 			System.out.println(startDate.getDate() + " " + startDate.getMonth() + " " + startDate.getYear());
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -66,7 +66,7 @@ public class AddMeeting extends HttpServlet {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}        
-        int meetingId = db_meeting.addMeeting(meetingName, noOfParticipants, numDays, numHoursPerDay, Integer.valueOf(hostIdString), startDate, (int)Integer.valueOf(startTime));
+        int meetingId = db_meeting.addMeeting(meetingName, noOfParticipants, numDays, numHoursPerDay, Integer.valueOf(hostIdString), startDate, Integer.valueOf(startTime));
 		System.out.println(meetingId);
 		if(meetingId != -1) {
 //			request.setAttribute("noOfDays", numDays);

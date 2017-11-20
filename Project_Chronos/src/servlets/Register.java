@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.Database;
-import objectFiles.Host;
 
 /**
  * currently not in use
@@ -21,7 +19,8 @@ import objectFiles.Host;
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	 protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	 @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
 	        
 	        String username = request.getParameter("username");

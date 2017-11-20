@@ -8,8 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
-
+import java.util.Set;
 
 import objectFiles.Availability;
 import objectFiles.Host;
@@ -166,13 +168,13 @@ public class Database{
 	public String getResponseNames(int meetingId) {
 		
 		String query = String.format("SELECT userID FROM AvailabilityInfo WHERE meetingID='%d'", meetingId);
-		ArrayList<Integer> userIdArray = new ArrayList<Integer>();
+		Set<Integer> userIdSet = new HashSet<Integer>();
 		
 		try {
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
-				userIdArray.add(rs.getInt("userID"));
+				userIdSet.add(rs.getInt("userID"));
 			}
 		}
 		catch(SQLException e) {
@@ -181,9 +183,10 @@ public class Database{
 		}
 		StringBuilder sb = new StringBuilder();
 		int counter = 0;
-		for (int i : userIdArray) {
+		Iterator it = userIdSet.iterator();
+		while (it.hasNext()) {
 			try {
-				String nameQuery = String.format("SELECT username FROM UserInfo WHERE UserID='%d'", userIdArray.get(counter++));
+				String nameQuery = String.format("SELECT username FROM UserInfo WHERE UserID='%d'", it.next());
 				Statement st = conn.createStatement();
 				ResultSet rs = st.executeQuery(nameQuery);
 				while (rs.next()) {
@@ -296,7 +299,7 @@ public class Database{
 				System.out.println(startDateString);
 				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
 				try {
-					d = (Date)formatter.parse(startDateString);
+					d = formatter.parse(startDateString);
 					System.out.println(d.getDate() + " " + d.getMonth() + " " + d.getYear());
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block

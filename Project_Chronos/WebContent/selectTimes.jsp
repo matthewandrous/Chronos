@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <% int noOfDays = (int)request.getAttribute("noOfDays");
 	int startDay = (int)request.getAttribute("startDay");
 	int startMonth = (int)request.getAttribute("startMonth");
@@ -11,7 +12,8 @@
 	String meetingId = (String)request.getAttribute("meetingId");
 	meetingId = "'" + meetingId + "'";
 	String type = (String)request.getAttribute("type");
-	type = "'" + type + "'"; %>
+	type = "'" + type + "'";
+	String username = (String)request.getAttribute("username");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -19,22 +21,52 @@
 		<title>Chronos</title>
 		<link rel="stylesheet" type="text/css" href="selectTimes.css">
 	</head>
-	<body>
+	<body onload="connectToServer()">
 	<p>Please select when you're available.</p>
 		<div id="tableContainer"></div>
 		<table id="dateTable"></table>
 		<input type="button" value="Submit" onclick="send()">	
 	</body>
 	<script>
+
+	var socket;
+	function connectToServer() {
+		socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws");
+		socket.onopen = function(event) {
+			document.getElementById("dummy").innerHTML += "Connected!";
+		}
+		socket.onmessage = function(event) {
+			document.getElementById("dummy").innerHTML += event.data + "<br />";
+		}
+		socket.onclose = function(event) {
+			document.getElementById("dummy").innerHTML += "Disconnected!";
+		}
+	}
 		Date.prototype.addDays = function(days) {
 			  var newDate = new Date(this.valueOf());
 			  newDate.setDate(newDate.getDate() + days);
 			  return newDate;
 		}
 		var selectedIndexes = [];
+		var toSend = "";
 		function send() {
+			for (var i = 0; i < noOfDays * noOfHours; i++) {
+				var one = false;
+				for (var j = 0; j < selectedIndexes.length; j++) {
+					if (selectedIndexes[j] === i.toString()) {
+						one = true;
+					}
+				}
+				if (one) {
+					toSend += "1";
+				} else {
+					toSend += "0";
+				}
+				toSend += ",";
+			}
+			socket.send("<%= username %>");
 	        var xhttp = new XMLHttpRequest();
-	        xhttp.open("GET", "UpdateAvailability" + "?meetingId=" + <%= meetingId %> + "&type=" + "guest" + "&userId=" + "" + "&freeTimes=" + selectedIndexes.join(","), false);
+	        xhttp.open("GET", <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&type=" + "guest" + "&userId=" + "" + "&freeTimes=" + toSend, false); 
 	        xhttp.send();
 	        window.location = 'GuestEnd.jsp';
 	        return;
@@ -140,12 +172,16 @@
 				if (j === 0) {
 					tdTime.className = "doNotClick";
 					var hourToOutput = startHour + k;
-					if (hourToOutput > 12) {
-						hourToOutput -= 12;
-						if (startTimeOfDay === "am") {
-							startTimeOfDay = "pm";
-						} else {
-							startTimeOfDay === "am";
+					if (hourToOutput >= 12) {
+						hourToOutput = hourToOutput % 12;
+						if (hourToOutput === 0) {
+							hourToOutput = 12;
+							if (startTimeOfDay === "am") {
+								startTimeOfDay = "pm";
+							} 
+							else {
+								startTimeOfDay = "am";
+							}
 						}
 					}
 					var tdText = document.createTextNode((hourToOutput).toString() + startTimeOfDay);
@@ -172,9 +208,6 @@
 					   if (index > -1) {
 					   	   selectedIndexes.splice(index, 1);
 					   }
-		    		   }
-		    		   for (var j = 0; j < selectedIndexes.length; j++) {
-		    			   console.log(selectedIndexes[j]);
 		    		   }
 		    		   this.className= this.className == "deselected" ? "selected" : "deselected";
 		    	   }

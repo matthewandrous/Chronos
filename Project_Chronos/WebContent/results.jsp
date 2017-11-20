@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% int noOfDays = 2;//(int)request.getAttribute("noOfDays");
-   int startDay = 10;//(int)request.getAttribute("startDay");
-   int startMonth = 2;//(int)request.getAttribute("startMonth");
-   int startYear = 2018;//(int)request.getAttribute("startYear"); 
-   int startHour = 10;//(int)request.getAttribute("startHour");
-   String startTimeOfDay = "am";//(String)request.getAttribute("startTimeOfDay");
-   int noOfHours = 25;//(int)request.getAttribute("noOfHours");
-   String responsesSoFar =  "muyao,peixuan";//(String)request.getAttribute("responsesSoFar");
-   String responseTimes = "1,2,1,1,0,2";//(String)request.getAttribute("responseTimes"); 
-   System.out.println(responseTimes);%>
+<% int noOfDays = (int)request.getAttribute("noOfDays");
+   int startDay = (int)request.getAttribute("startDay");
+   int startMonth = (int)request.getAttribute("startMonth");
+   int startYear = (int)request.getAttribute("startYear"); 
+   int startHour = (int)request.getAttribute("startHour");
+   String startTimeOfDay = (String)request.getAttribute("startTimeOfDay");
+   int noOfHours = (int)request.getAttribute("noOfHours");
+   String responsesSoFar =  (String)request.getAttribute("responsesSoFar");
+   String responseTimes = (String)request.getAttribute("responseTimes"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>

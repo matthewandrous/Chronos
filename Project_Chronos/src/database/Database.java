@@ -159,10 +159,38 @@ public class Database{
 		String query = String.format("SELECT userID FROM AvailabilityInfo WHERE meetingID='%d'", meetingId);
 		ArrayList<Integer> userIdArray = new ArrayList<Integer>();
 		
-	
+		try {
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				userIdArray.add(rs.getInt("userID"));
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		int counter = 0;
+		for (int i : userIdArray) {
+			try {
+				String nameQuery = String.format("SELECT username FROM UserInfo WHERE UserID='%d'", userIdArray.get(counter++));
+				Statement st = conn.createStatement();
+				ResultSet rs = st.executeQuery(nameQuery);
+				while (rs.next()) {
+					sb.append(rs.getString("username"));
+					sb.append(",");
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+				return "";
+			}
+		}
+		sb.setLength(sb.length() - 1);
 		
+		return sb.toString();
 		
-		return "";
 		
 		
 	}

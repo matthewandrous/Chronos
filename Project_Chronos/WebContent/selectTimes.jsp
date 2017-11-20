@@ -172,12 +172,16 @@
 				if (j === 0) {
 					tdTime.className = "doNotClick";
 					var hourToOutput = startHour + k;
-					if (hourToOutput > 12) {
-						hourToOutput -= 12;
-						if (startTimeOfDay === "am") {
-							startTimeOfDay = "pm";
-						} else {
-							startTimeOfDay === "am";
+					if (hourToOutput >= 12) {
+						hourToOutput = hourToOutput % 12;
+						if (hourToOutput === 0) {
+							hourToOutput = 12;
+							if (startTimeOfDay === "am") {
+								startTimeOfDay = "pm";
+							} 
+							else {
+								startTimeOfDay = "am";
+							}
 						}
 					}
 					var tdText = document.createTextNode((hourToOutput).toString() + startTimeOfDay);

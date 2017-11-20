@@ -33,13 +33,12 @@ public class AddMeeting extends HttpServlet {
 		String meetingName = request.getParameter("meetingName");
 		String startDateString = request.getParameter("startDate");
 		
-		//TODO pass in start time as a single integer please
 		String startTime = request.getParameter("startTime");
+		//TODO remove this
 		startTime = "9";
 		
-		//TODO comment this to eliminate hard coding
-		int numDays = 6; //request.getParameter("numDays");
-		int numHoursPerDay = 5; //request.getParameter("numHoursPerDay");
+		int numDays = Integer.valueOf((String)request.getParameter("numDays"));
+		int numHoursPerDay = Integer.valueOf((String)request.getParameter("numHoursPerDay"));
 		
 		//TODO cannot get hostId from newMeetingPage.jsp
 		String hostIdString = (String)request.getAttribute("hostId");
@@ -47,6 +46,9 @@ public class AddMeeting extends HttpServlet {
 			hostIdString = "1";
 			System.out.println("hostIdString is null");
 		}
+		
+		request.setAttribute("userId",hostIdString);
+		
 		int noOfParticipants = Integer.valueOf(request.getParameter("noOfParticipants"));
 		
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 

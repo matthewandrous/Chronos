@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Joing User Login</title>
+<title>Joining User Login</title>
 <script>
 	function validate(){
 		var xhttp = new XMLHttpRequest(); //AJAX call with synchronous ajax we dont need a callback
@@ -13,7 +13,7 @@
 		//open gets ready to send AJAX CALL
 		//the open parameters says send an AJAX call with username and password
 		xhttp.send();
-		if (xhttp.responseText.trim().length >0){
+		if (xhttp.responseText.trim().length > 0){
 			document.getElementById("formerror").innerHTML = xhttp.responseText;
 			return false;
 		}

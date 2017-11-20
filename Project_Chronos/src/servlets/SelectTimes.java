@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -16,27 +15,28 @@ import database.Database;
 import objectFiles.Meeting;
 
 /**
- * Servlet implementation class Result
+ * Servlet implementation class JoinMeeting
  */
-@WebServlet("/Result")
-public class Result extends HttpServlet {
+@WebServlet("/SelectTimes")
+public class SelectTimes extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String meetingId = (String) request.getParameter("meetingId");
-		 Database db = new Database("MeetingInfo", "localhost", 3306);
-	        try {
-				db.getConnection();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-	        System.out.println(meetingId);
-	    Meeting mt = db.getMeeting(Integer.parseInt(meetingId));
-	    /*Meeting mt = new Meeting(3,4,5);
-	    Date date = new Date(117, 0, 20);
-	    mt.setStartDate(d);*/
-	
-		request.setAttribute("noOfDays", mt.getNumDays());
+    protected void service(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String meetingID = request.getParameter("meetingId");
+        String type = request.getParameter("type");
+        
+       
+        Database db_mt = new Database("MeetingInfo", "localhost", 3306);
+        try {
+			db_mt.getConnection();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+        
+        Meeting mt  = db_mt.getMeeting(Integer.parseInt(meetingID));
+        request.setAttribute("noOfDays", mt.getNumDays());
 		Date date = mt.getStartDate();
 		int day = date.getDate();
 		int year = date.getYear();
@@ -61,11 +61,12 @@ public class Result extends HttpServlet {
 			request.setAttribute("startTimeOfDay", "am");
 		}
 		request.setAttribute("noOfHours", mt.getNumHoursPerDay());
-		request.setAttribute("responsesSoFar", mt.getUsersAnsweredToString());
-		request.setAttribute("responseTimes", db.getMeetingAvailabilities(Integer.parseInt(meetingId)));
+		request.setAttribute("type", type);
 		
-		RequestDispatcher rs = request.getRequestDispatcher("results.jsp");
-        rs.forward(request, response);
+		RequestDispatcher rs = request.getRequestDispatcher("selectTimes.jsp");
+       rs.forward(request, response);
 	
-	}
+
+    }  
+
 }

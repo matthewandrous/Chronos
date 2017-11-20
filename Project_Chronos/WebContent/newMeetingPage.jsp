@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String endpoint = ""; %>
+<% String endpoint = "'AddMeeting'"; %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -14,19 +14,18 @@
 				var meetingName = document.getElementById("meetingName").value;
 				var startDate = document.getElementById("startDate").value;
 				var startTime = document.getElementById("startTime").value;
+				var startTimeSplit = startTime.split(":");
+				var startHour = startTimeSplit[0];
 				var endDate = document.getElementById("endDate").value;
 				var endTime = document.getElementById("endTime").value;
+				var endTimeSplit = endTime.split(":");
+				var endHour = endTimeSplit[0];
 				var noOfParticipants = document.getElementById("noOfParticipants").value;
-				console.log("meetingName " + meetingName);
-				console.log("startDate " + startDate);
-				console.log("startTime " + startTime);
-				console.log("endDate " + endDate);
-				console.log("endTime " + endTime);
-				console.log("noOfParticipants " + noOfParticipants);
 				var startDateTime = new Date(startDate + " " + startTime);
 				var endDateTime = new Date(endDate + " " + endTime);
-				console.log(startDateTime);
-				console.log(endDateTime);
+				var timeDiff = Math.abs(endDateTime.getTime() - startDateTime.getTime());
+				var numDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+				var numHoursPerDay = endHour - startHour;
 				if (meetingName.length === 0) {
 					error = true;
 				}
@@ -62,13 +61,16 @@
 					return;
 				} else {
 			        var xhttp = new XMLHttpRequest();
-			        xhttp.open("GET", <%= endpoint %> + "?meetingName=" + meetingName + "&startDate=" + startDate + "&startTime=" + startTime + "&endDate=" + endDate + "&noOfParticipants=" + noOfParticipants, false);
+			        xhttp.open("GET", <%= endpoint %> + "?meetingName=" + meetingName + "&startDate=" + startDate + "&startTime=" + startTime + "&endDate=" + endDate + "&noOfParticipants=" + noOfParticipants + "&numDays=" + numDays + "&numHoursPerDay=" + numHoursPerDay, false);
 			        xhttp.send();
-			    	    if (xhttp.responseText.trim().toLowerCase() === "invalid") {
+			        var response = xhttp.responseText.trim().toLowerCase();
+			    	   if (response === "invalid") {
 			    	 		alert("Invalid inputs");
 						return;
-			    	  	} else if (xhttp.responseText.trim().toLowerCase() === "valid") {
-			    	  		request.getRequestDispatcher("inputTable.jsp").forward(request, response);
+			    	  	} else {
+			    	  		window.location.href = 'SelectTimes?meetingID=' + response;
+			    	  		//request.getRequestDispatcher("selectTimes.jsp?hostId=" + response).forward(request, response);
+						return;
 			    	  	}
 				}
 			}
@@ -76,8 +78,11 @@
 	</head>
 	<body>
 		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image">
-		<div id="outerContainer" class="w3-container w3-margin">
+		<div id="outerContainer" class="w3-container w3-margin w3-animate-opacity">
 			<form name="newMeeting">
+			<% String hostIdString = request.getParameter("hostId");
+			System.out.println(hostIdString);
+			request.setAttribute("hostId", hostIdString);%>
 				<label>Meeting Name:</label><input name="meetingName" type="text" id="meetingName" class="w3-input w3-border w3-round" ><br>
 				<label>Start Date:</label><input name="startDate" type="date" id="startDate" class="w3-input w3-border w3-round"><br>
 				<label>End Date:</label><input name="endDate" type="date" id="endDate" class="w3-input w3-border w3-round"><br>

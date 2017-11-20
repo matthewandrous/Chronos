@@ -17,26 +17,28 @@ create table MeetingInfo (
         
 create table UserInfo (
 	userID int(11) primary key auto_increment,
-    username varchar(20) not null,
-    password varchar(20) not null,
-    email varchar(20) not null
-    
+    username varchar(20),
+    hostPassword varchar(20),
+    email varchar(20),
+    isHost bool not null
 );
 
-
+/*
 create table GuestInfo(
 	guestID int(11) primary key auto_increment,
     meetingID int(11),
     foreign key fk1(meetingID) references MeetingInfo(meetingID)
 
-);
+);*/
 
 create table AvailabilityInfo(
-	meetingId int(11)  primary key,
-    userId int(11),
-    rowIndex int(11),
-    colIndex int(11),
-    available bool
+	meetingID int(11),
+	foreign key fk1(meetingID) references MeetingInfo(meetingID),
+    userId int(11) not null,
+    foreign key fk2(userID) references UserInfo(userID),
+    rowIndex int(11) not null,
+    colIndex int(11) not null,
+    available bool not null
 );
 
 

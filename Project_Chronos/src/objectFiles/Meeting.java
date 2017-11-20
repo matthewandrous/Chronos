@@ -8,6 +8,7 @@ import java.util.Date;
 
 public class Meeting {
 	//data members
+	private String meetingName;
 	private int startTime;
 	private Date startDate;
 	private int meetingID;
@@ -49,6 +50,10 @@ public class Meeting {
 	 */
 	public void setMeetingID(int meetingID) {
 		this.meetingID = meetingID;
+	}
+	
+	public void setStartDate(Date d) {
+		this.startDate = d;
 	}
 	
 
@@ -201,6 +206,9 @@ public class Meeting {
 	public int getStartTime() {
 		return startTime;
 	}
+	public void setStartTime(int startTime) {
+		this.startTime = startTime;
+	}
 	
 	public String getUsersAnsweredToString() {
 		String s = "";
@@ -271,6 +279,14 @@ public class Meeting {
 				+ "\n\ntimetable=" + timetableString 
 				+ "usersAnswered=" + usersAnsweredString
 				+ "]";
+	}
+
+	public String getMeetingName() {
+		return meetingName;
+	}
+
+	public void setMeetingName(String meetingName) {
+		this.meetingName = meetingName;
 	}
 
 }

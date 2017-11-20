@@ -15,7 +15,7 @@ import database.Database;
 import objectFiles.Host;
 
 /**
- * Servlet implementation class Register
+ * currently not in use
  */
 @WebServlet("/Register")
 public class Register extends HttpServlet {
@@ -28,13 +28,13 @@ public class Register extends HttpServlet {
 	        String email = request.getParameter("email");
 	        String password = request.getParameter("password");
 	        
-	        // what should the port be here????
+	 
 	        Database db = new Database("HostInfo", "localhost", 3306);
 	        try {
 				db.getConnection();
 				// what if the username/email already exists?
 				//good point, added check for that in addHost
-				db.addHost(username, password, email);
+				db.addUser(username, password, email, true);
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}

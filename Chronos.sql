@@ -1,5 +1,4 @@
-DROP DATABASE IF EXISTS Chronos;
-CREATE DATABASE Chronos;
+Use Chronos;
 
 USE Chronos;
 CREATE TABLE MeetingInfo (

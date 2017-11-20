@@ -13,7 +13,7 @@
 				var error = false;
 				var meetingName = document.getElementById("meetingName").value;
 				var startDate = document.getElementById("startDate").value;
-				var startTime = document.getElementById("startTime").value;
+				var startTime = "8";
 				var startTimeSplit = startTime.split(":");
 				var startHour = startTimeSplit[0];
 				var endDate = document.getElementById("endDate").value;
@@ -82,7 +82,8 @@
 			<form name="newMeeting">
 			<% String hostIdString = request.getParameter("hostId");
 			System.out.println(hostIdString);
-			request.setAttribute("hostId", hostIdString);%>
+			request.setAttribute("hostId", hostIdString);
+			request.setAttribute("userId", hostIdString);%>
 				<label>Meeting Name:</label><input name="meetingName" type="text" id="meetingName" class="w3-input w3-border w3-round" ><br>
 				<label>Start Date:</label><input name="startDate" type="date" id="startDate" class="w3-input w3-border w3-round"><br>
 				<label>End Date:</label><input name="endDate" type="date" id="endDate" class="w3-input w3-border w3-round"><br>

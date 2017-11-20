@@ -46,7 +46,7 @@ public class Database{
 		
 		try {
 		Class.forName(myDriver);
-		conn = DriverManager.getConnection(myUrl, "root", "root");
+		conn = DriverManager.getConnection(myUrl, "root", "112911");
 		System.out.println("Connected to SQL Database");
 		return true;
 		}

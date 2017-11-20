@@ -24,7 +24,7 @@ public class SelectTimes extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String meetingID = request.getParameter("meetingId");
+        String meetingID = request.getParameter("meetingID");
         String type = request.getParameter("type");
         
        
@@ -64,9 +64,7 @@ public class SelectTimes extends HttpServlet {
 		request.setAttribute("type", type);
 		
 		RequestDispatcher rs = request.getRequestDispatcher("selectTimes.jsp");
-       rs.forward(request, response);
-	
-
+        rs.forward(request, response);
     }  
 
 }

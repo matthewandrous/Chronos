@@ -21,15 +21,26 @@ public class UpdateAvailability extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-		String meetingId = request.getParameter("meetingId");
+		String meetingId = request.getParameter("meetingID");
 		String freeTimes = request.getParameter("freeTimes");
+		String userType = request.getParameter("userType");
 		// NEED USERID
 		String userId = request.getParameter("userId");
 		
-       Database db = new Database("AvailabilityInfo", "localhost", 3306);
-       db.setAvailFromString(freeTimes, Integer.parseInt(meetingId), Integer.parseInt(userId));
+		Database db = new Database("AvailabilityInfo", "localhost", 3306);
+		db.setAvailFromString(freeTimes, Integer.parseInt(meetingId), Integer.parseInt(userId));
+		
+		String next;
+		if (userType.equals("1")) {
+			// direct to host's result page
+			next = "";
+		}
+		else {
+			// direct to guest's result page
+			next = "";
+		}
       
-        RequestDispatcher rs = request.getRequestDispatcher("host.jsp");
+        RequestDispatcher rs = request.getRequestDispatcher(next);
         rs.forward(request, response);
       
     }  

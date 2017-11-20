@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
         	System.out.println("MeetingIds are " + meetingIds);
         	request.setAttribute("meetingIds", meetingIds);
         	request.setAttribute("hostId", hostID);
-        	request.setAttribute("userType", "1");
+        	request.setAttribute("type", "host");
         	// CHANGE the destination
         	System.out.println("I am redirecting");
             RequestDispatcher rs = request.getRequestDispatcher("listOfMeetings.jsp");

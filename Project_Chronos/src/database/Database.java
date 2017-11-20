@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+
 import objectFiles.Availability;
 import objectFiles.Host;
 import objectFiles.Meeting;
@@ -29,7 +30,8 @@ public class Database{
 	public Database(String table, String server, int port){
 		
 			this.table = table;
-			this.server = server;
+			//this.server = server;
+			this.server = "chronos.cerqtybkvakp.us-east-2.rds.amazonaws.com";
 			this.port = port;
 			
 	}
@@ -41,13 +43,13 @@ public class Database{
 		 * Returns true on successful connect
 		 */
 		String myDriver = "com.mysql.jdbc.Driver";
-		String myUrl = "jdbc:mysql://" + server + "/Chronos";
+		String myUrl = "jdbc:mysql://" + server + ":" + port + "/Chronos";
 		
 		//"?user=root&password=root&useSSL=false"
 		
 		try {
 		Class.forName(myDriver);
-		conn = DriverManager.getConnection(myUrl, "root", "root");
+		conn = DriverManager.getConnection(myUrl, "root", "rootpass");
 		System.out.println("Connected to SQL Database");
 		return true;
 		}
@@ -55,6 +57,11 @@ public class Database{
 			e.printStackTrace();
 			return false;
 		}
+		
+		
+		
+		
+		
 	}
 	
 	
@@ -85,7 +92,7 @@ public class Database{
 			return false;
 		}
 		
-		String query = String.format("INSERT INTO USERINFO (username, hostPassword, email, isHost) VALUES (?, ?, ?, ?)", table);
+		String query = String.format("INSERT INTO UserInfo (username, hostPassword, email, isHost) VALUES (?, ?, ?, ?)", table);
 
 		
 		try {

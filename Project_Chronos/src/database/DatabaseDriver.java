@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 import objectFiles.Availability;
 import objectFiles.Guest;
 import objectFiles.Host;
@@ -23,6 +24,8 @@ public class DatabaseDriver {
 			System.out.println("test");
 			e.printStackTrace();
 		}
+		
+		
 		
 		Host h = db.getHost(2); //testing gethost WORKS
 		System.out.println(h.getEmail() + h.getUsername() + h.getPassword());
@@ -46,70 +49,69 @@ public class DatabaseDriver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		Meeting mtest = meetingDB.getMeeting(6);
-
-		m.setMeetingID(1);
-		
-		System.out.println(mtest.getMeetingName());
-		
-		
-		/*
-		 *		2	0
-		 * 		1	3
-		 * 		0	1
-		 * 
-		 */
-		
-		Availability av = new Availability();
-		
-	
-		m.getTimetable()[0][1].getAvailableUsers().add(g);      
-		m.getTimetable()[0][1].getAvailableUsers().add(h);
-		m.getTimetable()[0][1].getAvailableUsers().add(g2);
-		
-		//ArrayList<User> temp = m.getTimetable()[0][1].getAvailableUsers();
-		
-		
-		
-		m.getTimetable()[0][0].getUnavailableUsers().add(g);
-		m.getTimetable()[0][0].getUnavailableUsers().add(h);
-		m.getTimetable()[0][0].getAvailableUsers().add(g2);
-		
-		m.getTimetable()[1][0].getAvailableUsers().add(g);
-		m.getTimetable()[1][0].getAvailableUsers().add(h);
-		m.getTimetable()[1][0].getUnavailableUsers().add(g2);
-		
-		m.getTimetable()[1][1].getUnavailableUsers().add(g);
-		m.getTimetable()[1][1].getUnavailableUsers().add(h);
-		m.getTimetable()[1][1].getUnavailableUsers().add(g2);
-		
-		m.getTimetable()[2][1].getUnavailableUsers().add(g);
-		m.getTimetable()[2][1].getAvailableUsers().add(h);
-		m.getTimetable()[2][1].getAvailableUsers().add(g2);
-		
-		m.getTimetable()[2][0].getAvailableUsers().add(g);
-		m.getTimetable()[2][0].getAvailableUsers().add(h);
-		m.getTimetable()[2][0].getAvailableUsers().add(g2);
-		
-		
-		
-		int meetingId = meetingDB.addMeeting(m.getMeetingName(), m.getNumUsers(), m.getNumDays(), m.getNumHoursPerDay(), m.getHost().getUserId(), m.getStartDate(), m.getStartTime());
-
-		
-		Database availDB = new Database("AvailabilityInfo", "localhost", 0);
-		try {
-			availDB.getConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		String test = "1,1,1,0,1,0";
-		availDB.setAvailFromString(test, meetingId, 2);
-		//availDB.setAvailabilities(m.getTimetable(), 26);
-		
-		System.out.println(availDB.getMeetingAvailabilities(meetingId));
+//		
+//		Meeting mtest = meetingDB.getMeeting(6);
+//
+//		m.setMeetingID(1);
+//		
+//		System.out.println(mtest.getMeetingName());
+//		
+//		
+//		/*
+//		 *		2	0
+//		 * 		1	3
+//		 * 		0	1
+//		 * 
+//		 */
+//		
+//		Availability av = new Availability();
+//		
+//	
+//		m.getTimetable()[0][1].getAvailableUsers().add(g);      
+//		m.getTimetable()[0][1].getAvailableUsers().add(h);
+//		m.getTimetable()[0][1].getAvailableUsers().add(g2);
+//		
+//	
+//		
+//		
+//		m.getTimetable()[0][0].getUnavailableUsers().add(g);
+//		m.getTimetable()[0][0].getUnavailableUsers().add(h);
+//		m.getTimetable()[0][0].getAvailableUsers().add(g2);
+//		
+//		m.getTimetable()[1][0].getAvailableUsers().add(g);
+//		m.getTimetable()[1][0].getAvailableUsers().add(h);
+//		m.getTimetable()[1][0].getUnavailableUsers().add(g2);
+//		
+//		m.getTimetable()[1][1].getUnavailableUsers().add(g);
+//		m.getTimetable()[1][1].getUnavailableUsers().add(h);
+//		m.getTimetable()[1][1].getUnavailableUsers().add(g2);
+//		
+//		m.getTimetable()[2][1].getUnavailableUsers().add(g);
+//		m.getTimetable()[2][1].getAvailableUsers().add(h);
+//		m.getTimetable()[2][1].getAvailableUsers().add(g2);
+//		
+//		m.getTimetable()[2][0].getAvailableUsers().add(g);
+//		m.getTimetable()[2][0].getAvailableUsers().add(h);
+//		m.getTimetable()[2][0].getAvailableUsers().add(g2);
+//		
+//		
+//		
+//		int meetingId = meetingDB.addMeeting(m.getMeetingName(), m.getNumUsers(), m.getNumDays(), m.getNumHoursPerDay(), m.getHost().getUserId(), m.getStartDate(), m.getStartTime());
+//
+//		
+//		Database availDB = new Database("AvailabilityInfo", "localhost", 0);
+//		try {
+//			availDB.getConnection();
+//		} catch (SQLException e) {
+//		
+//			e.printStackTrace();
+//		}
+//		
+//		String test = "1,1,1,0,1,0";
+//		availDB.setAvailFromString(test, meetingId, 2);
+//		availDB.setAvailabilities(m.getTimetable(), 26);
+//		
+//		System.out.println(availDB.getMeetingAvailabilities(meetingId));
 		
 		
 		

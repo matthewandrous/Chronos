@@ -10,11 +10,12 @@
 		<title>User Classification Page</title>
 	</head>
 	<body class="w3-container w3-margin w3-animate-opacity">
-		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image" style="width: 50%;">
+		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image" style="width: 50%; max-width:400px">
 		<p>I am...</p>
 		<form name= "json" action="UploadServlet" method="POST" >
-    			<input type="radio" name="userType" value="Host" checked="checked">Hosting a Meeting<br>
-    			<input type="radio" name="userType" value="Joiner">Joining a Meeting<br>
+    			<input type="radio" name="userType" value="Host" checked="checked"> Hosting a Meeting<br>
+    			<input type="radio" name="userType" value="Joiner"> Joining a Meeting<br>
+    			<br>
     			<input type="submit" value ="GO" class="w3-button w3-signal-red w3-round-large"/>
 		</form>
 		

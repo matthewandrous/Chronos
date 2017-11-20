@@ -24,11 +24,11 @@ public class SelectTimes extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String meetingID = request.getParameter("meetingId");
+        String meetingID = request.getParameter("meetingID");
         String type = request.getParameter("type");
+
         String username = request.getParameter("username");
         request.setAttribute("username", username);
-        
        
         Database db_mt = new Database("MeetingInfo", "localhost", 3306);
         try {
@@ -64,11 +64,10 @@ public class SelectTimes extends HttpServlet {
 		}
 		request.setAttribute("noOfHours", mt.getNumHoursPerDay());
 		request.setAttribute("type", type);
+		request.setAttribute("meetingID", meetingID);
 		
 		RequestDispatcher rs = request.getRequestDispatcher("selectTimes.jsp");
-       rs.forward(request, response);
-	
-
+        rs.forward(request, response);
     }  
 
 }

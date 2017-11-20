@@ -309,6 +309,7 @@ public class Database{
 		SimpleDateFormat sdp = new SimpleDateFormat("yyyy-MM-dd");
 		String s = sdp.format(startDate);
 		System.out.println(s);
+		System.out.println(meetingName + " " + numUsers + " " + numHoursPerDay+ " " + hostId+ " " + s+ " " +startTime);
 
 		String query = String.format("INSERT INTO %s (meetingName, hostID, startDate, startTime, numUsers, numDays, numHoursPerDay) VALUES (\"%s\", %d, \"%s\", %d, %d, %d, %d)", table, meetingName, hostId, s, startTime, numUsers, numDays, numHoursPerDay);
 		
@@ -421,7 +422,7 @@ public class Database{
 
 		for (int i = 0; i < av.length; i++) {
 			for (int j = 0; j < av[0].length; j++) {
-				Availability a = av[j][i];
+				Availability a = av[i][j];
 				
 				System.out.println("Test");
 				
@@ -514,9 +515,9 @@ public class Database{
 					sb.append(",");
 				}
 			}*/
-			for (int i = 0; i < currMeeting.getNumDays(); i++) {
-				for (int j = 0; j < currMeeting.getNumHoursPerDay(); j++) {
-					sb.append(availabilityCount[j][i]);
+			for (int i = 0; i < currMeeting.getNumHoursPerDay(); i++) {
+				for (int j = 0; j < currMeeting.getNumDays(); j++) {
+					sb.append(availabilityCount[i][j]);
 					sb.append(",");
 				}
 			}

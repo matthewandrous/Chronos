@@ -41,6 +41,7 @@ public class MakeAccount extends HttpServlet {
 				int hostId = db.authenticateHost(username, password);
 				request.setAttribute("username", username);
 				request.setAttribute("hostId", hostId);
+				request.setAttribute("type", "host");
 				RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/listOfMeetings.jsp");
 				dispatch.forward(request,response);
 			} catch (SQLException e) {

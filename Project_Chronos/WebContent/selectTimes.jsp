@@ -12,7 +12,8 @@
 	String meetingId = (String)request.getAttribute("meetingId");
 	meetingId = "'" + meetingId + "'";
 	String type = (String)request.getAttribute("type");
-	type = "'" + type + "'"; %>
+	type = "'" + type + "'";
+	String username = (String)request.getAttribute("username");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>

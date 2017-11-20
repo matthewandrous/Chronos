@@ -22,9 +22,9 @@ public class UpdateAvailability extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("In UpdateAvailability.java");
 		String meetingId = request.getParameter("meetingId");
-		meetingId = "2";
+		meetingId = "1";
 		String freeTimes = request.getParameter("freeTimes");
-		freeTimes = "1,0,1,1,0,1,0,1,1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0";
+		freeTimes = "1,0,1,1,0,1";
 		// TODO NEED USERID
 		String userId = request.getParameter("userId");
 		userId = "2";

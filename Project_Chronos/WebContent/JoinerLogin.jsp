@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Joing User Login</title>
+<title>Joining User Login</title>
 <script>
 	function validate(){
 		var xhttp = new XMLHttpRequest(); //AJAX call with synchronous ajax we dont need a callback

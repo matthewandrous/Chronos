@@ -18,15 +18,25 @@ import database.Database;
 @WebServlet("/UpdateAvailability")
 public class UpdateAvailability extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("In UpdateAvailability.java");
 		String meetingId = request.getParameter("meetingId");
+		meetingId = "2";
 		String freeTimes = request.getParameter("freeTimes");
+		freeTimes = "1,0,1,1,0,1,0,1,1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0";
 		// TODO NEED USERID
 		String userId = request.getParameter("userId");
+		userId = "2";
+		System.out.println(meetingId + " " + freeTimes + " " + userId);
 		
        Database db = new Database("AvailabilityInfo", "localhost", 3306);
+       try {
+		db.getConnection();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
        db.setAvailFromString(freeTimes, Integer.parseInt(meetingId), Integer.parseInt(userId));
       
        if(request.getParameter("type").equals("host")) {

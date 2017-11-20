@@ -329,8 +329,8 @@ public class Database{
 		}
 		
 		
-		for (int i = 0; i < m.getNumHoursPerDay(); i++) {
-			for (int j = 0; j < m.getNumDays(); j++) {
+		for (int i = 0; i < m.getNumDays(); i++) {
+			for (int j = 0; j < m.getNumHoursPerDay(); j++) {
 				String queryInsert = String.format("INSERT INTO %s (meetingID, userID, rowIndex, colIndex, available) VALUES (%d, %d, %d, %d, %s)", table, meetingId, userId, i, j, list.get(counter++));
 				try {
 					PreparedStatement ps = conn.prepareStatement(queryInsert);

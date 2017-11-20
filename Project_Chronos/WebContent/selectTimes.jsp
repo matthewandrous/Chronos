@@ -33,7 +33,7 @@
 		function send() {
 			console.log("hello");
 	        var xhttp = new XMLHttpRequest();
-	        xhttp.open("GET", <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&type=" + <%=type%> + "&userId=" + "" + "&freeTimes=" + selectedIndexes.join(","), false);
+	        xhttp.open("GET", "UpdateAvailability" + "?meetingId=" + <%= meetingId %> + "&type=" + "guest" + "&userId=" + "" + "&freeTimes=" + selectedIndexes.join(","), false);
 	        xhttp.send();
 	        window.location = 'GuestEnd.jsp';
 	        return;

@@ -13,7 +13,7 @@
 				var error = false;
 				var meetingName = document.getElementById("meetingName").value;
 				var startDate = document.getElementById("startDate").value;
-				var startTime = document.getElementById("startTime").value;
+				var startTime = "8";
 				var startTimeSplit = startTime.split(":");
 				var startHour = startTimeSplit[0];
 				var endDate = document.getElementById("endDate").value;

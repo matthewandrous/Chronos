@@ -32,7 +32,7 @@
 		function send() {
 			console.log("hello");
 	        var xhttp = new XMLHttpRequest();
-	        xhttp.open("GET", <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&userId" + "" + "&freeTimes=" + selectedIndexes.join(","), false);
+	        xhttp.open("GET", <%= endpoint %> + "?meetingID=" + <%= meetingId %> + "&userId" + "" + "&freeTimes=" + selectedIndexes.join(","), false);
 	        xhttp.send();
 		}
 		function convertDateIntToString(dateInt) {

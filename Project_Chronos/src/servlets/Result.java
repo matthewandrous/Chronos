@@ -61,7 +61,7 @@ public class Result extends HttpServlet {
 			request.setAttribute("startTimeOfDay", "am");
 		}
 		request.setAttribute("noOfHours", mt.getNumHoursPerDay());
-		request.setAttribute("responsesSoFar", db.getResponseNames(meetingId));
+		request.setAttribute("responsesSoFar", db.getResponseNames(Integer.parseInt(meetingId)));
 		request.setAttribute("responseTimes", db.getMeetingAvailabilities(Integer.parseInt(meetingId)));
 		
 		RequestDispatcher rs = request.getRequestDispatcher("results.jsp");

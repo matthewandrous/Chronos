@@ -8,13 +8,14 @@
    int hostId = (int)request.getAttribute("hostId");
    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<html >
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Chronos</title>
 		<link rel="stylesheet" type="text/css" href="listOfMeetings.css">
 	</head>
-	<body>
+	<body onload="connectToServer()">
 		<div id="outerContainer">
 			<div id="header">
 				<p>All meetings:</p>
@@ -23,9 +24,30 @@
 			</div>
 			<button><a id="addNewMeetingButton">Add New Meeting</a></button>
 		</div>
+		<button onclick="sendMessage()">Click me</button>
+		<div id = dummy >tests</div>
 	</body>
+	
 	<script>
-		var meetingIds = <%= meetingIds %>
+	var socket;
+	function connectToServer() {
+		socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws");
+		socket.onopen = function(event) {
+			document.getElementById("dummy").innerHTML += "Connected!";
+		}
+		socket.onmessage = function(event) {
+			document.getElementById("dummy").innerHTML += event.data + "<br />";
+		}
+		socket.onclose = function(event) {
+			document.getElementById("dummy").innerHTML += "Disconnected!";
+		}
+	}
+	function sendMessage() {
+		socket.send("a new response");
+		return false;
+	}
+	
+		<%-- var meetingIds = <%= meetingIds %>
 		var meetings = meetingIds.split(",");
 		for (i in meetings) {
 			var aMeeting = document.createElement("a");
@@ -39,6 +61,6 @@
 			aMeeting.appendChild(meetingDiv);
 			document.getElementById("meetingsDiv").appendChild(aMeeting);
 		}
-		document.getElementById("addNewMeetingButton").href = "newMeetingPage.jsp?username=" + <%= username %> + "&hostId=" + <%= hostId %>; 
+		document.getElementById("addNewMeetingButton").href = "newMeetingPage.jsp?username=" + <%= username %> + "&hostId=" + <%= hostId %>;  --%>
 	</script>
 </html>

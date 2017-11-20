@@ -9,11 +9,18 @@
 	String startTimeOfDay = (String)request.getAttribute("startTimeOfDay");
 	int noOfHours = (int)request.getAttribute("noOfHours"); 
 	String endpoint = "'UpdateAvailability'"; 
-	String meetingId = (String)request.getAttribute("meetingId");
+	String meetingId = (String)request.getAttribute("meetingID");
 	meetingId = "'" + meetingId + "'";
-	String type = (String)request.getAttribute("type");
+	String type = (String)request.getAttribute("userType");
 	type = "'" + type + "'";
-	String username = (String)request.getAttribute("username");%>
+	String username = (String)request.getAttribute("username");
+	username = "'" + username + "'";
+	/*String userId = (String)request.getAttribute("hostId");
+	if(userId == null){
+		userId = (String)request.getAttribute("guestId");
+	}
+	userId = "'" + userId + "'";*/
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -22,7 +29,7 @@
 		<link rel="stylesheet" type="text/css" href="selectTimes.css">
 	</head>
 	<body onload="connectToServer()">
-	<p>Please select when you're not available.</p>
+	<p>Please select when you're available.</p>
 		<div id="tableContainer"></div>
 		<table id="dateTable"></table>
 		<input type="button" value="Submit" onclick="send()">	
@@ -64,9 +71,9 @@
 				}
 				toSend += ",";
 			}
-			socket.send("<%= username %>");
+			socket.send("<%= username %>" + " just updated availability info");
 	        var xhttp = new XMLHttpRequest();
-	        xhttp.open("GET", <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&type=" + "guest" + "&userId=" + "" + "&freeTimes=" + toSend, false); 
+	        xhttp.open("GET", <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&username=" + <%=username%>+ "&freeTimes=" + toSend + "&userType=" + <%=type%>, false); 
 	        xhttp.send();
 	        window.location = 'GuestEnd.jsp';
 	        return;
@@ -165,7 +172,7 @@
 		var startTimeOfDay = "<%= startTimeOfDay %>";
 		var noOfHours = <%= noOfHours %>;
 		var indexOfCells = 0;
-		for (var k = 0; k < noOfHours + 1; k++) {
+		for (var k = 0; k < noOfHours; k++) {
 			var trTime = document.createElement("tr");
 			for (var j = 0; j < noOfDays + 1; j++) {
 				var tdTime = document.createElement("td");

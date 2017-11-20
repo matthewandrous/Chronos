@@ -29,22 +29,19 @@ public class AddMeeting extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-		System.out.println("in servlet");
+		System.out.println("In servlet AddMeeting.java");
 		String meetingName = request.getParameter("meetingName");
 		String startDateString = request.getParameter("startDate");
 		
 		String startTime = request.getParameter("startTime");
-		//TODO remove this
-		//startTime = "9";
 		
 		int numDays = Integer.valueOf(request.getParameter("numDays"));
 		int numHoursPerDay = Integer.valueOf(request.getParameter("numHoursPerDay"));
 		
-		//TODO cannot get hostId from newMeetingPage.jsp
-		String hostIdString = (String)request.getAttribute("hostId");
+		String hostIdString = (String)request.getParameter("hostId");
 		if(hostIdString == null) {
 			hostIdString = "1";
-			System.out.println("hostIdString is null");
+			System.out.println("hostIdString is null in AddMeeting.java");
 		}
 		
 		request.setAttribute("userId",hostIdString);
@@ -66,6 +63,7 @@ public class AddMeeting extends HttpServlet {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}        
+        System.out.println("Before add meeting: " + meetingName + " " + noOfParticipants + " " + numDays + " " + numHoursPerDay + " " + hostIdString + " " + startDate + " "+ startTime);
         int meetingId = db_meeting.addMeeting(meetingName, noOfParticipants, numDays, numHoursPerDay, Integer.valueOf(hostIdString), startDate, Integer.valueOf(startTime));
 		System.out.println(meetingId);
 		if(meetingId != -1) {

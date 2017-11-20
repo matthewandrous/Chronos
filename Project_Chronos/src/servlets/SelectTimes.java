@@ -26,10 +26,15 @@ public class SelectTimes extends HttpServlet {
             throws ServletException, IOException {
         
         String meetingID = request.getParameter("meetingID");
-        String type = request.getParameter("type");
+        request.setAttribute("meetingID", meetingID);
+        String type = request.getParameter("userType");
+        request.setAttribute("userType", type);
 
         String username = request.getParameter("username");
         request.setAttribute("username", username);
+        
+        String hostIdString = request.getParameter("hostId");
+        request.setAttribute("hostId", hostIdString);
        
         Database db_mt = new Database("MeetingInfo", "localhost", 3306);
         try {
@@ -47,7 +52,7 @@ public class SelectTimes extends HttpServlet {
 		System.out.println(day + " " + month + " " + year);
 		year = year % 2000;
 		request.setAttribute("startDay", day);
-		request.setAttribute("startMonth", month+1);
+		request.setAttribute("startMonth", month);
 		request.setAttribute("startYear", year+1900);
 		int hour = mt.getStartTime();
 		if(hour == 12) {
@@ -64,8 +69,7 @@ public class SelectTimes extends HttpServlet {
 			request.setAttribute("startTimeOfDay", "am");
 		}
 		request.setAttribute("noOfHours", mt.getNumHoursPerDay());
-		request.setAttribute("type", type);
-		request.setAttribute("meetingID", meetingID);
+		//request.setAttribute("type", type);
 		
 		RequestDispatcher rs = request.getRequestDispatcher("selectTimes.jsp");
         rs.forward(request, response);

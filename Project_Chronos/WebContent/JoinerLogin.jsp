@@ -10,7 +10,7 @@
 	<script>
 		function validate(){
 			var xhttp = new XMLHttpRequest(); //AJAX call with synchronous ajax we dont need a callback
-			xhttp.open("GET", "AuthenticateJoiner.jsp?meetingID=" + document.loginForm.meetingID.value, false);
+			xhttp.open("GET", "AuthenticateJoiner.jsp?meetingID=" + document.loginForm.meetingID.value + "&username=" + document.loginForm.username.value, false);
 			//submit button submits to action 
 			//open gets ready to send AJAX CALL
 			//the open parameters says send an AJAX call with username and password
@@ -29,7 +29,7 @@
 		<!-- if there is an error we will have jsp send back an error -->
 	</div>
 
-	<form name = "loginForm" method="POST" action="SelectTimes?type=0" onsubmit="return validate();">
+	<form name = "loginForm" method="POST" action="SelectTimes?userType=guest" onsubmit="return validate();">
 		Meeting ID (This is the id of the meeting you wish to join):
 		<br>
 		<input type="text" name="meetingID" /><br />

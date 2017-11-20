@@ -23,13 +23,23 @@ public class UpdateAvailability extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("In UpdateAvailability.java");
 		String meetingId = request.getParameter("meetingId");
-		meetingId = "1";
 		String freeTimes = request.getParameter("freeTimes");
+		String type = request.getParameter("userType");
+		String username = request.getParameter("username");
+		
 		//freeTimes = "1,0,1,1,0,1";
 		// TODO NEED USERID
-		String userId = request.getParameter("userId");
-		userId = "2";
-		System.out.println(meetingId + " " + freeTimes + " " + userId);
+		Database db_user = new Database("UserInfo", "localhost", 3306);
+		int userId = -1;
+		try {
+			db_user.getConnection();
+			userId = db_user.getUserId(username);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	    
+		
+		System.out.println("In UpdateAvailability.java " + meetingId + " " + freeTimes + " " + userId + " " + username + " " + type);
 		
        Database db = new Database("AvailabilityInfo", "localhost", 3306);
        try {
@@ -38,9 +48,9 @@ public class UpdateAvailability extends HttpServlet {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-       db.setAvailFromString(freeTimes, Integer.parseInt(meetingId), Integer.parseInt(userId));
+       db.setAvailFromString(freeTimes, Integer.parseInt(meetingId), userId);
       
-       if(request.getParameter("type").equals("host")) {
+       if(type.equals("host")) {
     	   //redirect to host list of meeting page??
     	   RequestDispatcher rs = request.getRequestDispatcher("GuestEnd.jsp");
            rs.forward(request, response);

@@ -39,6 +39,14 @@
 		while (rs.next()) {
 			String myMeeting = rs.getString("meetingID");
 			if (myMeeting.equals(meetingID)) {
+				Database db_user = new Database("UserInfo", "localhost", 3306);
+				try {
+					db_user.getConnection();
+					db_user.addUser(username, "", "", false);
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+			    
 				foundMeeting = true;
 					//RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/selectTimes.jsp");
 					//dispatch.forward(request,response);

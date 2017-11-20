@@ -32,9 +32,24 @@
 			  return newDate;
 		}
 		var selectedIndexes = [];
+		var toSend = "";
 		function send() {
+			for (var i = 0; i < noOfDays * noOfHours; i++) {
+				var one = false;
+				for (var j = 0; j < selectedIndexes.length; j++) {
+					if (selectedIndexes[j] === i.toString()) {
+						one = true;
+					}
+				}
+				if (one) {
+					toSend += "1";
+				} else {
+					toSend += "0";
+				}
+				toSend += ",";
+			}
 	        var xhttp = new XMLHttpRequest();
-	        xhttp.open("GET", "UpdateAvailability" + "?meetingId=" + <%= meetingId %> + "&type=" + "guest" + "&userId=" + "" + "&freeTimes=" + selectedIndexes.join(","), false);
+	        xhttp.open("GET", <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&type=" + "guest" + "&userId=" + "" + "&freeTimes=" + toSend, false); 
 	        xhttp.send();
 	        window.location = 'GuestEnd.jsp';
 	        return;
@@ -172,9 +187,6 @@
 					   if (index > -1) {
 					   	   selectedIndexes.splice(index, 1);
 					   }
-		    		   }
-		    		   for (var j = 0; j < selectedIndexes.length; j++) {
-		    			   console.log(selectedIndexes[j]);
 		    		   }
 		    		   this.className= this.className == "deselected" ? "selected" : "deselected";
 		    	   }

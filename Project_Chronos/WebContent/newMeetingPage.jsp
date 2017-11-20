@@ -61,7 +61,7 @@
 					return;
 				} else {
 			        var xhttp = new XMLHttpRequest();
-			        xhttp.open("GET", <%= endpoint %> + "?meetingName=" + meetingName + "&startDate=" + startDate + "&startTime=" + startTime + "&endDate=" + endDate + "&noOfParticipants=" + noOfParticipants + "&numDays=" + numDays + "&numHoursPerDay=" + numHoursPerDay, false);
+			        xhttp.open("GET", <%= endpoint %> + "?meetingName=" + meetingName + "&startDate=" + startDate + "&startTime=" + startHour + "&endDate=" + endDate + "&noOfParticipants=" + noOfParticipants + "&numDays=" + numDays + "&numHoursPerDay=" + numHoursPerDay, false);
 			        xhttp.send();
 			        var response = xhttp.responseText.trim().toLowerCase();
 			    	   if (response === "invalid") {

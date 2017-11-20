@@ -47,10 +47,10 @@
 		var selectedIndexes = [];
 		function send() {
 			socket.send("a new response" + "<br />");
-			console.log("hello");
+			<%-- console.log("hello");
 	        var xhttp = new XMLHttpRequest();
 	        xhttp.open("GET", <%= endpoint %> + "?meetingID=" + <%= meetingId %> + "&userId" + "" + "&freeTimes=" + selectedIndexes.join(","), false);
-	        xhttp.send();
+	        xhttp.send(); --%>
 		}
 		function convertDateIntToString(dateInt) {
 			switch (dateInt) {

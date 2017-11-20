@@ -1,6 +1,8 @@
-Use Chronos;
+DROP DATABASE IF EXISTS Chronos;
+CREATE DATABASE Chronos;
 
-create table MeetingInfo (
+USE Chronos;
+CREATE TABLE MeetingInfo (
 	-- the very first row will be classID 1 and each time I add a row classId will increment
 	meetingID int(11) primary key auto_increment, -- name f column followed by the type(number of characters)
 	meetingName varchar(20),

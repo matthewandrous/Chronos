@@ -14,7 +14,7 @@
 		<title>Chronos</title>
 		<link rel="stylesheet" type="text/css" href="listOfMeetings.css">
 	</head>
-	<body>
+	<body  onload="connectToServer()">
 		<div id="outerContainer">
 			<div id="header">
 				<p>All meetings:</p>
@@ -23,8 +23,22 @@
 			</div>
 			<button><a id="addNewMeetingButton">Add New Meeting</a></button>
 		</div>
+		<div id = notification></div>
 	</body>
 	<script>
+	var socket;
+	function connectToServer() {
+		socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws");
+		socket.onopen = function(event) {
+			document.getElementById("dummy").innerHTML += "Connected!";
+		}
+		socket.onmessage = function(event) {
+			document.getElementById("dummy").innerHTML += event.data + "<br />";
+		}
+		socket.onclose = function(event) {
+			document.getElementById("dummy").innerHTML += "Disconnected!";
+		}
+	}
 		var meetingIds = <%= meetingIds %>
 		var meetings = meetingIds.split(",");
 		for (i in meetings) {

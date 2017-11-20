@@ -8,7 +8,8 @@
 	String startTimeOfDay = (String)request.getAttribute("startTimeOfDay");
 	int noOfHours = (int)request.getAttribute("noOfHours"); 
 	String endpoint = "'UpdateAvailability'"; 
-	String meetingId = (String)request.getAttribute("meetingId");%>
+	String meetingId = (String)request.getAttribute("meetingId");
+	String type = (String)request.getAttribute("type");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -32,8 +33,10 @@
 		function send() {
 			console.log("hello");
 	        var xhttp = new XMLHttpRequest();
-	        xhttp.open("GET", <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&userId" + "" + "&freeTimes=" + selectedIndexes.join(","), false);
+	        xhttp.open("GET", <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&type=" + <%=type%> + "&userId=" + "" + "&freeTimes=" + selectedIndexes.join(","), false);
 	        xhttp.send();
+	        window.location = 'GuestEnd.jsp';
+	        return;
 		}
 		function convertDateIntToString(dateInt) {
 			switch (dateInt) {

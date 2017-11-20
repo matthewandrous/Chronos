@@ -271,6 +271,7 @@ public class Database{
 		SimpleDateFormat sdp = new SimpleDateFormat("yyyy-MM-dd");
 		String s = sdp.format(startDate);
 		System.out.println(s);
+		System.out.println(meetingName + " " + numUsers + " " + numHoursPerDay+ " " + hostId+ " " + s+ " " +startTime);
 
 		String query = String.format("INSERT INTO %s (meetingName, hostID, startDate, startTime, numUsers, numDays, numHoursPerDay) VALUES (\"%s\", %d, \"%s\", %d, %d, %d, %d)", table, meetingName, hostId, s, startTime, numUsers, numDays, numHoursPerDay);
 		

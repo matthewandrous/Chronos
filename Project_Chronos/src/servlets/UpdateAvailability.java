@@ -20,18 +20,24 @@ public class UpdateAvailability extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        System.out.println("In UpdateAvailability.java");
 		String meetingId = request.getParameter("meetingId");
 		String freeTimes = request.getParameter("freeTimes");
-		// NEED USERID
+		// TODO NEED USERID
 		String userId = request.getParameter("userId");
 		
        Database db = new Database("AvailabilityInfo", "localhost", 3306);
        db.setAvailFromString(freeTimes, Integer.parseInt(meetingId), Integer.parseInt(userId));
       
-        RequestDispatcher rs = request.getRequestDispatcher("host.jsp");
-        rs.forward(request, response);
-      
+       if(request.getParameter("type").equals("host")) {
+    	   //redirect to host list of meeting page??
+    	   RequestDispatcher rs = request.getRequestDispatcher("GuestEnd.jsp");
+           rs.forward(request, response);
+       }
+       else {
+    	   RequestDispatcher rs = request.getRequestDispatcher("GuestEnd.jsp");
+           rs.forward(request, response);
+       }
     }  
 
 }

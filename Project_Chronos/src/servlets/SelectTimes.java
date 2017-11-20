@@ -24,7 +24,7 @@ public class SelectTimes extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String meetingID = request.getParameter("meetingId");
+        String meetingID = request.getParameter("meetingID");
         String type = request.getParameter("type");
        
         Database db_mt = new Database("MeetingInfo", "localhost", 3306);

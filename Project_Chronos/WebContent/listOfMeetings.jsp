@@ -25,18 +25,19 @@
 		</div>
 		<div id = notification></div>
 	</body>
+	<div id=notification></div>
 	<script>
 	var socket;
 	function connectToServer() {
 		socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws");
 		socket.onopen = function(event) {
-			document.getElementById("dummy").innerHTML += "Connected!";
+			document.getElementById("notification").innerHTML += "Connected!";
 		}
 		socket.onmessage = function(event) {
-			document.getElementById("dummy").innerHTML += event.data + "<br />";
+			document.getElementById("notification").innerHTML += event.data + "<br />";
 		}
 		socket.onclose = function(event) {
-			document.getElementById("dummy").innerHTML += "Disconnected!";
+			document.getElementById("notification").innerHTML += "Disconnected!";
 		}
 	}
 		var meetingIds = <%= meetingIds %>

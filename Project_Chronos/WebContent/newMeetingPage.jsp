@@ -76,7 +76,7 @@ userType = "'" + userType + "'";%>
 			    	 		alert("Invalid inputs");
 						return;
 			    	  	} else {
-			    	  		window.location.href = 'SelectTimes?meetingID=' + response + '&hostId=' + <%=hostIdString%> + '&username=' + <%=username%> + '&userType=' + <%=userType%>;
+			    	  		window.location = 'SelectTimes?meetingID=' + response + '&hostId=' + <%=hostIdString%> + '&username=' + <%=username%> + '&userType=' + <%=userType%>;
 			    	  		//request.getRequestDispatcher("selectTimes.jsp?hostId=" + response).forward(request, response);
 						return;
 			    	  	}

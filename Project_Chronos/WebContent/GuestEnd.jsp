@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<p>Your response has been recorded!</p>
+<p>Thank you! Your response has been recorded!</p>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -50,14 +51,40 @@ public class UpdateAvailability extends HttpServlet {
 	}
        db.setAvailFromString(freeTimes, Integer.parseInt(meetingId), userId);
       
+		System.out.println(type + " in UpdateAvai" );
        if(type.equals("host")) {
-    	   //redirect to host list of meeting page??
-    	   RequestDispatcher rs = request.getRequestDispatcher("GuestEnd.jsp");
+    	   System.out.println("I am a host in UpdateAvai" );
+    	   Database db_meeting = new Database("MeetingInfo", "localhost", 3306);
+    	   String meetingIds = "";
+    	   String meetingNames = "";
+   		   try {
+   			   db_meeting.getConnection();
+   			   meetingIds = db_meeting.getHostMeetings(userId);
+   			   meetingNames = db_meeting.getHostMeetingNames(userId);
+   		   } catch (SQLException e) {
+   			   System.out.println(e.getMessage());
+   		   }
+   		   request.setAttribute("username", username);
+   		   request.setAttribute("meetingIds", meetingIds);
+   		   request.setAttribute("meetingNames", meetingNames);
+   		   request.setAttribute("hostId", userId);
+   		   request.setAttribute("userType", "host");
+   		   request.setAttribute("meetingId", meetingId);
+   		
+    	   RequestDispatcher rs = request.getRequestDispatcher("listOfMeetings.jsp");
            rs.forward(request, response);
+           
+//           PrintWriter out = response.getWriter();
+//           out.println("crazyhost");
+//           out.flush();
        }
        else {
+    	   System.out.println("I am a guest in UpdateAvai" );
     	   RequestDispatcher rs = request.getRequestDispatcher("GuestEnd.jsp");
            rs.forward(request, response);
+//    	   PrintWriter out = response.getWriter();
+//           out.println("guest");
+//           out.flush();
        }
     }  
 

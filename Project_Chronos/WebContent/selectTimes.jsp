@@ -29,7 +29,7 @@
 		<link rel="stylesheet" type="text/css" href="selectTimes.css">
 	</head>
 	<body onload="connectToServer()">
-	<p>Please select when you're available.</p>
+	<p>Please select when you're NOT available.</p>
 		<div id="tableContainer"></div>
 		<table id="dateTable"></table>
 		<input type="button" value="Submit" onclick="send()">	
@@ -72,10 +72,10 @@
 				toSend += ",";
 			}
 			socket.send("<%= username %>" + " just updated availability info");
-	        var xhttp = new XMLHttpRequest();
-	        xhttp.open("GET", <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&username=" + <%=username%>+ "&freeTimes=" + toSend + "&userType=" + <%=type%>, false); 
-	        xhttp.send();
-	        window.location = 'GuestEnd.jsp';
+	       // var xhttp = new XMLHttpRequest();
+	        //xhttp.send();
+	        //window.location = 'GuestEnd.jsp';
+	         document.location.href= <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&username=" + <%=username%>+ "&freeTimes=" + toSend + "&userType=" + <%=type%>; 
 	        return;
 		}
 		function convertDateIntToString(dateInt) {
@@ -98,36 +98,36 @@
 		}
 		function convertMonthIntToString(monthInt) {
 			switch (monthInt) {
-				case 1:
-					return "Jan";
-				case 2:
-					return "Feb";
-				case 3:
-					return "Mar";
-				case 4:
-					return "Apr";
-				case 5:
-					return "May";
-				case 6:
-					return "Jun";
-				case 7:
-					return "Jul";
-				case 8:
-					return "Aug";
-				case 9:
-					return "Sep";
-				case 10:
-					return "Oct";
-				case 11:
-					return "Nov";
 				case 0:
+					return "Jan";
+				case 1:
+					return "Feb";
+				case 2:
+					return "Mar";
+				case 3:
+					return "Apr";
+				case 4:
+					return "May";
+				case 5:
+					return "Jun";
+				case 6:
+					return "Jul";
+				case 7:
+					return "Aug";
+				case 8:
+					return "Sep";
+				case 9:
+					return "Oct";
+				case 10:
+					return "Nov";
+				case 11:
 					return "Dec";
 			}
 		}
 		var selectedBackgroundColour = "blue";
 		var unselectedBackgroundColour = "white";
 		var noOfDays = <%= noOfDays %>;
-		var startDate = new Date(<%= startYear %>, <%= startMonth-1 %>, <%= startDay %>);
+		var startDate = new Date(<%= startYear %>, <%= startMonth %>, <%= startDay %>);
 		for (var i = -1; i < noOfDays; i++) {
 			var currDate = startDate.addDays(i);
 			
@@ -158,7 +158,7 @@
 			trMonth.classList.add("dateHeaders");
 			var tdMonth = document.createElement("td");
 			tdMonth.classList.add("dateHeaders");
-			var textMonth = document.createTextNode(convertMonthIntToString(currDate.getMonth()+1));
+			var textMonth = document.createTextNode(convertMonthIntToString(currDate.getMonth()));
 			tdMonth.appendChild(textMonth);
 			trMonth.appendChild(tdMonth);
 			

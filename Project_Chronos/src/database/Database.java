@@ -148,7 +148,7 @@ public class Database{
 	}
 	
 	public int getUserId(String username) {
-		String query = String.format("SELECT userID FROM userINFO WHERE username='%s'", table, username);
+		String query = String.format("SELECT userID FROM UserInfo WHERE username='%s'", username);
 		int hostId = -1;
 		try {
 			Statement st = conn.createStatement();
@@ -249,6 +249,36 @@ public class Database{
 			while (rs.next()) {
 				int meetingId = rs.getInt("meetingID");
 				sb.append(meetingId + ",");
+			}
+			
+			if(sb.length() == 0) {
+				return "";
+			}
+			sb.setLength(sb.length()-1);
+			return sb.toString();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return "";
+		}
+		
+		
+		
+		
+	}
+	
+public String getHostMeetingNames(int hostId) {
+		
+		
+		String query = String.format("SELECT meetingName FROM %s WHERE hostID='%s'", table, hostId);
+		StringBuilder sb = new StringBuilder();
+		
+		try {
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				String meetingName = rs.getString("meetingName");
+				sb.append(meetingName + ",");
 			}
 			
 			if(sb.length() == 0) {

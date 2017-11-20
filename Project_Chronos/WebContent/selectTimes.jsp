@@ -31,7 +31,7 @@
 
 	var socket;
 	function connectToServer() {
-		socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws", "guest");
+		socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws");
 		socket.onopen = function(event) {
 			document.getElementById("dummy").innerHTML += "Connected!";
 		}
@@ -49,8 +49,7 @@
 		}
 		var selectedIndexes = [];
 		function send() {
-
-			socket.send("<%=username%>");
+			socket.send("<%= username %>");
 	        var xhttp = new XMLHttpRequest();
 	        xhttp.open("GET", "UpdateAvailability" + "?meetingId=" + <%= meetingId %> + "&type=" + "guest" + "&userId=" + "" + "&freeTimes=" + selectedIndexes.join(","), false);
 	        xhttp.send();

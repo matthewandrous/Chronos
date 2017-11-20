@@ -165,7 +165,7 @@
 		var startTimeOfDay = "<%= startTimeOfDay %>";
 		var noOfHours = <%= noOfHours %>;
 		var indexOfCells = 0;
-		for (var k = 0; k < noOfHours; k++) {
+		for (var k = 0; k < noOfHours + 1; k++) {
 			var trTime = document.createElement("tr");
 			for (var j = 0; j < noOfDays + 1; j++) {
 				var tdTime = document.createElement("td");

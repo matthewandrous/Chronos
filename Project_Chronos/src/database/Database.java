@@ -399,6 +399,55 @@ public class Database{
 		return false;
 		
 	}
+public boolean setAvailFromString(String bools, int meetingId, int userId, String username) {
+		
+		List<String> list = new ArrayList<String>(Arrays.asList(bools.split(",")));
+		
+		boolean userCreated = false;
+		try {
+			userCreated = addUser(username, "", "", false);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if (!userCreated) {
+			return false;
+		}
+		
+		int id = getUserId(username);
+		
+		Meeting m = getMeeting(meetingId);
+		int counter = 0;
+		
+		String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d AND meetingID=%d", userId, meetingId);
+		
+		try {
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.execute();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		for (int i = 0; i < m.getNumHoursPerDay(); i++) {
+			for (int j = 0; j < m.getNumDays(); j++) {
+				String queryInsert = String.format("INSERT INTO %s (meetingID, userID, rowIndex, colIndex, available) VALUES (%d, %d, %d, %d, %s)", table, meetingId, id, i, j, list.get(counter++));
+				try {
+					PreparedStatement ps = conn.prepareStatement(queryInsert);
+					ps.execute();
+				}
+				catch(SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+		}
+		
+		return false;
+		
+	}
 	
 	public boolean setAvailabilities(Availability[][] av, int meetingId) {
 		/*

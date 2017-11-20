@@ -37,7 +37,7 @@ public class MakeAccount extends HttpServlet {
 				System.out.println(e.getMessage());
 			}
 	        try {
-				db.addHost(username, password, email);
+				db.addUser(username, password, email, true);
 				int hostId = db.authenticateHost(username, password);
 				request.setAttribute("username", username);
 				request.setAttribute("hostId", hostId);

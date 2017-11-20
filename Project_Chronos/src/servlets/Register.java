@@ -34,7 +34,7 @@ public class Register extends HttpServlet {
 				db.getConnection();
 				// what if the username/email already exists?
 				//good point, added check for that in addHost
-				db.addHost(username, password, email);
+				db.addUser(username, password, email, true);
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}

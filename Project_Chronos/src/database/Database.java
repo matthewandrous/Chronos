@@ -33,6 +33,7 @@ public class Database{
 			this.port = port;
 			
 	}
+
 	
 	public boolean getConnection() throws SQLException{
 		/*
@@ -56,19 +57,15 @@ public class Database{
 		}
 	}
 	
-	public boolean addGuest() {
-		//TODO
-		return false;
-	}
 	
-	public boolean addHost(String username, String password, String email) throws SQLException{
+	public boolean addUser(String username, String password, String email, boolean isHost) throws SQLException{
 		/*
 		 * Adds a new host to sql table given username, password, and email.
 		 * Returns true on successful insert
 		 */
-		boolean isHost = true;
+		//boolean isHost = true;
 		
-		String checkQ = String.format("SELECT username FROM %s WHERE username='%s'", table, username);
+		String checkQ = String.format("SELECT username FROM UserInfo WHERE username='%s'", username);
 		
 		boolean hostExists = false;
 		try {
@@ -96,7 +93,7 @@ public class Database{
 			st.setString(1, username);
 			st.setString(2, password);
 			st.setString(3, email);
-			st.setBoolean(4, true);
+			st.setBoolean(4, isHost);
 			int result = st.executeUpdate();
 			if (result > 0)
 				return true;
@@ -157,6 +154,33 @@ public class Database{
 		}
 	}
 	
+	public String getResponseNames(int meetingId) {
+		
+		String query = String.format("SELECT userID FROM AvailabilityInfo WHERE meetingID='%d'", meetingId);
+		ArrayList<Integer> userIdArray = new ArrayList<Integer>();
+		
+		try {
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				userIdArray.add(rs.getInt("userID"));
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		for (int i : userIdArray) {
+			
+		}
+		
+		
+		return "";
+		
+		
+	}
+
 	public Host getHost(int hostId) {
 		/*
 		 * Gets host object given hostID
@@ -384,7 +408,7 @@ public class Database{
 
 		for (int i = 0; i < av.length; i++) {
 			for (int j = 0; j < av[0].length; j++) {
-				Availability a = av[i][j];
+				Availability a = av[j][i];
 				
 				System.out.println("Test");
 				

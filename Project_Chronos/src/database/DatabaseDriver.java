@@ -16,9 +16,9 @@ public class DatabaseDriver {
 		Database db = new Database("UserInfo", "localhost", 3306);
 		try {
 			db.getConnection();
-			db.addHost("byron", "root", "a@gmail.com"); //testing add host WORKS
-			db.addHost("muyao", "root", "r@gmail.com"); //testing add host WORKS
-			db.addHost("muyao", "root", "x@gmail.com"); //should not work
+			db.addUser("byron", "root", "a@gmail.com", true); //testing add host WORKS
+			db.addUser("muyao", "root", "r@gmail.com", false); //testing add host WORKS
+			db.addUser("muyao", "root", "x@gmail.com", true); //should not work
 		} catch (SQLException e) {
 			System.out.println("test");
 			e.printStackTrace();

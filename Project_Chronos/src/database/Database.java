@@ -399,7 +399,7 @@ public class Database{
 		return false;
 		
 	}
-public boolean setAvailFromString(String bools, int meetingId, int userId, String username) {
+public boolean setAvailFromString(String bools, int meetingId, String username) {
 		
 		List<String> list = new ArrayList<String>(Arrays.asList(bools.split(",")));
 		

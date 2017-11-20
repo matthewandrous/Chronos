@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <% int noOfDays = (int)request.getAttribute("noOfDays");
 	int startDay = (int)request.getAttribute("startDay");
 	int startMonth = (int)request.getAttribute("startMonth");
@@ -11,7 +12,8 @@
 	String meetingId = (String)request.getAttribute("meetingId");
 	meetingId = "'" + meetingId + "'";
 	String type = (String)request.getAttribute("type");
-	type = "'" + type + "'"; %>
+	type = "'" + type + "'";
+	String username = (String)request.getAttribute("username");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -19,13 +21,27 @@
 		<title>Chronos</title>
 		<link rel="stylesheet" type="text/css" href="selectTimes.css">
 	</head>
-	<body>
+	<body onload="connectToServer()">
 	<p>Please select when you're available.</p>
 		<div id="tableContainer"></div>
 		<table id="dateTable"></table>
 		<input type="button" value="Submit" onclick="send()">	
 	</body>
 	<script>
+
+	var socket;
+	function connectToServer() {
+		socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws");
+		socket.onopen = function(event) {
+			document.getElementById("dummy").innerHTML += "Connected!";
+		}
+		socket.onmessage = function(event) {
+			document.getElementById("dummy").innerHTML += event.data + "<br />";
+		}
+		socket.onclose = function(event) {
+			document.getElementById("dummy").innerHTML += "Disconnected!";
+		}
+	}
 		Date.prototype.addDays = function(days) {
 			  var newDate = new Date(this.valueOf());
 			  newDate.setDate(newDate.getDate() + days);
@@ -48,6 +64,7 @@
 				}
 				toSend += ",";
 			}
+			socket.send("<%= username %>");
 	        var xhttp = new XMLHttpRequest();
 	        xhttp.open("GET", <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&type=" + "guest" + "&userId=" + "" + "&freeTimes=" + toSend, false); 
 	        xhttp.send();

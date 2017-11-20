@@ -28,7 +28,8 @@
 	<div id="formerror">
 		<!-- if there is an error we will have jsp send back an error -->
 	</div>
-	<form name = "loginForm" method="POST" action="SelectTimes?type=guest" onsubmit="return validate();">
+
+	<form name = "loginForm" method="POST" action="SelectTimes?type=0" onsubmit="return validate();">
 		Meeting ID (This is the id of the meeting you wish to join):
 		<br>
 		<input type="text" name="meetingID" /><br />
@@ -37,6 +38,7 @@
 		<input type="text" name="username"/><br />
 		<br>
 		<input type="submit" name="submit" value=" Join" class="w3-button w3-signal-red w3-round-large" />
+
 	</form>
 </body>
 </html>

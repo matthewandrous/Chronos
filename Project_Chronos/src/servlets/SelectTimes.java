@@ -61,6 +61,7 @@ public class SelectTimes extends HttpServlet {
 		}
 		request.setAttribute("noOfHours", mt.getNumHoursPerDay());
 		request.setAttribute("type", type);
+		request.setAttribute("meetingID", meetingID);
 		
 		RequestDispatcher rs = request.getRequestDispatcher("selectTimes.jsp");
         rs.forward(request, response);

@@ -9,7 +9,9 @@
 	int noOfHours = (int)request.getAttribute("noOfHours"); 
 	String endpoint = "'UpdateAvailability'"; 
 	String meetingId = (String)request.getAttribute("meetingId");
-	String type = (String)request.getAttribute("type");%>
+	meetingId = "'" + meetingId + "'";
+	String type = (String)request.getAttribute("type");
+	type = "'" + type + "'"; %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -31,7 +33,6 @@
 		}
 		var selectedIndexes = [];
 		function send() {
-			console.log("hello");
 	        var xhttp = new XMLHttpRequest();
 	        xhttp.open("GET", <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&type=" + <%=type%> + "&userId=" + "" + "&freeTimes=" + selectedIndexes.join(","), false);
 	        xhttp.send();

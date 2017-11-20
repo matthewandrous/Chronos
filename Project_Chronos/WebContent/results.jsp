@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% int noOfDays = 2;//(int)request.getAttribute("noOfDays");
-   int startDay = 10;//(int)request.getAttribute("startDay");
-   int startMonth = 2;//(int)request.getAttribute("startMonth");
-   int startYear = 2018;//(int)request.getAttribute("startYear"); 
-   int startHour = 10;//(int)request.getAttribute("startHour");
-   String startTimeOfDay = "am";//(String)request.getAttribute("startTimeOfDay");
-   int noOfHours = 3;//(int)request.getAttribute("noOfHours");
-   String responsesSoFar =  "muyao,peixuan";//(String)request.getAttribute("responsesSoFar");
-   String responseTimes = "1,2,1,1,0,2";//(String)request.getAttribute("responseTimes"); 
-   System.out.println(responseTimes);%>
+<% int noOfDays = (int)request.getAttribute("noOfDays");
+   int startDay = (int)request.getAttribute("startDay");
+   int startMonth = (int)request.getAttribute("startMonth");
+   int startYear = (int)request.getAttribute("startYear"); 
+   int startHour = (int)request.getAttribute("startHour");
+   String startTimeOfDay = (String)request.getAttribute("startTimeOfDay");
+   int noOfHours = (int)request.getAttribute("noOfHours");
+   String responsesSoFar =  (String)request.getAttribute("responsesSoFar");
+   String responseTimes = (String)request.getAttribute("responseTimes"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -106,7 +105,7 @@
 		}
 		var noOfDays = <%= noOfDays %>;
 		var startDate = new Date(<%= startYear %>, <%= startMonth-1 %>, <%= startDay %>);
-		for (var i = 0; i < noOfDays; i++) {
+		for (var i = -1; i < noOfDays; i++) {
 			var currDate = startDate.addDays(i);
 			
 			var th = document.createElement("th");
@@ -156,13 +155,16 @@
 				var tdTime = document.createElement("td");
 				if (j === 0) {
 					var hourToOutput = startHour + k;
-					if (hourToOutput > 12) {
-						hourToOutput -= 12;
-						if (startTimeOfDay === "am") {
-							startTimeOfDay = "pm";
-						} 
-						else {
-							startTimeOfDay === "am";
+					if (hourToOutput >= 12) {
+						hourToOutput = hourToOutput % 12;
+						if (hourToOutput === 0) {
+							hourToOutput = 12;
+							if (startTimeOfDay === "am") {
+								startTimeOfDay = "pm";
+							} 
+							else {
+								startTimeOfDay = "am";
+							}
 						}
 					}
 					var tdText = document.createTextNode((hourToOutput).toString() + startTimeOfDay);

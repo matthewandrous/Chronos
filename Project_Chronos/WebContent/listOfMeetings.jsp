@@ -41,17 +41,21 @@
 	}
 		var meetingIds = <%= meetingIds %>
 		var meetings = meetingIds.split(",");
-		for (i in meetings) {
-			var aMeeting = document.createElement("a");
-			aMeeting.href = <%= endpoint %> + "?meetingId=" + meetings[i];
-			var meetingDiv = document.createElement("div");
-			meetingDiv.classList.add("meetingDiv");
-			var pMeeting = document.createElement("p");
-			var meetingText = document.createTextNode("Meeting ID: " + meetings[i]);
-			pMeeting.appendChild(meetingText);
-			meetingDiv.appendChild(pMeeting);
-			aMeeting.appendChild(meetingDiv);
-			document.getElementById("meetingsDiv").appendChild(aMeeting);
+		if (meetingIds === null || meetingIds === " " || meetingIds === "") {
+			document.getElementById("meetingsDiv").innerHTML = "<p>You have no meetings</p>";
+		} else {
+			for (i in meetings) {
+				var aMeeting = document.createElement("a");
+				aMeeting.href = <%= endpoint %> + "?meetingId=" + meetings[i];
+				var meetingDiv = document.createElement("div");
+				meetingDiv.classList.add("meetingDiv");
+				var pMeeting = document.createElement("p");
+				var meetingText = document.createTextNode("Meeting ID: " + meetings[i]);
+				pMeeting.appendChild(meetingText);
+				meetingDiv.appendChild(pMeeting);
+				aMeeting.appendChild(meetingDiv);
+				document.getElementById("meetingsDiv").appendChild(aMeeting);
+			}
 		}
 		document.getElementById("addNewMeetingButton").href = "newMeetingPage.jsp?username=" + <%= username %> + "&hostId=" + <%= hostId %>; 
 	</script>

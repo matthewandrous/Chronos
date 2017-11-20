@@ -14,11 +14,18 @@
 				var meetingName = document.getElementById("meetingName").value;
 				var startDate = document.getElementById("startDate").value;
 				var startTime = document.getElementById("startTime").value;
+				var startTimeSplit = startTime.split(":");
+				var startHour = startTimeSplit[0];
 				var endDate = document.getElementById("endDate").value;
 				var endTime = document.getElementById("endTime").value;
+				var endTimeSplit = endTime.split(":");
+				var endHour = endTimeSplit[0];
 				var noOfParticipants = document.getElementById("noOfParticipants").value;
 				var startDateTime = new Date(startDate + " " + startTime);
 				var endDateTime = new Date(endDate + " " + endTime);
+				var timeDiff = Math.abs(endDateTime.getTime() - startDateTime.getTime());
+				var numDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+				var numHoursPerDay = endHour - startHour;
 				if (meetingName.length === 0) {
 					error = true;
 				}
@@ -54,16 +61,16 @@
 					return;
 				} else {
 			        var xhttp = new XMLHttpRequest();
-			        xhttp.open("GET", <%= endpoint %> + "?meetingName=" + meetingName + "&startDate=" + startDate + "&startTime=" + startTime + "&endDate=" + endDate + "&noOfParticipants=" + noOfParticipants, false);
+			        xhttp.open("GET", <%= endpoint %> + "?meetingName=" + meetingName + "&startDate=" + startDate + "&startTime=" + startTime + "&endDate=" + endDate + "&noOfParticipants=" + noOfParticipants + "&numDays=" + numDays + "&numHoursPerDay=" + numHoursPerDay, false);
 			        xhttp.send();
 			        var response = xhttp.responseText.trim().toLowerCase();
 			    	   if (response === "invalid") {
 			    	 		alert("Invalid inputs");
-						    return;
+						return;
 			    	  	} else {
-			    	  		window.location = 'SelectTimes?meetingID=' + response;
+			    	  		window.location.href = 'SelectTimes?meetingID=' + response;
 			    	  		//request.getRequestDispatcher("selectTimes.jsp?hostId=" + response).forward(request, response);
-						    return;
+						return;
 			    	  	}
 				}
 			}

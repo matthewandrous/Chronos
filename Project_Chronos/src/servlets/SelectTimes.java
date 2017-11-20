@@ -26,7 +26,6 @@ public class SelectTimes extends HttpServlet {
         
         String meetingID = request.getParameter("meetingId");
         String type = request.getParameter("type");
-        
        
         Database db_mt = new Database("MeetingInfo", "localhost", 3306);
         try {

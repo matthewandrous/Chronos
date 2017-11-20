@@ -7,7 +7,7 @@
    int startHour = (int)request.getAttribute("startHour");
    String startTimeOfDay = (String)request.getAttribute("startTimeOfDay");
    int noOfHours = (int)request.getAttribute("noOfHours");
-   String responsesSoFar =  (String)request.getAttribute("responsesSoFar");
+   String responsesSoFar = (String)request.getAttribute("responsesSoFar");
    String responseTimes = (String)request.getAttribute("responseTimes"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -77,34 +77,35 @@
 		}
 		function convertMonthIntToString(monthInt) {
 			switch (monthInt) {
-				case 1:
+				case 0:
 					return "Jan";
-				case 2:
+				case 1:
 					return "Feb";
-				case 3:
+				case 2:
 					return "Mar";
-				case 4:
+				case 3:
 					return "Apr";
-				case 5:
+				case 4:
 					return "May";
-				case 6:
+				case 5:
 					return "Jun";
-				case 7:
+				case 6:
 					return "Jul";
-				case 8:
+				case 7:
 					return "Aug";
-				case 9:
+				case 8:
 					return "Sep";
-				case 10:
+				case 9:
 					return "Oct";
-				case 11:
+				case 10:
 					return "Nov";
-				case 12:
+				case 11:
 					return "Dec";
 			}
 		}
 		var noOfDays = <%= noOfDays %>;
-		var startDate = new Date(<%= startYear %>, <%= startMonth-1 %>, <%= startDay %>);
+		var startDate = new Date(<%= startYear %>, <%= startMonth %>, <%= startDay %>);
+		console.log(startDate.getFullYear());
 		for (var i = -1; i < noOfDays; i++) {
 			var currDate = startDate.addDays(i);
 			

@@ -2,10 +2,15 @@
     pageEncoding="UTF-8"%>
 <% String meetingIds = (String)request.getAttribute("meetingIds");
    meetingIds = "'" + meetingIds + "'";
+   String meetingNames = (String)request.getAttribute("meetingNames");
+   meetingNames = "'" + meetingNames + "'";
    String endpoint = "'Result'";
    String username = (String)request.getAttribute("username");
    username = "'" + username + "'";
    int hostId = (int)request.getAttribute("hostId");
+   String hostIdString = String.valueOf(hostId);
+   hostIdString = "'" +hostIdString + "'";
+   String meetingId = (String)request.getAttribute("meetingId");
    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,6 +21,7 @@
 	</head>
 	<body onload="connectToServer()">
 		<div id="outerContainer">
+		<div id="Note"><%if(meetingId != null){%><font color="red">You just added a new meeting with ID <%=meetingId %>. Take a note!</font><br><%} %></div>
 			<div id="header">
 				<p>All meetings:</p>
 			</div>
@@ -41,7 +47,9 @@
 	}
 	
 		var meetingIds = <%= meetingIds %>
+		var meetingNames = <%= meetingNames %>
 		var meetings = meetingIds.split(",");
+		var meetingNs = meetingNames.split(",");
 		if (meetingIds === null || meetingIds === " " || meetingIds === "" || meetingIds === "null") {
 			document.getElementById("meetingsDiv").innerHTML = "<p>You have no meetings</p>";
 		} else {
@@ -51,13 +59,13 @@
 				var meetingDiv = document.createElement("div");
 				meetingDiv.classList.add("meetingDiv");
 				var pMeeting = document.createElement("p");
-				var meetingText = document.createTextNode("Meeting ID: " + meetings[i]);
+				var meetingText = document.createTextNode("Meeting ID: " + meetings[i] + " - " + meetingNs[i]);
 				pMeeting.appendChild(meetingText);
 				meetingDiv.appendChild(pMeeting);
 				aMeeting.appendChild(meetingDiv);
 				document.getElementById("meetingsDiv").appendChild(aMeeting);
 			}
 		}
-		document.getElementById("addNewMeetingButton").href = "newMeetingPage.jsp?username=" + <%= username %> + "&hostId=" + <%= hostId %>; 
+		document.getElementById("addNewMeetingButton").href = "newMeetingPage.jsp?username=" + <%= username %> + "&hostId=" + <%= hostIdString %>; 
 	</script>
 </html>

@@ -44,7 +44,7 @@ public class Result extends HttpServlet {
 		System.out.println(day + " " + month + " " + year);
 		year = year % 2000;
 		request.setAttribute("startDay", day);
-		request.setAttribute("startMonth", month+1);
+		request.setAttribute("startMonth", month);
 		request.setAttribute("startYear", year+1900);
 		int hour = mt.getStartTime();
 		if(hour == 12) {

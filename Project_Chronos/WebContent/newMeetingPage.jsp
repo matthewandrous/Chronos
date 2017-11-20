@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% String endpoint = "'AddMeeting'"; %>
+<% String hostIdString = request.getParameter("hostId");
+System.out.println("In newMeetingPage.jsp, hostIdString is " + hostIdString);
+hostIdString = "'" + hostIdString + "'";
+String username = request.getParameter("username");
+System.out.println("In newMeetingPage.jsp, username is " + username); 
+username = "'" + username + "'";
+String userType = "host";
+userType = "'" + userType + "'";%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -25,7 +33,7 @@
 				var endDateTime = new Date(endDate + " " + endTime);
 				var timeDiff = Math.abs(endDateTime.getTime() - startDateTime.getTime());
 				var numDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-				var numHoursPerDay = endHour - startHour;
+				var numHoursPerDay = endHour - startHour + 1;
 				if (meetingName.length === 0) {
 					error = true;
 				}
@@ -61,14 +69,14 @@
 					return;
 				} else {
 			        var xhttp = new XMLHttpRequest();
-			        xhttp.open("GET", <%= endpoint %> + "?meetingName=" + meetingName + "&startDate=" + startDate + "&startTime=" + startHour + "&endDate=" + endDate + "&noOfParticipants=" + noOfParticipants + "&numDays=" + numDays + "&numHoursPerDay=" + numHoursPerDay, false);
+			        xhttp.open("GET", <%= endpoint %> + "?meetingName=" + meetingName + "&startDate=" + startDate + "&startTime=" + startHour + "&endDate=" + endDate + "&noOfParticipants=" + noOfParticipants + "&numDays=" + numDays + "&numHoursPerDay=" + numHoursPerDay + "&hostId=" + <%=hostIdString%>, false);
 			        xhttp.send();
 			        var response = xhttp.responseText.trim().toLowerCase();
 			    	   if (response === "invalid") {
 			    	 		alert("Invalid inputs");
 						return;
 			    	  	} else {
-			    	  		window.location.href = 'SelectTimes?meetingID=' + response;
+			    	  		window.location = 'SelectTimes?meetingID=' + response + '&hostId=' + <%=hostIdString%> + '&username=' + <%=username%> + '&userType=' + <%=userType%>;
 			    	  		//request.getRequestDispatcher("selectTimes.jsp?hostId=" + response).forward(request, response);
 						return;
 			    	  	}
@@ -80,10 +88,6 @@
 		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image">
 		<div id="outerContainer" class="w3-container w3-margin w3-animate-opacity">
 			<form name="newMeeting">
-			<% String hostIdString = request.getParameter("hostId");
-			System.out.println(hostIdString);
-			request.setAttribute("hostId", hostIdString);
-			request.setAttribute("userId", hostIdString);%>
 				<label>Meeting Name:</label><input name="meetingName" type="text" id="meetingName" class="w3-input w3-border w3-round" ><br>
 				<label>Start Date:</label><input name="startDate" type="date" id="startDate" class="w3-input w3-border w3-round"><br>
 				<label>End Date:</label><input name="endDate" type="date" id="endDate" class="w3-input w3-border w3-round"><br>

@@ -15,10 +15,12 @@ public class DatabaseDriver {
 		Database db = new Database("UserInfo", "localhost", 3306);
 		try {
 			db.getConnection();
-			db.addUser("byron", "root", "a@gmail.com", true); //testing add host WORKS
-			db.addUser("muyao", "root", "r@gmail.com", false); //testing add host WORKS
-			db.addUser("muyao", "root", "x@gmail.com", true); //should not work
-			db.addUser("gautam2", "root5", "xt2@gmail.com", true); //should work
+			db.addUser("bieren", "root", "a@gmail.com", true);
+			System.out.println(db.getUserId("bieren"));
+//			db.addUser("byron", "root", "a@gmail.com", true); //testing add host WORKS
+//			db.addUser("muyao", "root", "r@gmail.com", false); //testing add host WORKS
+//			db.addUser("muyao", "root", "x@gmail.com", true); //should not work
+//			db.addUser("gautam2", "root5", "xt2@gmail.com", true); //should work
 		} catch (SQLException e) {
 			System.out.println("test");
 			e.printStackTrace();
@@ -26,31 +28,31 @@ public class DatabaseDriver {
 		
 		
 		
-		Host h = db.getHost(2); //testing gethost WORKS
-		System.out.println(h.getEmail() + h.getUsername() + h.getPassword());
+		//Host h = db.getHost(2); //testing gethost WORKS
+		//System.out.println(h.getEmail() + h.getUsername() + h.getPassword());
 //		System.out.println(db.authenticateHost("byron", "root")); //should be 2 WORKS
 //		System.out.println(db.authenticateHost("gautam", "mattsucks123")); //should be 2 WORKS
 //		System.out.println(db.authenticateHost("byron", "root2")); //should be -1 WORKS
-		System.out.println(db.authenticateHost("gautam2", "root5")); //should be -1 WORKS
-		System.out.println("test2");
-		
-		Meeting m = new Meeting(3, 2, 3); //2 x 3 array with 3 users
-		Date d = new Date(); //today's date
-		m.setStartDate(d);
-		m.setStartTime(8);
-		m.setHost(h); //host is byron
-		m.setMeetingName("testmeeting");
-		Guest g = new Guest();
-		g.setUserId(3);
-		Guest g2 = new Guest();
-		g2.setUserId(4);
-		Database meetingDB = new Database("MeetingInfo", "localhost", 3306);
-		try {
-			meetingDB.getConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		System.out.println(db.authenticateHost("gautam2", "root5")); //should be -1 WORKS
+//		System.out.println("test2");
+//		
+//		Meeting m = new Meeting(3, 2, 3); //2 x 3 array with 3 users
+//		Date d = new Date(); //today's date
+//		m.setStartDate(d);
+//		m.setStartTime(8);
+//		m.setHost(h); //host is byron
+//		m.setMeetingName("testmeeting");
+//		Guest g = new Guest();
+//		g.setUserId(3);
+//		Guest g2 = new Guest();
+//		g2.setUserId(4);
+//		Database meetingDB = new Database("MeetingInfo", "localhost", 3306);
+//		try {
+//			meetingDB.getConnection();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 //		
 //		Meeting mtest = meetingDB.getMeeting(6);
 //

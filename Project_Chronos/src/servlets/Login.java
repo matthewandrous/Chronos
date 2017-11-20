@@ -39,7 +39,7 @@ public class Login extends HttpServlet {
         {
         	//Host host = db.getHost(hostID);
         	request.setAttribute("username", username);
-        	System.out.println("Host id is " + hostID);
+        	//System.out.println("Host id is " + hostID);
         	Database db_meeting = new Database("MeetingInfo", "localhost", 3306);
         	try {
     			db_meeting.getConnection();
@@ -47,10 +47,12 @@ public class Login extends HttpServlet {
     			System.out.println(e.getMessage());
     		}
         	String meetingIds = db_meeting.getHostMeetings(hostID);
-        	System.out.println("MeetingIds are " + meetingIds);
+        	String meetingNames = db_meeting.getHostMeetingNames(hostID);
+        	//System.out.println("MeetingIds are " + meetingIds);
         	request.setAttribute("meetingIds", meetingIds);
+        	request.setAttribute("meetingNames", meetingNames);
         	request.setAttribute("hostId", hostID);
-        	request.setAttribute("userType", "1");
+        	request.setAttribute("userType", "host");
         	// CHANGE the destination
         	System.out.println("I am redirecting");
             RequestDispatcher rs = request.getRequestDispatcher("listOfMeetings.jsp");

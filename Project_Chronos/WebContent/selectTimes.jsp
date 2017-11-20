@@ -22,7 +22,7 @@
 		<link rel="stylesheet" type="text/css" href="selectTimes.css">
 	</head>
 	<body onload="connectToServer()">
-	<p>Please select when you're available.</p>
+	<p>Please select when you're not available.</p>
 		<div id="tableContainer"></div>
 		<table id="dateTable"></table>
 		<input type="button" value="Submit" onclick="send()">	

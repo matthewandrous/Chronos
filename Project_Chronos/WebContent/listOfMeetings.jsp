@@ -15,7 +15,9 @@
 		<title>Chronos</title>
 		<link rel="stylesheet" type="text/css" href="listOfMeetings.css">
 	</head>
+
 	<body onload="connectToServer()">
+
 		<div id="outerContainer">
 			<div id="header">
 				<p>All meetings:</p>
@@ -24,8 +26,10 @@
 			</div>
 			<button><a id="addNewMeetingButton">Add New Meeting</a></button>
 		</div>
+
 		<button onclick="sendMessage()">Click me</button>
 		<div id = dummy >tests</div>
+
 	</body>
 	
 	<script>
@@ -33,6 +37,7 @@
 	function connectToServer() {
 		socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws");
 		socket.onopen = function(event) {
+
 			document.getElementById("dummy").innerHTML += "Connected!";
 		}
 		socket.onmessage = function(event) {
@@ -49,17 +54,21 @@
 	
 		<%-- var meetingIds = <%= meetingIds %>
 		var meetings = meetingIds.split(",");
-		for (i in meetings) {
-			var aMeeting = document.createElement("a");
-			aMeeting.href = <%= endpoint %> + "?meetingId=" + meetings[i];
-			var meetingDiv = document.createElement("div");
-			meetingDiv.classList.add("meetingDiv");
-			var pMeeting = document.createElement("p");
-			var meetingText = document.createTextNode("Meeting ID: " + meetings[i]);
-			pMeeting.appendChild(meetingText);
-			meetingDiv.appendChild(pMeeting);
-			aMeeting.appendChild(meetingDiv);
-			document.getElementById("meetingsDiv").appendChild(aMeeting);
+		if (meetingIds === null || meetingIds === " " || meetingIds === "") {
+			document.getElementById("meetingsDiv").innerHTML = "<p>You have no meetings</p>";
+		} else {
+			for (i in meetings) {
+				var aMeeting = document.createElement("a");
+				aMeeting.href = <%= endpoint %> + "?meetingId=" + meetings[i];
+				var meetingDiv = document.createElement("div");
+				meetingDiv.classList.add("meetingDiv");
+				var pMeeting = document.createElement("p");
+				var meetingText = document.createTextNode("Meeting ID: " + meetings[i]);
+				pMeeting.appendChild(meetingText);
+				meetingDiv.appendChild(pMeeting);
+				aMeeting.appendChild(meetingDiv);
+				document.getElementById("meetingsDiv").appendChild(aMeeting);
+			}
 		}
 		document.getElementById("addNewMeetingButton").href = "newMeetingPage.jsp?username=" + <%= username %> + "&hostId=" + <%= hostId %>;  --%>
 	</script>

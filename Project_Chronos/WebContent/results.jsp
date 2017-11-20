@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% int noOfDays = 2;//(int)request.getAttribute("noOfDays");
-   int startDay = 10;//(int)request.getAttribute("startDay");
-   int startMonth = 2;//(int)request.getAttribute("startMonth");
-   int startYear = 2018;//(int)request.getAttribute("startYear"); 
-   int startHour = 10;//(int)request.getAttribute("startHour");
-   String startTimeOfDay = "am";//(String)request.getAttribute("startTimeOfDay");
-   int noOfHours = 3;//(int)request.getAttribute("noOfHours");
-   String responsesSoFar =  "muyao,peixuan";//(String)request.getAttribute("responsesSoFar");
-   String responseTimes = "1,2,1,1,0,2";//(String)request.getAttribute("responseTimes"); 
-   System.out.println(responseTimes);%>
+<% int noOfDays = (int)request.getAttribute("noOfDays");
+   int startDay = (int)request.getAttribute("startDay");
+   int startMonth = (int)request.getAttribute("startMonth");
+   int startYear = (int)request.getAttribute("startYear"); 
+   int startHour = (int)request.getAttribute("startHour");
+   String startTimeOfDay = (String)request.getAttribute("startTimeOfDay");
+   int noOfHours = (int)request.getAttribute("noOfHours");
+   String responsesSoFar = (String)request.getAttribute("responsesSoFar");
+   String responseTimes = (String)request.getAttribute("responseTimes"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -78,35 +77,36 @@
 		}
 		function convertMonthIntToString(monthInt) {
 			switch (monthInt) {
-				case 1:
+				case 0:
 					return "Jan";
-				case 2:
+				case 1:
 					return "Feb";
-				case 3:
+				case 2:
 					return "Mar";
-				case 4:
+				case 3:
 					return "Apr";
-				case 5:
+				case 4:
 					return "May";
-				case 6:
+				case 5:
 					return "Jun";
-				case 7:
+				case 6:
 					return "Jul";
-				case 8:
+				case 7:
 					return "Aug";
-				case 9:
+				case 8:
 					return "Sep";
-				case 10:
+				case 9:
 					return "Oct";
-				case 11:
+				case 10:
 					return "Nov";
-				case 12:
+				case 11:
 					return "Dec";
 			}
 		}
 		var noOfDays = <%= noOfDays %>;
-		var startDate = new Date(<%= startYear %>, <%= startMonth-1 %>, <%= startDay %>);
-		for (var i = 0; i < noOfDays; i++) {
+		var startDate = new Date(<%= startYear %>, <%= startMonth %>, <%= startDay %>);
+		console.log(startDate.getFullYear());
+		for (var i = -1; i < noOfDays; i++) {
 			var currDate = startDate.addDays(i);
 			
 			var th = document.createElement("th");
@@ -156,13 +156,16 @@
 				var tdTime = document.createElement("td");
 				if (j === 0) {
 					var hourToOutput = startHour + k;
-					if (hourToOutput > 12) {
-						hourToOutput -= 12;
-						if (startTimeOfDay === "am") {
-							startTimeOfDay = "pm";
-						} 
-						else {
-							startTimeOfDay === "am";
+					if (hourToOutput >= 12) {
+						hourToOutput = hourToOutput % 12;
+						if (hourToOutput === 0) {
+							hourToOutput = 12;
+							if (startTimeOfDay === "am") {
+								startTimeOfDay = "pm";
+							} 
+							else {
+								startTimeOfDay = "am";
+							}
 						}
 					}
 					var tdText = document.createTextNode((hourToOutput).toString() + startTimeOfDay);

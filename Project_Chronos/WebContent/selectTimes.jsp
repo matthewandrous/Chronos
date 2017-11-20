@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% int noOfDays = 4;//(int)request.getAttribute("noOfDays");
-	int startDay = 12;//(int)request.getAttribute("startDay");
-	int startMonth = 11;//(int)request.getAttribute("startMonth");
-	int startYear = 17;//(int)request.getAttribute("startYear"); 
-	int startHour = 8;//(int)request.getAttribute("startHour");
-	String startTimeOfDay = "am";//(String)request.getAttribute("startTimeOfDay");
-	int noOfHours = 8;//(int)request.getAttribute("noOfHours"); 
-	String endpoint = "''"; 
-	String meetingId = "'1'"; //(String)request.getAttribute("meetingId");%>
+
+<% int noOfDays = (int)request.getAttribute("noOfDays");
+	int startDay = (int)request.getAttribute("startDay");
+	int startMonth = (int)request.getAttribute("startMonth");
+	int startYear = (int)request.getAttribute("startYear"); 
+	int startHour = (int)request.getAttribute("startHour");
+	String startTimeOfDay = (String)request.getAttribute("startTimeOfDay");
+	int noOfHours = (int)request.getAttribute("noOfHours"); 
+	String endpoint = "'UpdateAvailability'"; 
+	String meetingId = (String)request.getAttribute("meetingId");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -16,13 +17,30 @@
 		<title>Chronos</title>
 		<link rel="stylesheet" type="text/css" href="selectTimes.css">
 	</head>
+
 	<body>
+
 	<p>Please select when you're available.</p>
 		<div id="tableContainer"></div>
 		<table id="dateTable"></table>
 		<input type="button" value="Submit" onclick="send()">	
 	</body>
 	<script>
+	
+	var socket;
+	function connectToServer() {
+		socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws");
+		socket.onopen = function(event) {
+			document.getElementById("dummy").innerHTML += "Connected!";
+		}
+		socket.onmessage = function(event) {
+			document.getElementById("dummy").innerHTML += event.data + "<br />";
+		}
+		socket.onclose = function(event) {
+			document.getElementById("dummy").innerHTML += "Disconnected!";
+		}
+	}
+	
 		Date.prototype.addDays = function(days) {
 			  var newDate = new Date(this.valueOf());
 			  newDate.setDate(newDate.getDate() + days);
@@ -30,10 +48,11 @@
 		}
 		var selectedIndexes = [];
 		function send() {
-			console.log("hello");
+			socket.send("a new response" + "<br />");
+			<%-- console.log("hello");
 	        var xhttp = new XMLHttpRequest();
-	        xhttp.open("GET", <%= endpoint %> + "?meetingId=" + <%= meetingId %> + "&freeTimes=" + selectedIndexes.join(","), false);
-	        xhttp.send();
+	        xhttp.open("GET", <%= endpoint %> + "?meetingID=" + <%= meetingId %> + "&userId" + "" + "&freeTimes=" + selectedIndexes.join(","), false);
+	        xhttp.send(); --%>
 		}
 		function convertDateIntToString(dateInt) {
 			switch (dateInt) {

@@ -47,6 +47,9 @@ public class AddMeeting extends HttpServlet {
 			hostIdString = "1";
 			System.out.println("hostIdString is null");
 		}
+		
+		request.setAttribute("userId",hostIdString);
+		
 		int noOfParticipants = Integer.valueOf(request.getParameter("noOfParticipants"));
 		
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -64,9 +67,9 @@ public class AddMeeting extends HttpServlet {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}        
-        boolean addedNewMeeting = db_meeting.addMeeting(meetingName, noOfParticipants, numDays, numHoursPerDay, Integer.valueOf(hostIdString), startDate, (int)Integer.valueOf(startTime));
-		System.out.println(addedNewMeeting);
-		if(addedNewMeeting) {
+        int meetingId = db_meeting.addMeeting(meetingName, noOfParticipants, numDays, numHoursPerDay, Integer.valueOf(hostIdString), startDate, (int)Integer.valueOf(startTime));
+		System.out.println(meetingId);
+		if(meetingId != -1) {
 //			request.setAttribute("noOfDays", numDays);
 //			request.setAttribute("startDay", startDate.getDate());
 //			request.setAttribute("startMonth", 1+startDate.getMonth());
@@ -76,8 +79,6 @@ public class AddMeeting extends HttpServlet {
 //			request.setAttribute("startTimeOfDay", "am");
 //			request.setAttribute("meetingId", 1);
 			
-			//TODO get meeting id from database
-			int meetingId = 1;
 			
 			System.out.println("I am directing back");
 			PrintWriter out = response.getWriter();

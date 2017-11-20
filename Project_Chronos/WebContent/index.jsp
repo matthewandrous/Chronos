@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <script>
 			var socket;
 			function connectToServer() {
@@ -21,15 +22,37 @@
 				return false;
 			}
 </script>
+
 <html>
 	<head>
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-signal.css">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>User Classification Page</title>
+		<script>
+var socket;
+function connectToServer() {
+	socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws");
+	socket.onopen = function(event) {
+		document.getElementById("mychat").innerHTML += "Connected!";
+	}
+	socket.onmessage = function(event) {
+		document.getElementById("mychat").innerHTML += event.data + "<br />";
+	}
+	socket.onclose = function(event) {
+		document.getElementById("mychat").innerHTML += "Disconnected!";
+	}
+}
+function sendMessage() {
+	socket.send("New message");
+}
+
+</script>
 	</head>
 	<body class="w3-container w3-margin w3-animate-opacity" onload="connectToServer()">
-		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image">
+
+		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image" style="width: 50%;">
+
 		<p>I am...</p>
 		<form name= "json" action="UploadServlet" method="POST" >
     			<input type="radio" name="userType" value="Host" checked="checked">Hosting a Meeting<br>
@@ -43,5 +66,6 @@
 		</div>
 		
 	</body>
-	
+	<button onclick="sendMessage()">Click me</button>
+	<div id = "mychat"></div>
 </html>

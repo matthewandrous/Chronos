@@ -171,12 +171,26 @@ public class Database{
 			return "";
 		}
 		StringBuilder sb = new StringBuilder();
+		int counter = 0;
 		for (int i : userIdArray) {
-			
+			try {
+				String nameQuery = String.format("SELECT username FROM UserInfo WHERE UserID='%d'", userIdArray.get(counter++));
+				Statement st = conn.createStatement();
+				ResultSet rs = st.executeQuery(nameQuery);
+				while (rs.next()) {
+					sb.append(rs.getString("username"));
+					sb.append(",");
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+				return "";
+			}
 		}
+		sb.setLength(sb.length() - 1);
 		
+		return sb.toString();
 		
-		return "";
 		
 		
 	}

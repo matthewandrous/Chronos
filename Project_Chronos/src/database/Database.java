@@ -420,15 +420,15 @@ public boolean setAvailFromString(String bools, int meetingId, String username) 
 		Meeting m = getMeeting(meetingId);
 		int counter = 0;
 		
-		String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d AND meetingID=%d", userId, meetingId);
+		//String query = String.format("DELETE FROM AvailabilityInfo WHERE userID=%d AND meetingID=%d", userId, meetingId);
 		
-		try {
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.execute();
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			PreparedStatement ps = conn.prepareStatement(query);
+//			ps.execute();
+//		}
+//		catch(SQLException e) {
+//			e.printStackTrace();
+//		}
 		
 		
 		for (int i = 0; i < m.getNumHoursPerDay(); i++) {

@@ -64,9 +64,7 @@ public class SelectTimes extends HttpServlet {
 		request.setAttribute("type", type);
 		
 		RequestDispatcher rs = request.getRequestDispatcher("selectTimes.jsp");
-       rs.forward(request, response);
-	
-
+        rs.forward(request, response);
     }  
 
 }

@@ -47,6 +47,9 @@ public class AddMeeting extends HttpServlet {
 			hostIdString = "1";
 			System.out.println("hostIdString is null");
 		}
+		
+		request.setAttribute("userId",hostIdString);
+		
 		int noOfParticipants = Integer.valueOf(request.getParameter("noOfParticipants"));
 		
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 

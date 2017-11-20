@@ -13,7 +13,7 @@
 		//open gets ready to send AJAX CALL
 		//the open parameters says send an AJAX call with username and password
 		xhttp.send();
-		if (xhttp.responseText.trim().length >0){
+		if (xhttp.responseText.trim().length > 0){
 			document.getElementById("formerror").innerHTML = xhttp.responseText;
 			return false;
 		}

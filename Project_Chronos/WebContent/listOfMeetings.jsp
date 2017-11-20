@@ -42,7 +42,7 @@
 	
 		var meetingIds = <%= meetingIds %>
 		var meetings = meetingIds.split(",");
-		if (meetingIds === null || meetingIds === " " || meetingIds === "") {
+		if (meetingIds === null || meetingIds === " " || meetingIds === "" || meetingIds === "null") {
 			document.getElementById("meetingsDiv").innerHTML = "<p>You have no meetings</p>";
 		} else {
 			for (i in meetings) {

@@ -25,6 +25,7 @@
 		</div>
 		<div id = notification></div>
 	</body>
+	<div id=notification></div>
 	<script>
 	var socket;
 	function connectToServer() {

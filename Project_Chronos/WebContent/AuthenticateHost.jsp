@@ -9,7 +9,7 @@
 	ResultSet rs = null;
 	try { //reflection, dynamically load an object at runtime 
 		Class.forName("com.mysql.jdbc.Driver"); //at runtime instantiate this class
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/Chronos?user=root&password=root&useSSL=false"); //can only load one database at a time and StudentGrades is the one we created
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/Chronos?user=root&password=112911&useSSL=false"); //can only load one database at a time and StudentGrades is the one we created
 		st = conn.createStatement();
 		if (username != null && password.length() > 0) {
 			rs = st.executeQuery("Select* from UserInfo"); //select returns a table that is placed in resultSet

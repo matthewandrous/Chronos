@@ -89,7 +89,9 @@ public class Database{
 		}
 		
 		if (hostExists) {
+			System.out.println("test");
 			return false;
+			
 		}
 		
 		String query = String.format("INSERT INTO UserInfo (username, hostPassword, email, isHost) VALUES (?, ?, ?, ?)", table);

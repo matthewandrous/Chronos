@@ -20,7 +20,7 @@ public class DatabaseDriver {
 			db.addUser("byron", "root", "a@gmail.com", true); //testing add host WORKS
 			db.addUser("muyao", "root", "r@gmail.com", false); //testing add host WORKS
 			db.addUser("muyao", "root", "x@gmail.com", true); //should not work
-			db.addUser("gautum", "root", "x@gmail.com", true); //should not work
+			db.addUser("gautam", "root5", "xt2@gmail.com", true); //should not work
 		} catch (SQLException e) {
 			System.out.println("test");
 			e.printStackTrace();

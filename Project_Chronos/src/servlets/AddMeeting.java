@@ -35,7 +35,7 @@ public class AddMeeting extends HttpServlet {
 		
 		String startTime = request.getParameter("startTime");
 		//TODO remove this
-		startTime = "9";
+		//startTime = "9";
 		
 		int numDays = Integer.valueOf(request.getParameter("numDays"));
 		int numHoursPerDay = Integer.valueOf(request.getParameter("numHoursPerDay"));

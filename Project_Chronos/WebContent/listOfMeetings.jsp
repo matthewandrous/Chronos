@@ -23,27 +23,26 @@
 			</div>
 			<button><a id="addNewMeetingButton">Add New Meeting</a></button>
 		</div>
-		<div id = dummy >tests</div>
+		<div id = dummy ></div>
 	</body>
 	<script>
 	var socket;
 	function connectToServer() {
 		socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws");
 		socket.onopen = function(event) {
-
-			document.getElementById("dummy").innerHTML += "Connected!";
+			// document.getElementById("dummy").innerHTML += "Connected!";
 		}
 		socket.onmessage = function(event) {
 			document.getElementById("dummy").innerHTML += event.data + "<br />";
 		}
 		socket.onclose = function(event) {
-			document.getElementById("dummy").innerHTML += "Disconnected!";
+			// document.getElementById("dummy").innerHTML += "Disconnected!";
 		}
 	}
 	
 		var meetingIds = <%= meetingIds %>
 		var meetings = meetingIds.split(",");
-		if (meetingIds === null || meetingIds === " " || meetingIds === "") {
+		if (meetingIds === null || meetingIds === " " || meetingIds === "" || meetingIds === "null") {
 			document.getElementById("meetingsDiv").innerHTML = "<p>You have no meetings</p>";
 		} else {
 			for (i in meetings) {

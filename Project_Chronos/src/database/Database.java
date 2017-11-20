@@ -519,7 +519,7 @@ public class Database{
 				int userId = rs.getInt("userID");
 				int day = rs.getInt("colIndex"); //day from zero, so day 0 = first day. Keep dates tracked in meeting objects
 				boolean available = rs.getBoolean("available"); //if user is busy during this time period
-				if (!available) {
+				if (available) {
 					availabilityCount[startTime][day]++;
 				}
 			}

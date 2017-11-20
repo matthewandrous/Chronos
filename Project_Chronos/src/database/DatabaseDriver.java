@@ -32,7 +32,7 @@ public class DatabaseDriver {
 //		System.out.println(db.authenticateHost("gautam", "mattsucks123")); //should be 2 WORKS
 //		System.out.println(db.authenticateHost("byron", "root2")); //should be -1 WORKS
 		System.out.println(db.authenticateHost("gautam2", "root5")); //should be -1 WORKS
-		System.out.println("test");
+		System.out.println("test2");
 		
 		Meeting m = new Meeting(3, 2, 3); //2 x 3 array with 3 users
 		Date d = new Date(); //today's date

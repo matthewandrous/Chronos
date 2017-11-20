@@ -367,8 +367,8 @@ public class Database{
 		}
 		
 		
-		for (int i = 0; i < m.getNumDays(); i++) {
-			for (int j = 0; j < m.getNumHoursPerDay(); j++) {
+		for (int i = 0; i < m.getNumHoursPerDay(); i++) {
+			for (int j = 0; j < m.getNumDays(); j++) {
 				String queryInsert = String.format("INSERT INTO %s (meetingID, userID, rowIndex, colIndex, available) VALUES (%d, %d, %d, %d, %s)", table, meetingId, userId, i, j, list.get(counter++));
 				try {
 					PreparedStatement ps = conn.prepareStatement(queryInsert);
@@ -422,7 +422,7 @@ public class Database{
 
 		for (int i = 0; i < av.length; i++) {
 			for (int j = 0; j < av[0].length; j++) {
-				Availability a = av[j][i];
+				Availability a = av[i][j];
 				
 				System.out.println("Test");
 				
@@ -515,9 +515,9 @@ public class Database{
 					sb.append(",");
 				}
 			}*/
-			for (int i = 0; i < currMeeting.getNumDays(); i++) {
-				for (int j = 0; j < currMeeting.getNumHoursPerDay(); j++) {
-					sb.append(availabilityCount[j][i]);
+			for (int i = 0; i < currMeeting.getNumHoursPerDay(); i++) {
+				for (int j = 0; j < currMeeting.getNumDays(); j++) {
+					sb.append(availabilityCount[i][j]);
 					sb.append(",");
 				}
 			}

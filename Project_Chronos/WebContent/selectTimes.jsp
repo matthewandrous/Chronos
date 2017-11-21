@@ -124,7 +124,7 @@
 					return "Dec";
 			}
 		}
-		var selectedBackgroundColour = "blue";
+		var selectedBackgroundColour = "darkred";
 		var unselectedBackgroundColour = "white";
 		var noOfDays = <%= noOfDays %>;
 		var startDate = new Date(<%= startYear %>, <%= startMonth %>, <%= startDay %>);

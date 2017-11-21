@@ -50,38 +50,40 @@ This page is used for the host to login/register
 		
 		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image" style="width: 50%; max-width:400px">
 		<br>
-	
-		 <div class="w3-bar">
-		  <button class="w3-bar-item w3-button w3-signal-red" onclick="openCity('London')">Log In</button>
-		  <button class="w3-bar-item w3-button w3-light-grey" onclick="openCity('Tokyo')">Register</button>
-		</div> 
-	
-		<div id="formerror">
-			<!-- if there is an error we will have jsp send back an error -->
-			<%String err = (String)request.getAttribute("erromsg");
-			if(err != null){%>
-				<font color="red"> <%=err %> </font><br /> 
-			<%}%>
-		</div>
-		
-		<div id="London" class="city">
-			<form name = "myform" method="POST" action="Login" class="w3-container w3-signal-red">
-				<p>Please log in below:<p>
-				Username <input type="text" name ="username" /><br><br>
-				Password <input type="text" name="password" /><br> <br>
-				<input type="submit" name="submit" value=" login" class="w3-button w3-white w3-round-large"/>
-			</form>
-		</div>
-		
-		<div id="Tokyo" class="city" style="display:none">
-			<form name="register" method = "POST" action="MakeAccount" class="w3-container w3-light-grey">
-				<p>Don't have an account? Create one below!<p>
-				Username <input type="text" name ="username" /><br><br>
-				Password <input type="text" name="password" /><br><br>
-				Email <input type="text" name="email"> <br> <br>
-				<input type="submit" name="submit2" value=" sign up" class="w3-button w3-signal-red w3-round-large"/>
-			</form> 
-		</div>
+		<br>
+			<div class="w3-card">
+				<div class="w3-bar w3-light-grey">
+				  <button class="w3-bar-item w3-button w3-signal-red" onclick="openCity('London')">Log In</button>
+				  <button class="w3-bar-item w3-button w3-light-grey" onclick="openCity('Tokyo')">Register</button>
+				</div> 
+			
+				<div id="formerror">
+					<!-- if there is an error we will have jsp send back an error -->
+					<%String err = (String)request.getAttribute("erromsg");
+					if(err != null){%>
+						<font color="red"> <%=err %> </font><br /> 
+					<%}%>
+				</div>
+				
+				<div id="London" class="city">
+					<form name = "myform" method="POST" action="Login" class="w3-container w3-signal-red">
+						<p>Please log in below:<p>
+						Username <input type="text" name ="username" /><br><br>
+						Password <input type="text" name="password" /><br> <br>
+						<input type="submit" name="submit" value=" login" class="w3-button w3-white w3-round-large"/>
+					</form>
+				</div>
+				
+				<div id="Tokyo" class="city" style="display:none">
+					<form name="register" method = "POST" action="MakeAccount" class="w3-container w3-light-grey">
+						<p>Don't have an account? Create one below!<p>
+						Username <input type="text" name ="username" /><br><br>
+						Password <input type="text" name="password" /><br><br>
+						Email <input type="text" name="email"> <br> <br>
+						<input type="submit" name="submit2" value=" sign up" class="w3-button w3-signal-red w3-round-large"/>
+					</form> 
+				</div>
+			</div>
 	</body>
 
 </html>

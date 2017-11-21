@@ -75,7 +75,7 @@ This page is used for the host to login/register
 					<form name = "myform" method="POST" action="Login" class="w3-container w3-signal-red">
 						<p>Please log in below:<p>
 						Username <input type="text" name ="username" /><br><br>
-						Password <input type="text" name="password" /><br> <br>
+						Password <input type="password" name="password" /><br> <br>
 						<input type="submit" name="submit" value=" login" class="w3-button w3-white w3-round-large"/>
 					</form>
 				</div>
@@ -84,8 +84,8 @@ This page is used for the host to login/register
 					<form name="register" method = "POST" action="MakeAccount" class="w3-container w3-light-grey">
 						<p>Don't have an account? Create one below!<p>
 						Username <input type="text" name ="username" /><br><br>
-						Password <input type="text" name="password" /><br><br>
-						Email <input type="text" name="email"> <br> <br>
+						Password <input type="password" name="password" /><br><br>
+						Email <input type="email" name="email"> <br> <br>
 						<input type="submit" name="submit2" value=" sign up" class="w3-button w3-signal-red w3-round-large"/>
 					</form> 
 				</div>

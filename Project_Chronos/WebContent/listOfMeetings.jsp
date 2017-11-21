@@ -38,7 +38,7 @@
 	<script>
 	var socket;
 	function connectToServer() {
-		socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws");
+		socket = new WebSocket("ws://default-environment.qdfqsx344b.us-east-2.elasticbeanstalk.com/Project_Chronos/ws");
 		socket.onopen = function(event) {
 			// document.getElementById("dummy").innerHTML += "Connected!";
 		}
@@ -60,7 +60,9 @@
 			for (i in meetings) {
 				var aMeeting = document.createElement("a");
 				aMeeting.href = <%= endpoint %> + "?meetingId=" + meetings[i];
-				aMeeting.classList.add("w3-button w3-signal-red w3-round-large");
+				aMeeting.classList.add("w3-button");
+				aMeeting.classList.add("w3-signal-red");
+				aMeeting.classList.add("w3-round-large");
 				var meetingDiv = document.createElement("div");
 				meetingDiv.classList.add("meetingDiv");
 				var pMeeting = document.createElement("p");

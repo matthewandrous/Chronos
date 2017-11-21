@@ -60,6 +60,7 @@
 			for (i in meetings) {
 				var aMeeting = document.createElement("a");
 				aMeeting.href = <%= endpoint %> + "?meetingId=" + meetings[i];
+				aMeeting.classList.add("w3-button w3-signal-red w3-round-large");
 				var meetingDiv = document.createElement("div");
 				meetingDiv.classList.add("meetingDiv");
 				var pMeeting = document.createElement("p");

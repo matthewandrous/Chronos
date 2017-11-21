@@ -47,7 +47,7 @@
 
 	var socket;
 	function connectToServer() {
-		socket = new WebSocket("ws://default-environment.qdfqsx344b.us-east-2.elasticbeanstalk.com/ws");
+		socket = new WebSocket("ws://localhost:8080/Project_Chronos/ws");
 		socket.onopen = function(event) {
 			// document.getElementById("dummy").innerHTML += "Connected!";
 		}

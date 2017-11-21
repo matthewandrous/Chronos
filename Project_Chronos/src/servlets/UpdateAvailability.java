@@ -39,7 +39,7 @@ public class UpdateAvailability extends HttpServlet {
 			System.out.println(e.getMessage());
 		}
 	    
-		
+		db_user.close();
 		System.out.println("In UpdateAvailability.java " + meetingId + " " + freeTimes + " " + userId + " " + username + " " + type);
 		
        Database db = new Database("AvailabilityInfo", "localhost", 3306);
@@ -73,7 +73,8 @@ public class UpdateAvailability extends HttpServlet {
    		
     	   RequestDispatcher rs = request.getRequestDispatcher("listOfMeetings.jsp");
            rs.forward(request, response);
-           
+           db.close();
+           db_meeting.close();
 //           PrintWriter out = response.getWriter();
 //           out.println("crazyhost");
 //           out.flush();

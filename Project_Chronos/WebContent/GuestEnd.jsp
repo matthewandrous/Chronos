@@ -8,7 +8,11 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Insert title here</title>
 	</head>
-	<body>
-		<p>Thank you! Your response has been recorded!</p>
+	<body class="w3-signal-red">
+		<img src="CF_White.png" alt="Logo" class="w3-image" style="width: 50%; max-width:400px">
+		 <div class="w3-container w3-center">
+		  <h1>Good News!</h1>
+		  <p>Your response was submitted succesfully!</p>
+		</div>
 	</body>
 </html>

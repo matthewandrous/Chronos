@@ -41,7 +41,7 @@
 			<div id="meetingsDiv">
 			</div>
 			<br>
-			<button class="w3-button w3-signal-red w3-round-large"><a id="addNewMeetingButton buttonStyle">Add New Meeting</a></button>
+			<button class="w3-button w3-signal-red w3-round-large"><a id="addNewMeetingButton" class="buttonStyle">Add New Meeting</a></button>
 		</div>
 		<div id = dummy ></div>
 	</body>

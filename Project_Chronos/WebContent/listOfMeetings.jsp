@@ -28,7 +28,7 @@
 			<div id="header">
 				<p>All meetings:</p>
 			</div>
-			<div id="meetingsDiv" class="w3-button w3-block w3-light-grey" style="width:30%" >
+			<div id="meetingsDiv">
 			</div>
 			<br>
 			<button class="w3-button w3-signal-red w3-round-large"><a id="addNewMeetingButton">Add New Meeting</a></button>
@@ -60,6 +60,7 @@
 			for (i in meetings) {
 				var aMeeting = document.createElement("a");
 				aMeeting.href = <%= endpoint %> + "?meetingId=" + meetings[i];
+				aMeeting.classList.add( class="w3-button w3-block w3-light-grey")
 				var meetingDiv = document.createElement("div");
 				meetingDiv.classList.add("meetingDiv");
 				var pMeeting = document.createElement("p");

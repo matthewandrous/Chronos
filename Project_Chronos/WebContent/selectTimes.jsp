@@ -24,20 +24,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-signal.css">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Chronos</title>
 		<link rel="stylesheet" type="text/css" href="selectTimes.css">
 		<style>
 			.deselected:hover {
-				background-color: blue;
+				background-color: #a12613;
 			}
 		</style>
 	</head>
-	<body onload="connectToServer()">
-	<p>Please select when you're NOT available.</p>
+	<body onload="connectToServer()" class="w3-container w3-margin w3-animate-opacity">
+		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image" style="width: 50%; max-width:400px">
+		<p>Please select when you're NOT available.</p>
 		<div id="tableContainer"></div>
 		<table id="dateTable"></table>
-		<input type="button" value="Submit" onclick="send()">	
+		<br>
+		<input type="button" value="Submit" onclick="send()" class="w3-button w3-signal-red w3-round-large">	
 	</body>
 	<script>
 

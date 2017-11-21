@@ -15,19 +15,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-signal.css">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Chronos</title>
 		<link rel="stylesheet" type="text/css" href="listOfMeetings.css">
 	</head>
-	<body onload="connectToServer()">
+	<body onload="connectToServer()" class="w3-container w3-margin w3-animate-opacity">
+		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image" style="width: 50%; max-width:400px">
 		<div id="outerContainer">
 		<div id="Note"><%if(meetingId != null){%><font color="red">You just added a new meeting with ID <%=meetingId %>. Take a note!</font><br><%} %></div>
 			<div id="header">
 				<p>All meetings:</p>
 			</div>
-			<div id="meetingsDiv">
+			<div id="meetingsDiv" class="w3-button w3-block w3-light-grey" style="width:30%" >
 			</div>
-			<button><a id="addNewMeetingButton">Add New Meeting</a></button>
+			<br>
+			<button class="w3-button w3-signal-red w3-round-large"><a id="addNewMeetingButton">Add New Meeting</a></button>
 		</div>
 		<div id = dummy ></div>
 	</body>

@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
+
 import objectFiles.Availability;
 import objectFiles.Host;
 import objectFiles.Meeting;
@@ -102,7 +104,9 @@ public class Database{
 		try {
 			PreparedStatement st = conn.prepareStatement(query);
 			st.setString(1, username);
-			st.setString(2, password);
+			StrongPasswordEncryptor pwe = new StrongPasswordEncryptor();
+			String encryptPw = pwe.encryptPassword(password);
+			st.setString(2, encryptPw);
 			st.setString(3, email);
 			st.setBoolean(4, isHost);
 			int result = st.executeUpdate();
@@ -139,10 +143,14 @@ public class Database{
 			e.printStackTrace();
 			return -2;
 		}
-		if (hostPassword.equals(password)) {
+		
+		StrongPasswordEncryptor pwe = new StrongPasswordEncryptor();
+		//String encryptPw = pwe.encryptPassword(password);
+		
+		if (pwe.checkPassword(password, hostPassword)) {
 			return hostId;
 		}
-		else {
+		else { //bad login
 			return -1;
 		}
 	}

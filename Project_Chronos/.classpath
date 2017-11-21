@@ -10,5 +10,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/Byron/GitHub/chronosgithub/Chronos/Project_Chronos/WebContent/WEB-INF/lib/mysql-connector-java-5.1.40-bin.jar"/>
+	<classpathentry kind="lib" path="/Users/Byron/GitHub/chronosgithub/Chronos/jasypt-1.9.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

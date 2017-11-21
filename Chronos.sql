@@ -1,5 +1,3 @@
-Use Chronos;
-
 create table MeetingInfo (
 	-- the very first row will be classID 1 and each time I add a row classId will increment
 	meetingID int(11) primary key auto_increment, -- name f column followed by the type(number of characters)
@@ -14,11 +12,12 @@ create table MeetingInfo (
 );
 
 
+DROP TABLE UserInfo;
         
 create table UserInfo (
 	userID int(11) primary key auto_increment,
     username varchar(20),
-    hostPassword varchar(20),
+    hostPassword varchar(256),
     email varchar(20),
     isHost bool not null
 );

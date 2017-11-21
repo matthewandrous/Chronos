@@ -13,8 +13,8 @@
 		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image" style="width: 50%; max-width:400px">
 		<p>I am...</p>
 		<form name= "json" action="UploadServlet" method="POST" >
-    			<input type="radio" name="userType" value="Host" checked="checked"> Hosting a Meeting<br>
-    			<input type="radio" name="userType" value="Joiner"> Joining a Meeting<br>
+    			<label><input type="radio" name="userType" value="Host" checked="checked"> Hosting a Meeting</label><br>
+    			<label><input type="radio" name="userType" value="Joiner"> Joining a Meeting</label><br>
     			<br>
     			<input type="submit" value ="GO" class="w3-button w3-signal-red w3-round-large"/>
 		</form>

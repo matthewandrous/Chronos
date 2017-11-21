@@ -6,3 +6,7 @@
 .selected {
 	background-color: blue;
 }
+
+.deselected:hover {
+	background-color: blue;
+}

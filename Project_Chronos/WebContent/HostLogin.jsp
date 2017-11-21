@@ -10,6 +10,11 @@ This page is used for the host to login/register
 	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-signal.css">
 	<meta charset="UTF-8">
 	<title>Host Login</title>
+	<style>
+		.form {
+			padding-bottom: 20px;
+		}
+	</style>
 	<script>
 		  function validate(){
 			var xhttp = new XMLHttpRequest(); //AJAX call with synchronous ajax we dont need a callback
@@ -65,20 +70,20 @@ This page is used for the host to login/register
 		</div>
 		
 		<div id="London" class="city">
-			<form name = "myform" method="POST" action="Login" class="w3-container w3-signal-red">
+			<form name = "myform" method="POST" action="Login" class="w3-container w3-signal-red form">
 				<p>Please log in below:<p>
-				Username <input type="text" name ="username" /><br><br>
-				Password <input type="text" name="password" /><br> <br>
+				<div><label>Username</label></div> <input type="text" name ="username" /><br><br>
+				<div><label>Password</label></div> <input type="password" name="password" /><br> <br>
 				<input type="submit" name="submit" value=" login" class="w3-button w3-white w3-round-large"/>
 			</form>
 		</div>
 		
 		<div id="Tokyo" class="city" style="display:none">
-			<form name="register" method = "POST" action="MakeAccount" class="w3-container w3-light-grey">
+			<form name="register" method = "POST" action="MakeAccount" class="w3-container w3-light-grey form">
 				<p>Don't have an account? Create one below!<p>
-				Username <input type="text" name ="username" /><br><br>
-				Password <input type="text" name="password" /><br><br>
-				Email <input type="text" name="email"> <br> <br>
+				<div><label>Username</label></div> <input type="text" name ="username" /><br><br>
+				<div><label>Password</label></div> <input type="password" name="password" /><br><br>
+				<div><label>Email</label></div> <input type="text" name="email"> <br> <br>
 				<input type="submit" name="submit2" value=" sign up" class="w3-button w3-signal-red w3-round-large"/>
 			</form> 
 		</div>

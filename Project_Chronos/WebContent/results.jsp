@@ -16,6 +16,7 @@
 		<title>Chronos</title>
 		<!-- <link rel="stylesheet" type="text/css" href="results.css"> -->
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-signal.css">
 	</head>
 	<body>
 		<div id="outerContainer">

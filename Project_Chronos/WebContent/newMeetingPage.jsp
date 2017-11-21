@@ -85,7 +85,7 @@ userType = "'" + userType + "'";%>
 		</script>
 	</head>
 	<body>
-		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image">
+		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image"  style="width: 50%; max-width:400px">
 		<div id="outerContainer" class="w3-container w3-margin w3-animate-opacity">
 			<form name="newMeeting">
 				<label>Meeting Name:</label><input name="meetingName" type="text" id="meetingName" class="w3-input w3-border w3-round" ><br>

@@ -18,7 +18,6 @@
     			<br>
     			<input type="submit" value ="GO" class="w3-button w3-signal-red w3-round-large"/>
 		</form>
-		
 	</body>
 	
 </html>

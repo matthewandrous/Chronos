@@ -1,12 +1,12 @@
 @charset "UTF-8";
 .deselected {
-	background-color: white;	
+	background-color: #a12613;	
 }
 
 .selected {
-	background-color: blue;
+	background-color: #a12613;
 }
 
 .deselected:hover {
-	background-color: blue;
+	background-color: #a12613;
 }

@@ -28,7 +28,7 @@
 			<div id="header">
 				<p>All meetings:</p>
 			</div>
-			<div id="meetingsDiv" class="w3-button w3-block w3-light-grey" style="width:30%" >
+			<div id="meetingsDiv">
 			</div>
 			<br>
 			<button class="w3-button w3-signal-red w3-round-large"><a id="addNewMeetingButton">Add New Meeting</a></button>

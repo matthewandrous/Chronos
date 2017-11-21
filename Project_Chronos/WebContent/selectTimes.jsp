@@ -27,6 +27,11 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Chronos</title>
 		<link rel="stylesheet" type="text/css" href="selectTimes.css">
+		<style>
+			.deselected:hover {
+				background-color: blue;
+			}
+		</style>
 	</head>
 	<body onload="connectToServer()">
 	<p>Please select when you're NOT available.</p>
@@ -220,21 +225,5 @@
 		    	   }
 		    });
 		}
-	/*	function timeClicked(id) {
-			console.log(id);
-			var selectedTd = document.getElementById(id);
-			if (selectedTd.style.backgroundColour === unselectedBackgroundColour) {
-				console.log("here1");
-				selectedTd.style.backgroundColor = selectedBackgroundColour;
-				selectedIndexes.push(id);
-			} else if (selectedTd.style.backgroundColour === selectedBackgroundColour) {
-				console.log("here2");
-				selecetedTd.style.backgroundColor = unselectedBackgroundColour;
-				var index = selectedIndex.indexOf(id);
-				if (index > -1) {
-				    array.splice(index, 1);
-				}
-			}
-		}*/
 	</script>
 </html>

@@ -10,6 +10,11 @@ This page is used for the host to login/register
 	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-signal.css">
 	<meta charset="UTF-8">
 	<title>Host Login</title>
+	<style>
+		.form {
+			padding-bottom: 20px;
+		}
+	</style>
 	<script>
 		  function validate(){
 			var xhttp = new XMLHttpRequest(); //AJAX call with synchronous ajax we dont need a callback
@@ -50,6 +55,7 @@ This page is used for the host to login/register
 		
 		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image" style="width: 50%; max-width:400px">
 		<br>
+
 		<br>
 			<div class="w3-card">
 				<div class="w3-bar w3-light-grey">
@@ -84,6 +90,7 @@ This page is used for the host to login/register
 					</form> 
 				</div>
 			</div>
+
 	</body>
 
 </html>

@@ -20,6 +20,16 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Chronos</title>
 		<link rel="stylesheet" type="text/css" href="listOfMeetings.css">
+		<style>
+			.buttonStyle {
+				text-decoration: none;
+			}
+			
+			.aStyle {
+				margin-bottom: 20px;
+				margin-right: 100%;
+			}
+		</style>
 	</head>
 	<body onload="connectToServer()" class="w3-container w3-margin w3-animate-opacity">
 		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image" style="width: 50%; max-width:400px">
@@ -31,7 +41,7 @@
 			<div id="meetingsDiv">
 			</div>
 			<br>
-			<button class="w3-button w3-signal-red w3-round-large"><a id="addNewMeetingButton">Add New Meeting</a></button>
+			<button class="w3-button w3-signal-red w3-round-large"><a id="addNewMeetingButton buttonStyle">Add New Meeting</a></button>
 		</div>
 		<div id = dummy ></div>
 	</body>
@@ -63,6 +73,7 @@
 				aMeeting.classList.add("w3-button");
 				aMeeting.classList.add("w3-signal-red");
 				aMeeting.classList.add("w3-round-large");
+				aMeeting.classList.add("aStyle");
 				var meetingDiv = document.createElement("div");
 				meetingDiv.classList.add("meetingDiv");
 				var pMeeting = document.createElement("p");

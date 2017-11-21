@@ -7,12 +7,12 @@
 	Statement st = null;
 	ResultSet rs = null;
 	
-	Database db_meeting = new Database("MeetingInfo", "localhost", 3306);
+	/* Database db_meeting = new Database("MeetingInfo", "localhost", 3306);
 	try {
 		db_meeting.getConnection();
 	} catch (SQLException e) {
 		System.out.println(e.getMessage());
-	}
+	} */
     
     /*Meeting m = db_meeting.getMeeting(Integer.valueOf(meetingID));
     if(m == null){
@@ -54,6 +54,7 @@
 					//st.executeQuery("insert into GuestInfo(meetingID, username) values(" + meetingID + "," + username + ");");
 					
 					//TODO add user to userinfo
+					db_user.close();
 			}
 			
 			}

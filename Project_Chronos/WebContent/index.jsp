@@ -9,6 +9,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>User Classification Page</title>
 	</head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
 	<body class="w3-container w3-margin w3-animate-opacity">
 		<img src="CF_Logo_OnWhite.png" alt="Logo" class="w3-image" style="width: 50%; max-width:400px">
 		<p>I am...</p>

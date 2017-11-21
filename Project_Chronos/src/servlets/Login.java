@@ -40,6 +40,7 @@ public class Login extends HttpServlet {
         	//Host host = db.getHost(hostID);
         	request.setAttribute("username", username);
         	//System.out.println("Host id is " + hostID);
+        	db_user.close();
         	Database db_meeting = new Database("MeetingInfo", "localhost", 3306);
         	try {
     			db_meeting.getConnection();
@@ -57,6 +58,7 @@ public class Login extends HttpServlet {
         	System.out.println("I am redirecting");
             RequestDispatcher rs = request.getRequestDispatcher("listOfMeetings.jsp");
             rs.forward(request, response);
+            db_meeting.close();
         }
         else if (hostID == -1)
         {
@@ -65,5 +67,6 @@ public class Login extends HttpServlet {
         	RequestDispatcher rs = request.getRequestDispatcher("HostLogin.jsp");
         	rs.include(request, response);
         }
+        
     }  
 }

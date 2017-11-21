@@ -66,6 +66,15 @@ public class Database{
 		
 	}
 	
+	public void close() {
+		try {
+			this.conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public boolean addUser(String username, String password, String email, boolean isHost) throws SQLException{
 		/*
